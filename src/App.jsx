@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import { ChakraProvider } from '@chakra-ui/react';
 import Home from './pages/Home';
 import Subject from './pages/Subject/Subject';
+import { Flashcard } from './pages/Flashcard';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
       <Route path='/login' element={<Login />} />,
       <Route path='/register' element={<Register />} />
       <Route path='/subject/:subjectName' element={<Subject />} />
+      <Route path='/flashcard' element={<Flashcard />} />
     </Route>,
   ),
 );
