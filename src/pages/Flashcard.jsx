@@ -30,7 +30,6 @@ export const Flashcard = () => {
           <GridItem
             overflow='scroll'
             overflowX='hidden'
-            rowSpan={4}
             colSpan={2}
             bg={useColorModeValue('gray.50', 'gray.800')}
             borderRadius={15}
@@ -39,8 +38,6 @@ export const Flashcard = () => {
               <Box
                 w='175px'
                 h='110px'
-                display={'flex'}
-                flexDirection={'column'}
                 bg={'white'}
                 borderRadius='10px'
                 borderWidth='2px'
@@ -52,8 +49,6 @@ export const Flashcard = () => {
               <Box
                 w='175px'
                 h='110px'
-                display={'flex'}
-                flexDirection={'column'}
                 bg={'white'}
                 borderRadius='10px'
                 borderWidth='2px'
@@ -65,8 +60,6 @@ export const Flashcard = () => {
               <Box
                 w='175px'
                 h='110px'
-                display={'flex'}
-                flexDirection={'column'}
                 bg={'white'}
                 borderRadius='10px'
                 borderWidth='2px'
@@ -78,8 +71,6 @@ export const Flashcard = () => {
               <Box
                 w='175px'
                 h='110px'
-                display={'flex'}
-                flexDirection={'column'}
                 bg={'white'}
                 borderRadius='10px'
                 borderWidth='2px'
@@ -91,8 +82,6 @@ export const Flashcard = () => {
               <Box
                 w='175px'
                 h='110px'
-                display={'flex'}
-                flexDirection={'column'}
                 bg={'white'}
                 borderRadius='10px'
                 borderWidth='2px'
@@ -104,8 +93,6 @@ export const Flashcard = () => {
               <Box
                 w='175px'
                 h='110px'
-                display={'flex'}
-                flexDirection={'column'}
                 bg={'white'}
                 borderRadius='10px'
                 borderWidth='2px'
@@ -133,7 +120,7 @@ export const Flashcard = () => {
                   bg={useColorModeValue('white', 'purple.900')}
                   boxShadow={'1xl'}
                 >
-                  <Text align='center'>0/18</Text>
+                  <Text align='center'>1/18</Text>
                 </Stack>
                 <IconButton
                   w={20}
