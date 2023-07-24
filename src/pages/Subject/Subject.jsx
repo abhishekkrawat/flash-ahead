@@ -9,10 +9,14 @@ import { useParams } from 'react-router-dom';
 
 const Subject = () => {
   const [decks, setDecks] = useState([]);
+  const [NumberOfFlashcards, setNumberOfFlaschards] = useState();
   const [qualifications, setQualifications] = useState([]);
   const [boards, setBoards] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const { subjectName } = useParams();
+
+  // const subjectids = supabase.from('flashcard').select('subject_id');
+  // const topicids = supabase.from('flashcard').select('topic_id');
 
   const getDecks = async () => {
     const { data, error } = await supabase.rpc('get_topics', {
@@ -22,6 +26,17 @@ const Subject = () => {
       throw new Error(error);
     }
     setDecks(data);
+  };
+
+  const getNumberOfFlashcards = async () => {
+    const { data, error } = await supabase.rpc('get_number_of_flashcards', {
+      subjectid: 1,
+      topicid: 1,
+    });
+    if (error) {
+      throw new Error(error);
+    }
+    setNumberOfFlaschards(data);
   };
 
   const getSubjects = async () => {
@@ -56,6 +71,7 @@ const Subject = () => {
     getBoards();
     getSubjects();
     getQualifications();
+    getNumberOfFlashcards();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <>
@@ -63,7 +79,7 @@ const Subject = () => {
       <Container as='section' maxW='8xl' py='50px'>
         <Grid templateColumns='repeat(4, 1fr)'>
           <SidePanel qualifications={qualifications} boards={boards} subjects={subjects} />
-          <Decks decks={decks} />
+          <Decks decks={decks} flashcardNumber={NumberOfFlashcards} />
         </Grid>
       </Container>
     </>

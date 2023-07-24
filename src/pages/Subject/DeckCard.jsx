@@ -2,7 +2,7 @@ import { Box, Heading, Text, Flex, useColorModeValue, HStack } from '@chakra-ui/
 import { useState } from 'react';
 import { ArrowUpRight, Heart } from 'react-feather';
 
-export default function DeckCard({ name , date}) {
+export default function DeckCard({ name , flashcardNumber}) {
   const [liked, setLiked] = useState(false);
 
   return (
@@ -20,7 +20,7 @@ export default function DeckCard({ name , date}) {
       <Box p={4}>
         <Box bg='black' display={'inline-block'} px={2} py={1} color='white' mb={4}>
           <Text fontSize={'xs'} fontWeight='medium'>
-            {date}
+            No. of cards: {flashcardNumber}
           </Text>
         </Box>
         <Heading color={'black'} fontSize={'2xl'} noOfLines={1}>
