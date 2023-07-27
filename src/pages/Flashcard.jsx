@@ -30,7 +30,6 @@ export const Flashcard = () => {
         <Flex justifyContent='flex-end'>
           <Grid h={10} templateColumns={['repeat(1, 1fr)', 'repeat(1, 1fr)', 'repeat(3, 1fr)']}>
             <GridItem
-              position='relative'
               overflow='scroll'
               overflowX='hidden'
               colSpan='1'
@@ -52,7 +51,7 @@ export const Flashcard = () => {
                 </Box>
                 <Divider />
                 <Box
-                  w='175px'
+                  w={{ base: '50px', md: '175px' }}
                   h='110px'
                   bg={'white'}
                   borderRadius='10px'
@@ -63,7 +62,7 @@ export const Flashcard = () => {
                 </Box>
                 <Divider />
                 <Box
-                  w='175px'
+                  w={{ base: '50px', md: '175px' }}
                   h='110px'
                   bg={'white'}
                   borderRadius='10px'
@@ -74,7 +73,7 @@ export const Flashcard = () => {
                 </Box>
                 <Divider />
                 <Box
-                  w='175px'
+                  w={{ base: '50px', md: '175px' }}
                   h='110px'
                   bg={'white'}
                   borderRadius='10px'
@@ -85,7 +84,7 @@ export const Flashcard = () => {
                 </Box>
                 <Divider />
                 <Box
-                  w='175px'
+                  w={{ base: '50px', md: '175px' }}
                   h='110px'
                   bg={'white'}
                   borderRadius='10px'
@@ -96,7 +95,7 @@ export const Flashcard = () => {
                 </Box>
                 <Divider />
                 <Box
-                  w='175px'
+                  w={{ base: '50px', md: '175px' }}
                   h='110px'
                   bg={'white'}
                   borderRadius='10px'
