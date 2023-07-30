@@ -4,143 +4,75 @@ import {
   // IconButton,
   Flex,
   Text,
-  VStack,
-  useColorModeValue,
-  Center,
+  SimpleGrid,
+  GridItem,
 } from '@chakra-ui/react';
 // import { ChevronLeft, ChevronRight } from 'react-feather';
 import Navbar from '../components/NavigationBar/Navbar';
+import { useState } from 'react';
 
 export const Flashcard = () => {
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  const cards = Array(10)
+    .fill(1)
+    .map((x, y) => x + y);
+
+  const handleFlip = () => {
+    setIsFlipped((prev) => !prev);
+  };
+
   return (
     <>
       <Navbar />
-      <Flex minH='100vh'>
-        <VStack
-          padding={3}
-          gap={1}
-          display={'flex'}
-          justifyContent={'space-between'}
-          bg={'gray.100'}
+      <Flex pos={'fixed'} w={'100%'} bg={'gray.100'}>
+        <SimpleGrid
+          h={'100vh'}
           overflow={'scroll'}
-          overflowX={'hidden'}
+          // to hide scrollbar
+          css={{
+            '&::-webkit-scrollbar': {
+              width: '0px',
+            },
+          }}
         >
+          {cards.map((card) => (
+            <>
+              <GridItem
+                w={{ base: '50px', md: '175px', lg: '200px' }}
+                minH='120px'
+                bg='white'
+                marginY={'10px'}
+                marginX={'20px'}
+                borderRadius='10px'
+                borderWidth='2px'
+              >
+                <Text align='center'>
+                  {card} / {cards.length}
+                </Text>
+              </GridItem>
+              <Divider />
+            </>
+          ))}
+        </SimpleGrid>
+        <Box flex={1} display={'flex'} justifyContent={'center'} alignItems={'center'}>
           <Box
-            w={{ base: '50px', md: '175px' }}
-            h='110px'
+            width={600}
+            height={400}
+            maxWidth='lg'
             bg='white'
-            borderRadius='10px'
-            borderWidth='2px'
-            borderColor='purple.400'
-          >
-            <Text align='center'>1/18</Text>
-          </Box>
-          <Divider />
-          <Box
-            w={{ base: '50px', md: '175px' }}
-            h='110px'
-            bg={'white'}
-            borderRadius='10px'
-            borderWidth='2px'
-            borderColor='purple.400'
-          >
-            <Text align='center'>2/18</Text>
-          </Box>
-          <Divider />
-          <Box
-            w={{ base: '50px', md: '175px' }}
-            h='110px'
-            bg={'white'}
-            borderRadius='10px'
-            borderWidth='2px'
-            borderColor='purple.400'
-          >
-            <Text align='center'>3/18</Text>
-          </Box>
-          <Divider />
-          <Box
-            w={{ base: '50px', md: '175px' }}
-            h='110px'
-            bg={'white'}
-            borderRadius='10px'
-            borderWidth='2px'
-            borderColor='purple.400'
-          >
-            <Text align='center'>4/18</Text>
-          </Box>
-          <Divider />
-          <Box
-            w={{ base: '50px', md: '175px' }}
-            h='110px'
-            bg={'white'}
-            borderRadius='10px'
-            borderWidth='2px'
-            borderColor='purple.400'
-          >
-            <Text align='center'>5/18</Text>
-          </Box>
-          <Divider />
-          <Box
-            w={{ base: '50px', md: '175px' }}
-            h='110px'
-            bg={'white'}
-            borderRadius='10px'
-            borderWidth='2px'
-            borderColor='purple.400'
-          >
-            <Text align='center'>6/18</Text>
-          </Box>
-        </VStack>
-        <Box
-          display={'flex'}
-          flex={1}
-          alignItems={'center'}
-          justifyContent={'center'}
-          bg={'gray.100'}
-        >
-          <Center h={100}>
-            <Box
-              minW={600}
-              minH={400}
-              maxW={'lg'}
-              w={'100%'}
-              h={'100%'}
-              bg={useColorModeValue('white', 'purple.900')}
-              borderWidth={'3px'}
-              borderRadius={'xl'}
-              borderColor={'purple.400'}
-              boxShadow={'2xl'}
-            >
-              <Text>1/18</Text>
-            </Box>
-          </Center>
-        </Box>
-
-        {/* <GridItem paddingY={100} gap={2} justifyContent={'center'}> 
-           <IconButton
-              w={{ base: '10px', md: '20px' }}
-              h={{ base: '100px', md: '200px' }}
-              icon={<ChevronLeft size={'md'} />}
-              bg={useColorModeValue('gray.50', 'gray.800')}
-            /> */}
-        {/* <Stack 
-            borderWidth='3px'
             borderRadius='xl'
-            borderColor={'purple.400'}
-            w={{ sm: '315px', md: '630px' }}
-            height={{ sm: '15em', md: '25em' }}
-            bg={useColorModeValue('white', 'purple.900')}
-            boxShadow={'2xl'}
+            boxShadow='2xl'
+            cursor='pointer'
+            onClick={handleFlip}
+            transformStyle='preserve-3d'
+            perspective='1000px'
+            transition='transform 0.6s ease'
+            transform={isFlipped ? 'rotateY(180deg) ScaleX(-1)' : 'rotateY(0)'}
           >
-            <Text align='center'>1/18</Text>
-          </Stack> */}
-        {/* <IconButton
-              w={{ base: '10px', md: '20px' }}
-              h={{ base: '100px', md: '200px' }}
-              icon={<ChevronRight size={'md'} />}
-              bg={useColorModeValue('gray.50', 'gray.800')}
-            /> 
-         </GridItem> */}
+            <Text>{isFlipped ? 'Abhishek Rawat' : 'What is your name'}</Text>
+          </Box>
+        </Box>
       </Flex>
     </>
   );
