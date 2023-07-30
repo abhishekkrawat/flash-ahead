@@ -10,13 +10,26 @@ import {
 // import { ChevronLeft, ChevronRight } from 'react-feather';
 import Navbar from '../components/NavigationBar/Navbar';
 import { useState } from 'react';
+import { supabase } from '../supabaseClient';
+import { useEffect } from 'react';
 
 export const Flashcard = () => {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [flashcards, setFlashcards] = useState([]);
 
-  const cards = Array(10)
-    .fill(1)
-    .map((x, y) => x + y);
+  const getFlashcards = async () => {
+    const { data, error } = await supabase.rpc('get_flashcards', { topicid: 1, subjectid: 1 });
+
+    if (error) {
+      throw new Error(error);
+    }
+
+    setFlashcards(data);
+  };
+
+  useEffect(() => {
+    getFlashcards();
+  }, []);
 
   const handleFlip = () => {
     setIsFlipped((prev) => !prev);
@@ -36,7 +49,7 @@ export const Flashcard = () => {
             },
           }}
         >
-          {cards.map((card) => (
+          {flashcards.map((flashcard) => (
             <>
               <GridItem
                 w={{ base: '50px', md: '175px', lg: '200px' }}
@@ -46,9 +59,12 @@ export const Flashcard = () => {
                 marginX={'20px'}
                 borderRadius='10px'
                 borderWidth='2px'
+                display={'flex'}
+                justifyContent={'center'}
+                alignItems={'center'}
               >
-                <Text align='center'>
-                  {card} / {cards.length}
+                <Text key={flashcard.flashcard_id} align={'center'} noOfLines={3}>
+                  {flashcard.flashcard_front}
                 </Text>
               </GridItem>
               <Divider />
@@ -65,12 +81,15 @@ export const Flashcard = () => {
             boxShadow='2xl'
             cursor='pointer'
             onClick={handleFlip}
-            transformStyle='preserve-3d'
             perspective='1000px'
             transition='transform 0.6s ease'
             transform={isFlipped ? 'rotateY(180deg) ScaleX(-1)' : 'rotateY(0)'}
           >
-            <Text>{isFlipped ? 'Abhishek Rawat' : 'What is your name'}</Text>
+            {flashcards.map((front) => (
+              <Text key={front.flashcard_id}>
+                {isFlipped ? front.flashcard_back : front.flashcard_front}
+              </Text>
+            ))}
           </Box>
         </Box>
       </Flex>
