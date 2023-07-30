@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 
 const Subject = () => {
   const [decks, setDecks] = useState([]);
-  const [NumberOfFlashcards, setNumberOfFlaschards] = useState();
+  const [flashcardCount, setFlashcardCount] = useState();
   const [qualifications, setQualifications] = useState([]);
   const [boards, setBoards] = useState([]);
   const [subjects, setSubjects] = useState([]);
@@ -28,7 +28,7 @@ const Subject = () => {
     setDecks(data);
   };
 
-  const getNumberOfFlashcards = async () => {
+  const getFlashcardCount = async () => {
     const { data, error } = await supabase.rpc('get_number_of_flashcards', {
       subjectid: 1,
       topicid: 1,
@@ -36,7 +36,7 @@ const Subject = () => {
     if (error) {
       throw new Error(error);
     }
-    setNumberOfFlaschards(data);
+    setFlashcardCount(data);
   };
 
   const getSubjects = async () => {
@@ -71,7 +71,7 @@ const Subject = () => {
     getBoards();
     getSubjects();
     getQualifications();
-    getNumberOfFlashcards();
+    getFlashcardCount();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <>
@@ -79,7 +79,7 @@ const Subject = () => {
       <Container as='section' maxW='8xl' py='50px'>
         <Grid templateColumns='repeat(4, 1fr)'>
           <SidePanel qualifications={qualifications} boards={boards} subjects={subjects} />
-          <Decks decks={decks} flashcardNumber={NumberOfFlashcards} />
+          <Decks decks={decks} flashcardNumber={flashcardCount} />
         </Grid>
       </Container>
     </>
