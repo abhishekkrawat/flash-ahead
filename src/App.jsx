@@ -9,7 +9,7 @@ import Register from './pages/Register';
 import { ChakraProvider } from '@chakra-ui/react';
 import Home from './pages/Home';
 import Subject from './pages/Subject/Subject';
-import { Flashcard } from './pages/Flashcard';
+import { Flashcard } from './pages/Flashcard/Flashcard';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
