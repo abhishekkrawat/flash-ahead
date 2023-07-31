@@ -1,13 +1,5 @@
-import {
-  Box,
-  Divider,
-  // IconButton,
-  Flex,
-  Text,
-  SimpleGrid,
-  GridItem,
-} from '@chakra-ui/react';
-// import { ChevronLeft, ChevronRight } from 'react-feather';
+import { Box, Divider, Flex, Text, SimpleGrid, GridItem, IconButton } from '@chakra-ui/react';
+import { ChevronRight, ChevronLeft } from 'react-feather';
 import Navbar from '../components/NavigationBar/Navbar';
 import { useState } from 'react';
 import { supabase } from '../supabaseClient';
@@ -16,6 +8,21 @@ import { useEffect } from 'react';
 export const Flashcard = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [flashcards, setFlashcards] = useState([]);
+  const [selected, setSelected] = useState(0);
+
+  const handleNext = () => {
+    if (selected !== null && selected < flashcards.length - 1) {
+      setSelected((prev) => prev + 1);
+      setIsFlipped(false);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (selected !== null && selected > 0) {
+      setSelected((prev) => prev - 1);
+      setIsFlipped(false);
+    }
+  };
 
   const getFlashcards = async () => {
     const { data, error } = await supabase.rpc('get_flashcards', { topicid: 1, subjectid: 1 });
@@ -35,6 +42,11 @@ export const Flashcard = () => {
     setIsFlipped((prev) => !prev);
   };
 
+  const handleSelected = (index) => {
+    setSelected(index);
+    setIsFlipped(false); // reset card to the question face when selecting
+  };
+
   return (
     <>
       <Navbar />
@@ -49,7 +61,7 @@ export const Flashcard = () => {
             },
           }}
         >
-          {flashcards.map((flashcard) => (
+          {flashcards.map((flashcard, index) => (
             <>
               <GridItem
                 w={{ base: '50px', md: '175px', lg: '200px' }}
@@ -62,6 +74,8 @@ export const Flashcard = () => {
                 display={'flex'}
                 justifyContent={'center'}
                 alignItems={'center'}
+                cursor={'pointer'}
+                onClick={() => handleSelected(index)}
               >
                 <Text key={flashcard.flashcard_id} align={'center'} noOfLines={3}>
                   {flashcard.flashcard_front}
@@ -71,12 +85,24 @@ export const Flashcard = () => {
             </>
           ))}
         </SimpleGrid>
-        <Box flex={1} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+        <Box flex={1} display={'flex'} justifyContent={'center'} alignItems={'center'} gap={10}>
+          <IconButton
+            _hover={{ bg: 'none' }}
+            cursor={'pointer'}
+            w={'5%'}
+            h={'10%'}
+            onClick={handlePrevious}
+            isDisabled={selected === null || selected === 0}
+          >
+            <ChevronLeft size={'100px'} />
+          </IconButton>
           <Box
-            width={600}
+            width={700}
             height={400}
-            maxWidth='lg'
             bg='white'
+            fontSize={'4xl'}
+            display={'flex'}
+            flexDirection={'column'}
             borderRadius='xl'
             boxShadow='2xl'
             cursor='pointer'
@@ -85,12 +111,36 @@ export const Flashcard = () => {
             transition='transform 0.6s ease'
             transform={isFlipped ? 'rotateY(180deg) ScaleX(-1)' : 'rotateY(0)'}
           >
-            {flashcards.map((front) => (
-              <Text key={front.flashcard_id}>
-                {isFlipped ? front.flashcard_back : front.flashcard_front}
+            <Box
+              display={'flex'}
+              justifyContent={'center'}
+              bg={'purple.100'}
+              fontSize={'lg'}
+              borderTopRadius={'xl'}
+            >
+              <Text>
+                Question {selected + 1} of {flashcards.length}
               </Text>
-            ))}
+            </Box>
+            <Box flex={1} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+              {selected !== null && flashcards.length > 0 && (
+                <Text align={'center'} key={flashcards[selected].flashcard_id}>
+                  {isFlipped
+                    ? flashcards[selected].flashcard_back
+                    : flashcards[selected].flashcard_front}
+                </Text>
+              )}
+            </Box>
           </Box>
+          <IconButton
+            _hover={{ bg: 'none' }}
+            w={'5%'}
+            h={'10%'}
+            onClick={handleNext}
+            isDisabled={selected === null || selected === flashcards.length - 1}
+          >
+            <ChevronRight size={'100px'} />
+          </IconButton>
         </Box>
       </Flex>
     </>
