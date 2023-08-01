@@ -1,6 +1,9 @@
 import { Divider, Text, SimpleGrid, GridItem } from '@chakra-ui/react';
+import { useState } from 'react';
 
 export const Slides = ({ onSelected, flashcards }) => {
+  const [ selectedIndex, setSelectedIndex ] = useState(null);
+
   return (
     <SimpleGrid
       h={'100vh'}
@@ -22,11 +25,15 @@ export const Slides = ({ onSelected, flashcards }) => {
             marginX={'20px'}
             borderRadius='10px'
             borderWidth='2px'
+            borderColor={selectedIndex === index ? 'gray' : 'transparent'}
             display={'flex'}
             justifyContent={'center'}
             alignItems={'center'}
             cursor={'pointer'}
-            onClick={() => onSelected(index)}
+            onClick={() => {
+              onSelected(index);
+              setSelectedIndex(index);
+            }}
           >
             <Text key={flashcard.flashcard_id} align={'center'} noOfLines={3}>
               {flashcard.flashcard_front}
