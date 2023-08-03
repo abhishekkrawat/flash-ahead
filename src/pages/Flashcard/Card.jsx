@@ -17,7 +17,7 @@ export const Card = ({
         w={'5%'}
         h={'10%'}
         onClick={handlePrevious}
-        isDisabled={selected === null || selected === 0}
+        isDisabled={selected === 0}
       >
         <ChevronLeft size={'100px'} />
       </IconButton>
@@ -62,7 +62,7 @@ export const Card = ({
         w={'5%'}
         h={'10%'}
         onClick={handleNext}
-        isDisabled={selected === null || selected === flashcards.length - 1}
+        isDisabled={selected === flashcards.length - 1}
       >
         <ChevronRight size={'100px'} />
       </IconButton>
