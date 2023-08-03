@@ -11,7 +11,7 @@ export const Flashcard = () => {
   const [selected, setSelected] = useState(0);
 
   const handleNext = () => {
-    if (selected !== 0 && selected < flashcards.length - 1) {
+    if (0 <= selected < flashcards.length - 1) {
       setSelected((prev) => prev + 1);
       setIsFlipped(false);
     }
@@ -51,7 +51,7 @@ export const Flashcard = () => {
     <>
       <Navbar />
       <Flex pos={'fixed'} w={'100%'} bg={'gray.100'}>
-        <Slides onSelected={handleSelected} flashcards={flashcards} />
+        <Slides onSelected={handleSelected} flashcards={flashcards} selected={selected} />
         <Card
           flashcards={flashcards}
           selected={selected}
