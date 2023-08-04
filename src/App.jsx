@@ -16,7 +16,7 @@ const App = () => {
             <Route path='/' element={<Home />} />,
             <Route path='/login' element={<Login />} />,
             <Route path='/register' element={<Register />} />
-            <Route path='/subject/:subjectName' element={<Subject />} />
+            <Route path='/decks' element={<Subject />} />
           </Routes>
         </QueryParamProvider>
       </BrowserRouter>
