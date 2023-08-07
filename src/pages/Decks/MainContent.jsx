@@ -9,7 +9,7 @@ export const MainContent = ({ decks }) => {
           <DeckCard
             key={deck.topic_id}
             name={deck.topic_name}
-            flashcardCount={deck.flashcard_cnt}
+            flashcardCount={deck.flashcard_count}
           />
         ))}
       </SimpleGrid>
