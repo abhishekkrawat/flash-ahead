@@ -38,8 +38,10 @@ const Subject = () => {
     });
   };
 
+  
+
   const getTopics = async () => {
-    const { data, error } = await supabase.from('topic').select();
+    const { data, error } = await supabase.rpc('get_topics');
 
     if (error) {
       throw new Error(error);
