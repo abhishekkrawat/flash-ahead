@@ -35,6 +35,7 @@ export default function DeckCard({ name, flashcardCount }) {
         <Flex
           p={4}
           justifyContent={'space-between'}
+          alignItems={'center'}
           roundedBottom={'sm'}
           cursor={'pointer'}
           w='full'
