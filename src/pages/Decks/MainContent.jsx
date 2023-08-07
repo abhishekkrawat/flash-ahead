@@ -1,7 +1,7 @@
 import { GridItem, SimpleGrid } from '@chakra-ui/react';
 import DeckCard from './DeckCard';
 
-export const Decks = ({ decks }) => {
+export const MainContent = ({ decks }) => {
   return (
     <GridItem colSpan={3} rowSpan={2}>
       <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(300px, 1fr))'>
