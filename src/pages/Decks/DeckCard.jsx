@@ -1,18 +1,11 @@
-import {
-  Box,
-  Heading,
-  Text,
-  Flex,
-  useColorModeValue,
-  HStack,
-  LinkOverlay,
-  LinkBox,
-} from '@chakra-ui/react';
+import { Box, Heading, Text, Flex, useColorModeValue, HStack } from '@chakra-ui/react';
 import { useState } from 'react';
 import { ArrowUpRight, Heart } from 'react-feather';
+import { useNavigate } from 'react-router';
 
-export default function DeckCard({ name, flashcardCount }) {
+export default function DeckCard({ name, flashcardCount, id }) {
   const [liked, setLiked] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -41,7 +34,7 @@ export default function DeckCard({ name, flashcardCount }) {
         </Text>
       </Box>
       <HStack borderTop={'1px'} color='black'>
-        <LinkBox
+        <Flex
           p={4}
           display={'flex'}
           justifyContent={'space-between'}
@@ -49,12 +42,13 @@ export default function DeckCard({ name, flashcardCount }) {
           roundedBottom={'sm'}
           cursor={'pointer'}
           w='full'
+          onClick={() => navigate(`/flashcard/${id}`)}
         >
           <Text fontSize={'md'} fontWeight={'semibold'}>
-            <LinkOverlay href='/flashcard'>View cards</LinkOverlay>
+            View cards
           </Text>
           <ArrowUpRight />
-        </LinkBox>
+        </Flex>
         <Flex
           p={4}
           alignItems='center'
