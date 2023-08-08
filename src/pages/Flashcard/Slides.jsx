@@ -16,7 +16,8 @@ export const Slides = ({ onSelected, flashcards, selected }) => {
         <>
           <GridItem
             w={{ base: '50px', md: '175px', lg: '200px' }}
-            minH='120px'
+            h='120px'
+            maxH='120px'
             bg='white'
             marginY={'10px'}
             marginX={'20px'}
