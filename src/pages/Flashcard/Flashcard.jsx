@@ -4,11 +4,13 @@ import { supabase } from '../../supabaseClient';
 import { useState, useEffect } from 'react';
 import { Slides } from './Slides';
 import { Card } from './Card';
+import { useParams } from 'react-router';
 
 export const Flashcard = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [flashcards, setFlashcards] = useState([]);
   const [selected, setSelected] = useState(0);
+  const { deckId } = useParams();
 
   const handleNext = () => {
     if (0 <= selected < flashcards.length - 1) {
@@ -25,9 +27,10 @@ export const Flashcard = () => {
   };
 
   const getFlashcards = async () => {
-    const { data, error } = await supabase.rpc('get_flashcards', { topicid: 1, subjectid: 1 });
+    const { data, error } = await supabase.rpc('get_flashcards', { topicid: deckId });
 
     if (error) {
+      console.log(error);
       throw new Error(error);
     }
 

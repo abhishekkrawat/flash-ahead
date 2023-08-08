@@ -18,7 +18,7 @@ const App = () => {
             <Route path='/login' element={<Login />} />,
             <Route path='/register' element={<Register />} />
             <Route path='/decks' element={<Decks />} />
-            <Route path='/flashcard' element={<Flashcard />} />
+            <Route path='/flashcard/:deckId' element={<Flashcard />} />
           </Routes>
         </QueryParamProvider>
       </BrowserRouter>
