@@ -18,6 +18,7 @@ export default function DeckCard({ name, flashcardCount, id }) {
       border={'1px'}
       borderColor='black'
       boxShadow={useColorModeValue('6px 6px 0 lightgrey', '6px 6px 0 cyan')}
+      _hover={{ boxShadow: useColorModeValue('8px 8px 0 lightgrey', '8px 8px 0 cyan') }}
     >
       <Box p={4}>
         <Box bg='black' display={'inline-block'} px={2} py={1} color='white' mb={4}>
