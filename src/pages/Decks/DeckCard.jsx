@@ -1,7 +1,7 @@
 import { Box, Heading, Text, Flex, useColorModeValue, HStack } from '@chakra-ui/react';
 import { useState } from 'react';
 import { ArrowUpRight, Heart } from 'react-feather';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 export default function DeckCard({ name, flashcardCount, id }) {
   const [liked, setLiked] = useState(false);
