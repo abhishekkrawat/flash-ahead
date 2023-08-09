@@ -18,7 +18,7 @@ const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Box top={0} position={'sticky'}>
+    <Box>
       <Flex
         bg={useColorModeValue('white', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
