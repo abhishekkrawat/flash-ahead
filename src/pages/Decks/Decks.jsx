@@ -8,9 +8,6 @@ import { useSearchParams } from 'react-router-dom';
 
 const Decks = () => {
   const [decks, setDecks] = useState([]);
-  // const [qualifications, setQualifications] = useState([]);
-  // const [boards, setBoards] = useState([]);
-  // const [subjects, setSubjects] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFilters] = useState({ qualifications: [], boards: [], subjects: [] });
 
