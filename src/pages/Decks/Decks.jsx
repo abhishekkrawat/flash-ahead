@@ -8,29 +8,30 @@ import { useSearchParams } from 'react-router-dom';
 
 const Decks = () => {
   const [decks, setDecks] = useState([]);
-  const [qualifications, setQualifications] = useState([]);
-  const [boards, setBoards] = useState([]);
-  const [subjects, setSubjects] = useState([]);
+  // const [qualifications, setQualifications] = useState([]);
+  // const [boards, setBoards] = useState([]);
+  // const [subjects, setSubjects] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [filters, setFilters] = useState({ qualifications: [], boards: [], subjects: [] });
 
   const filterDecks = (decks) => {
     return decks.filter((deck) => {
       if (searchParams.get('s')) {
         const selectedSubjects = searchParams.get('s').split('_');
         const getSubjectName = (id) => {
-          return subjects.find((s) => s.subject_id === id).subject_name;
+          return filters.subjects.find((s) => s.subject_id === id).subject_name;
         };
         return selectedSubjects.includes(getSubjectName(deck.subject_id));
       } else if (searchParams.get('q')) {
         const selectedQualifications = searchParams.get('q').split('_');
         const getQualificationName = (id) => {
-          return qualifications.find((q) => q.qualification_id === id).qualification_name;
+          return filters.qualifications.find((q) => q.qualification_id === id).qualification_name;
         };
         return selectedQualifications.includes(getQualificationName(deck.qualification_id));
       } else if (searchParams.get('b')) {
         const selectedBoards = searchParams.get('b').split('_');
         const getBoardName = (id) => {
-          return boards.find((q) => q.board_id === id).board_name;
+          return filters.boards.find((q) => q.board_id === id).board_name;
         };
         return selectedBoards.includes(getBoardName(deck.board_id));
       }
@@ -53,7 +54,10 @@ const Decks = () => {
     if (error) {
       throw new Error(error);
     }
-    setSubjects(data);
+    setFilters((prev) => ({
+      ...prev,
+      subjects: data,
+    }));
   };
 
   const getQualifications = async () => {
@@ -62,7 +66,10 @@ const Decks = () => {
     if (error) {
       throw new Error(error);
     }
-    setQualifications(data);
+    setFilters((prev) => ({
+      ...prev,
+      qualifications: data,
+    }));
   };
 
   const getBoards = async () => {
@@ -71,9 +78,11 @@ const Decks = () => {
     if (error) {
       throw new Error(error);
     }
-    setBoards(data);
+    setFilters((prev) => ({
+      ...prev,
+      boards: data,
+    }));
   };
-
   useEffect(() => {
     setSearchParams();
     getBoards();
@@ -90,7 +99,7 @@ const Decks = () => {
       <Navbar />
       <Container as='section' maxW='8xl' py='50px'>
         <Grid templateColumns='repeat(4, 1fr)'>
-          <SidePanel qualifications={qualifications} boards={boards} subjects={subjects} />
+          <SidePanel {...filters} />
           <MainContent decks={decks} />
         </Grid>
       </Container>
