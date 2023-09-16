@@ -6,6 +6,8 @@ import {
   Stack,
   Button,
   useColorModeValue,
+  Grid,
+  Container,
 } from '@chakra-ui/react';
 import Navbar from '../components/NavigationBar/Navbar';
 
@@ -13,6 +15,7 @@ export const Dashboard = () => {
   return (
     <>
       <Navbar />
+      <Container>
       <Text fontSize={'x-large'} marginTop={25} marginLeft={2}>
         Welcome, Abhishek
       </Text>
@@ -71,6 +74,14 @@ export const Dashboard = () => {
       <Text fontSize={'x-large'} marginLeft={2} marginTop={5}>
         Recently added
       </Text>
+      <Grid templateColumns='repeat(4, 1fr)' gap={2} marginLeft={2} >
+        <Box boxSize={'xs'} maxH={250} bg={'gray.200'} />
+        <Box boxSize={'xs'} maxH={250} bg={'gray.200'} />
+        <Box boxSize={'xs'} maxH={250} bg={'gray.200'} />
+        <Box boxSize={'xs'} maxH={250} bg={'gray.200'} />
+        <Box boxSize={'xs'} maxH={250} bg={'gray.200'} />
+      </Grid>
+      </Container>
     </>
   );
 };
