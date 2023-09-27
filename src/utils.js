@@ -8,6 +8,7 @@ const removeUnderscore = (name) => {
   return words.join(' ');
 };
 
+// TODO: remove if not required
 export const transform = (name) => {
   if (name.includes('_') && name.split('_').length > 1) {
     return removeUnderscore(name);
