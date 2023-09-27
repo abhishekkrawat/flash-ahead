@@ -1,5 +1,12 @@
 import { Divider, Text, SimpleGrid, GridItem } from '@chakra-ui/react';
 
+/**
+ *
+ * @param {*} onSelected - handle selected card
+ * @param {*} flashcards - all the flashcards
+ * @param {*} selected - the currect selected card
+ * @returns
+ */
 export const Slides = ({ onSelected, flashcards, selected }) => {
   return (
     <SimpleGrid

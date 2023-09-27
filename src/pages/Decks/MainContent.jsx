@@ -8,7 +8,7 @@ export const MainContent = ({ decks }) => {
         {decks.map((deck) => (
           <DeckCard
             key={deck.topic_id}
-            id={deck.topic_id}
+            topicId={deck.topic_id}
             name={deck.topic_name}
             flashcardCount={deck.flashcard_count}
           />

@@ -3,7 +3,15 @@ import { useState } from 'react';
 import { ArrowUpRight, Heart } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 
-export default function DeckCard({ name, flashcardCount, id }) {
+/**
+ * This component represents a single deckcard, which consists of the ability to
+ * redirect to flashcard page by one click, and a like button on it to save the deckcard
+ * @param {*} name
+ * @param {*} flashcardCount
+ * @param {*} topicId
+ * @returns
+ */
+export default function DeckCard({ name, flashcardCount, topicId }) {
   const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
 
@@ -37,13 +45,12 @@ export default function DeckCard({ name, flashcardCount, id }) {
       <HStack borderTop={'1px'} color='black'>
         <Flex
           p={4}
-          display={'flex'}
           justifyContent={'space-between'}
           alignItems={'center'}
           roundedBottom={'sm'}
           cursor={'pointer'}
           w='full'
-          onClick={() => navigate(`/flashcard/${id}`)}
+          onClick={() => navigate(`/flashcard/${topicId}`)}
         >
           <Text fontSize={'md'} fontWeight={'semibold'}>
             View cards
