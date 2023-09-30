@@ -1,6 +1,6 @@
 import { Box, Text } from '@chakra-ui/react';
 
-export const Card = ({ flashcards, selected, state, dispatch }) => {
+export const Card = ({ flashcards, selected, isFlipped, handleFlip }) => {
   if (!flashcards.length) {
     return (
       <Box flex={1} display={'flex'} justifyContent={'center'} alignItems={'center'}>
@@ -19,12 +19,10 @@ export const Card = ({ flashcards, selected, state, dispatch }) => {
         borderRadius='xl'
         boxShadow='2xl'
         cursor='pointer'
-        onClick={() => {
-          dispatch({ type: 'flipped' });
-        }}
+        onClick={handleFlip}
         perspective='1000px'
         transition='transform 0.6s ease'
-        transform={`${state.flipped}` ? 'rotateY(180deg) ScaleX(-1)' : 'rotateY(0)'}
+        transform={isFlipped ? 'rotateY(180deg) ScaleX(-1)' : 'rotateY(0)'}
       >
         <Box
           display={'flex'}
@@ -40,7 +38,7 @@ export const Card = ({ flashcards, selected, state, dispatch }) => {
         <Box flex={1} display={'flex'} justifyContent={'center'} alignItems={'center'}>
           {selected !== null && flashcards.length > 0 && (
             <Text align={'center'} key={flashcards[selected].flashcard_id}>
-              {`${state.flipped}`
+              {isFlipped
                 ? flashcards[selected].flashcard_back
                 : flashcards[selected].flashcard_front}
             </Text>

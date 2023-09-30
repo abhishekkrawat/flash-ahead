@@ -1,44 +1,40 @@
 import { Box, Flex, IconButton } from '@chakra-ui/react';
 import Navbar from '../../components/NavigationBar/Navbar';
 import { supabase } from '../../supabaseClient';
-import { useState, useEffect, useReducer } from 'react';
+import { useState, useEffect } from 'react';
 import { Slides } from './Slides';
 import { Card } from './Card';
 import { useParams } from 'react-router';
 import { ChevronLeft, ChevronRight } from 'react-feather';
 
-function reducer(state, action) {
-  if (action.type === 'flipped') {
-    return {
-      flipped: !state.flipped,
-    };
-  } else if (action.type == 'not flipped') {
-    return { flipped: false };
-  }
-}
+// function reducer(state, action) {
+//   if (action.type === 'flipped') {
+//     return {
+//       flipped: !state.flipped,
+//     };
+//   } else if (action.type == 'not flipped') {
+//     return { flipped: false };
+//   }
+// }
 
 export const Flashcard = () => {
-  // const [isFlipped, setIsFlipped] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
   const [flashcards, setFlashcards] = useState([]);
   const [selected, setSelected] = useState(0);
   const { deckId } = useParams();
-  const [state, dispatch] = useReducer(reducer, { flipped: false });
+  // const [state, dispatch] = useReducer(reducer, { flipped: false });
 
   const handleNext = () => {
     if (0 <= selected < flashcards.length - 1) {
       setSelected((prev) => prev + 1);
-      {
-        state.flipped;
-      }
+      setIsFlipped(false);
     }
   };
 
   const handlePrevious = () => {
     if (selected !== 0 && selected > 0) {
       setSelected((prev) => prev - 1);
-      {
-        state.flipped;
-      }
+      setIsFlipped(false);
     }
   };
 
@@ -57,15 +53,13 @@ export const Flashcard = () => {
     getFlashcards();
   }, []);
 
-  // const handleFlip = () => {
-  //   setIsFlipped((prev) => !prev);
-  // };
+  const handleFlip = () => {
+    setIsFlipped((prev) => !prev);
+  };
 
   const handleSelected = (index) => {
     setSelected(index);
-    {
-      state.flipped;
-    } // reset card to the question face when selecting
+    setIsFlipped(false); // reset card to the question face when selecting
   };
 
   return (
@@ -84,7 +78,12 @@ export const Flashcard = () => {
           >
             <ChevronLeft size={'100px'} />
           </IconButton>
-          <Card flashcards={flashcards} selected={selected} state={state} dispatch={dispatch} />
+          <Card
+            flashcards={flashcards}
+            selected={selected}
+            isFlipped={isFlipped}
+            handleFlip={handleFlip}
+          />
           <IconButton
             _hover={{ bg: 'none' }}
             w={'5%'}
