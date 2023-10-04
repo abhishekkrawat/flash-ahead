@@ -39,7 +39,7 @@ export const Flashcard = () => {
 
   useEffect(() => {
     getFlashcards();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSelected = (index) => {
     setSelected(index);
