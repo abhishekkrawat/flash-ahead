@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router-dom';
 /**
  * This component represents a single deckcard, which consists of the ability to
  * redirect to flashcard page by one click, and a like button on it to save the deckcard
- * @param {*} name
- * @param {*} flashcardCount
- * @param {*} topicId
+ * @param name
+ * @param flashcardCount
+ * @param topicId
  * @returns
  */
 export default function DeckCard({ name, flashcardCount, topicId }) {
