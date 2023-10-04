@@ -31,6 +31,8 @@ const Home = () => {
             position={'relative'}
           >
             <Button
+              as={'a'}
+              href='/decks'
               colorScheme={'green'}
               bg={'green.400'}
               rounded={'full'}

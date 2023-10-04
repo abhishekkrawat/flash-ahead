@@ -26,7 +26,7 @@ const DesktopNav = () => {
             <PopoverTrigger>
               <Link
                 p={2}
-                href={navItem.href ?? '#'}
+                href={'/decks'}
                 fontSize={'md'}
                 fontWeight={500}
                 color={linkColor}

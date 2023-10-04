@@ -9,7 +9,7 @@ export const SidePanel = ({ qualifications, boards, subjects }) => {
   return (
     <>
       <GridItem rowSpan={2} colSpan={1}>
-        <VStack p={5} spacing={8} align='stretch'>
+        <VStack p={5} spacing={8} align='stretch' position={'fixed'}>
           <Box h='100px' display={'flex'} flexDirection={'column'}>
             <Text fontSize='xl' mb={5} fontWeight='bold'>
               Qualification
