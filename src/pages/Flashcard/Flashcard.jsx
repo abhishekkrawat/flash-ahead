@@ -1,4 +1,4 @@
-import { Box, Button, Flex, IconButton } from '@chakra-ui/react';
+import { Box, Flex, IconButton } from '@chakra-ui/react';
 import Navbar from '../../components/NavigationBar/Navbar';
 import { supabase } from '../../supabaseClient';
 import { useState, useEffect } from 'react';
@@ -6,29 +6,12 @@ import { Slides } from './Slides';
 import { Card } from './Card';
 import { useParams } from 'react-router';
 import { ChevronLeft, ChevronRight } from 'react-feather';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 
 export const Flashcard = () => {
-  const [loader, setLoader] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
   const [flashcards, setFlashcards] = useState([]);
   const [selected, setSelected] = useState(0);
   const { deckId } = useParams();
-
-  const downloadPDF = () => {
-    const capture = document.querySelector('.css-txdpd1');
-    setLoader(true);
-    html2canvas(capture).then((canvas) => {
-      const imgData = canvas.toDataURL('img/png');
-      const doc = new jsPDF('l', 'mm', 'a8');
-      const componentWidth = doc.internal.pageSize.getWidth();
-      const componentHeight = doc.internal.pageSize.getHeight();
-      doc.addImage(imgData, 'PNG', 0, 0, componentWidth, componentHeight);
-      setLoader(false);
-      doc.save(`flashcard`);
-    });
-  };
 
   const handleNext = () => {
     if (0 <= selected < flashcards.length - 1) {
@@ -99,9 +82,6 @@ export const Flashcard = () => {
           >
             <ChevronRight size={'100px'} />
           </IconButton>
-          <Button onClick={downloadPDF} disabled={!loader === false}>
-            {loader ? <span>Downloading</span> : <span>Download</span>}
-          </Button>
         </Box>
       </Flex>
     </>
