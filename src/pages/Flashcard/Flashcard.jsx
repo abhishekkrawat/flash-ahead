@@ -41,16 +41,18 @@ export const Flashcard = () => {
     getFlashcards();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const handleSelected = (index) => {
-    setSelected(index);
-    setIsFlipped(false); // reset card to the question face when selecting
-  };
-
   return (
     <>
       <Navbar />
       <Flex pos={'fixed'} w={'100%'} bg={'gray.100'}>
-        <Slides onSelected={handleSelected} flashcards={flashcards} selected={selected} />
+        <Slides
+          onSelected={(index) => {
+            setSelected(index);
+            setIsFlipped(false); // reset card to the question face when selecting
+          }}
+          flashcards={flashcards}
+          selected={selected}
+        />
         <Box
           flex={1}
           display={'flex'}
