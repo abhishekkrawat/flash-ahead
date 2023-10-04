@@ -1,4 +1,4 @@
-import { Box, Flex, IconButton } from '@chakra-ui/react';
+import { Box, Flex, IconButton, Text } from '@chakra-ui/react';
 import Navbar from '../../components/NavigationBar/Navbar';
 import { supabase } from '../../supabaseClient';
 import { useState, useEffect } from 'react';
@@ -31,7 +31,6 @@ export const Flashcard = () => {
     const { data, error } = await supabase.rpc('get_flashcards', { topicid: deckId });
 
     if (error) {
-      console.log(error);
       throw new Error(error);
     }
 
@@ -41,10 +40,6 @@ export const Flashcard = () => {
   useEffect(() => {
     getFlashcards();
   }, []);
-
-  const handleFlip = () => {
-    setIsFlipped((prev) => !prev);
-  };
 
   const handleSelected = (index) => {
     setSelected(index);
@@ -56,32 +51,42 @@ export const Flashcard = () => {
       <Navbar />
       <Flex pos={'fixed'} w={'100%'} bg={'gray.100'}>
         <Slides onSelected={handleSelected} flashcards={flashcards} selected={selected} />
-        <Box flex={1} display={'flex'} justifyContent={'center'} alignItems={'center'} gap={10}>
-          <IconButton
-            _hover={{ bg: 'none' }}
-            cursor={'pointer'}
-            w={'5%'}
-            h={'10%'}
-            onClick={handlePrevious}
-            isDisabled={selected === 0}
-          >
-            <ChevronLeft size={'100px'} />
-          </IconButton>
+        <Box
+          flex={1}
+          display={'flex'}
+          justifyContent={'center'}
+          alignItems={'center'}
+          gap={12}
+          flexDirection={'column'}
+        >
           <Card
-            flashcards={flashcards}
-            selected={selected}
+            content={
+              flashcards.length && {
+                back: flashcards[selected].flashcard_back,
+                front: flashcards[selected].flashcard_front,
+              }
+            }
             isFlipped={isFlipped}
-            handleFlip={handleFlip}
+            handleFlip={() => setIsFlipped((prev) => !prev)}
           />
-          <IconButton
-            _hover={{ bg: 'none' }}
-            w={'5%'}
-            h={'10%'}
-            onClick={handleNext}
-            isDisabled={selected === flashcards.length - 1}
-          >
-            <ChevronRight size={'100px'} />
-          </IconButton>
+          <Box gap={10} display={'flex'} flexDirection={'row'}>
+            <IconButton
+              _hover={{ bg: 'none' }}
+              cursor={'pointer'}
+              onClick={handlePrevious}
+              isDisabled={selected === 0}
+            >
+              <ChevronLeft />
+            </IconButton>
+            <Text fontSize={'2xl'}>{selected + 1}</Text>
+            <IconButton
+              _hover={{ bg: 'none' }}
+              onClick={handleNext}
+              isDisabled={selected === flashcards.length - 1}
+            >
+              <ChevronRight />
+            </IconButton>
+          </Box>
         </Box>
       </Flex>
     </>
