@@ -13,8 +13,7 @@ import { CreditCard, FileText, Zap } from 'react-feather';
 const Card = ({ heading, description, icon }) => {
   return (
     <Box
-      maxW={{ base: 'full', md: '275px' }}
-      w={'full'}
+      maxW={{ base: 'full', md: '400px' }}
       borderWidth='1px'
       borderRadius='lg'
       overflow='hidden'
@@ -45,27 +44,27 @@ const Card = ({ heading, description, icon }) => {
 
 export const Features = () => {
   return (
-    <Container maxW={'6xl'} mt={12}>
-      <Flex flexWrap='wrap' gridGap={20} justify='center' maxH={'20'}>
+    <Container maxW={'8xl'} mt={12}>
+      <Flex flexWrap='wrap' gridGap={10} justify='center' maxH={'20'}>
         <Card
           heading={'Create Your Own Flashcards'}
           icon={<Icon as={CreditCard} w={8} h={8} />}
           description={
-            'Our intuitive flashcard creator empowers you to craft personalized study materials effortlessly. Tailor your learning experience with custom flashcards that suit your unique needs, whether its for exam preparation, language learning, or mastering new concepts.'
+            'Tailor your learning experience with custom flashcards that suit your unique needs, whether its for exam preparation, or mastering new concepts.'
           }
         />
         <Card
           heading={'Export as PDF'}
           icon={<Icon as={FileText} w={8} h={8} />}
           description={
-            'Prepare for offline study or presentations by exporting your content as high-quality, print-ready PDFs. Maintain the same visual clarity and layout when you transition from screen to paper.'
+            'Prepare for offline study or presentations by exporting your content as high-quality, print-ready PDFs.'
           }
         />
         <Card
           heading={'Boost Your Productivity'}
           icon={<Icon as={Zap} w={8} h={8} />}
           description={
-            'Our productivity tools are designed to supercharge your workflow. Access a suite of features that help you manage tasks, deadlines, and projects with precision.'
+            'Set clear goals, create high quality flashcards and organize them, eliminate distractions and much more.'
           }
         />
       </Flex>
