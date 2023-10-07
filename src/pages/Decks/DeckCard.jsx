@@ -1,4 +1,4 @@
-import { Box, Heading, Text, Flex, useColorModeValue, HStack } from '@chakra-ui/react';
+import { Box, Heading, Text, Flex, useColorModeValue, HStack, useToast } from '@chakra-ui/react';
 import { useState } from 'react';
 import { ArrowUpRight, Heart } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 export default function DeckCard({ name, flashcardCount, topicId }) {
   const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
+  const toast = useToast();
 
   return (
     <Box
@@ -50,7 +51,18 @@ export default function DeckCard({ name, flashcardCount, topicId }) {
           roundedBottom={'sm'}
           cursor={'pointer'}
           w='full'
-          onClick={() => navigate(`/flashcard/${topicId}`)}
+          onClick={() => {
+            if (flashcardCount) {
+              navigate(`/flashcard/${topicId}`);
+            } else {
+              return toast({
+                title: 'No Flashcards Available',
+                status: 'error',
+                isClosable: true,
+                position: 'top',
+              });
+            }
+          }}
         >
           <Text fontSize={'md'} fontWeight={'semibold'}>
             View cards
