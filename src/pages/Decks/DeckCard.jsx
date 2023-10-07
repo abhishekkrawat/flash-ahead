@@ -8,10 +8,10 @@ import { useNavigate } from 'react-router-dom';
  * redirect to flashcard page by one click, and a like button on it to save the deckcard
  * @param name
  * @param flashcardCount
- * @param topicId
+ * @param deckId
  * @returns
  */
-export default function DeckCard({ name, flashcardCount, topicId }) {
+export default function DeckCard({ name, flashcardCount, deckId }) {
   const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
 
@@ -50,7 +50,7 @@ export default function DeckCard({ name, flashcardCount, topicId }) {
           roundedBottom={'sm'}
           cursor={'pointer'}
           w='full'
-          onClick={() => navigate(`/flashcard/${topicId}`)}
+          onClick={() => navigate(`/flashcard/${deckId}`)}
         >
           <Text fontSize={'md'} fontWeight={'semibold'}>
             View cards
