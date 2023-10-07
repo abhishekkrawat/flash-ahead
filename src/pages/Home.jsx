@@ -1,5 +1,6 @@
 import { Box, Heading, Container, Text, Button, Stack } from '@chakra-ui/react';
 import Navbar from '../components/NavigationBar/Navbar';
+import { Features } from './Features';
 
 const Home = () => {
   return (
@@ -10,7 +11,7 @@ const Home = () => {
           as={Box}
           textAlign={'center'}
           spacing={{ base: 8, md: 14 }}
-          py={{ base: 20, md: 36 }}
+          py={{ base: 20, md: 20 }}
         >
           <Heading
             fontWeight={600}
@@ -49,6 +50,7 @@ const Home = () => {
           </Stack>
         </Stack>
       </Container>
+      <Features />
     </>
   );
 };
