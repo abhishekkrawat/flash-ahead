@@ -6,7 +6,8 @@ import { ArrowUpRight, Heart } from 'react-feather';
  * This component represents a single deckcard, which consists of the ability to
  * redirect to flashcard page by one click, and a like button on it to save the deckcard
  * @param name
- * @param flashcardCount
+ * @param flashcardCount - number of flashcards in a deck
+ * @param handleError - this handles error toast for no flashcard in a deck
  * @returns
  */
 export default function DeckCard({ name, flashcardCount, handleError }) {
