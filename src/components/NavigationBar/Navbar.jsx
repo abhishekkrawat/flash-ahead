@@ -29,6 +29,7 @@ const Navbar = () => {
         borderStyle={'solid'}
         borderColor={useColorModeValue('gray.200', 'gray.900')}
         align={'center'}
+        boxShadow={'md'}
       >
         <Flex
           flex={{ base: 1, md: 'auto' }}
@@ -82,6 +83,6 @@ const Navbar = () => {
       </Collapse>
     </Box>
   );
-};
+}
 
 export default Navbar;

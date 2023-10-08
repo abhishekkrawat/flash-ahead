@@ -1,11 +1,9 @@
 import { Box, Heading, Container, Text, Button, Stack } from '@chakra-ui/react';
-import Navbar from '../../components/NavigationBar/Navbar';
 import { Features } from './Features';
 
 export const Root = () => {
   return (
     <>
-      <Navbar />
       <Container maxW={'3xl'}>
         <Stack
           as={Box}
