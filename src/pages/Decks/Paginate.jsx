@@ -1,4 +1,5 @@
 import { Button, HStack } from '@chakra-ui/react';
+import { ChevronLeft, ChevronRight } from 'react-feather';
 
 export const Paginate = ({
   postsPerPage,
@@ -14,9 +15,9 @@ export const Paginate = ({
     pageNumbers.push(i);
   }
   return (
-    <HStack spacing={2} justify='center' mt={4}>
+    <HStack spacing={2} justify='center'>
       <Button onClick={previousPage} variant='outline' disabled={currentPage === 1}>
-        Prev
+        <ChevronLeft />
       </Button>
       {pageNumbers.map((number) => (
         <Button
@@ -32,7 +33,7 @@ export const Paginate = ({
         variant='outline'
         disabled={currentPage === Math.ceil(totalDecks / postsPerPage)}
       >
-        Next
+        <ChevronRight />
       </Button>
     </HStack>
   );

@@ -1,22 +1,55 @@
-import { Box, Flex, GridItem, Select, SimpleGrid, Spacer, Text, useToast } from '@chakra-ui/react';
+import { Box, Flex, GridItem, Select, SimpleGrid, Text, useToast } from '@chakra-ui/react';
 import DeckCard from './DeckCard';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Paginate } from './Paginate';
 
-export const MainContent = ({ currentDecks }) => {
+export const MainContent = ({ decks }) => {
   const navigate = useNavigate();
   const toast = useToast();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(9);
+
+  const indexOfLastDeck = currentPage * postsPerPage;
+  const indexOfFirstDeck = indexOfLastDeck - postsPerPage;
+  const currentDecks = decks.slice(indexOfFirstDeck, indexOfLastDeck);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const previousPage = () => {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const nextPage = () => {
+    if (currentPage !== Math.ceil(decks.length / postsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   return (
     <GridItem colSpan={3}>
-      <Flex>
-        <Box>
-          <Text fontSize={'medium'} fontWeight={'black'}>
-            {currentDecks.length} decks
+      <Flex flexDirection={'row'} justify={'space-between'}>
+        <Box display={'flex'} alignItems={'center'}>
+          <Text fontSize={'large'} fontWeight={'semibold'}>
+            Showing {indexOfFirstDeck + 1} -{' '}
+            {indexOfLastDeck <= decks.length ? indexOfLastDeck : decks.length} of {decks.length}{' '}
+            decks
           </Text>
         </Box>
-        <Spacer />
-        <Box>
-          <Select placeholder='Sort by:' variant={'filled'}>
+        <Box display={'flex'} flexDirection={'row'} justify={'space-between'} gap={10}>
+          <Paginate
+            postsPerPage={postsPerPage}
+            totalDecks={decks.length}
+            currentPage={currentPage}
+            paginate={paginate}
+            previousPage={previousPage}
+            nextPage={nextPage}
+          />
+          <Select w={'20%'} placeholder='Sort by:' variant={'filled'}>
             <option value={1}>Recommend</option>
             <option value={2}>Latest</option>
           </Select>
