@@ -1,5 +1,4 @@
 import { Box, Flex, IconButton, Text } from '@chakra-ui/react';
-import Navbar from '../../components/NavigationBar/Navbar';
 import { supabase } from '../../supabaseClient';
 import { useState, useEffect } from 'react';
 import { Slides } from './Slides';
@@ -43,7 +42,6 @@ export const Flashcard = () => {
 
   return (
     <>
-      <Navbar />
       <Flex pos={'fixed'} w={'100%'} bg={'gray.100'}>
         <Slides
           onSelected={(index) => {

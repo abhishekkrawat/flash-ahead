@@ -1,4 +1,3 @@
-import Navbar from '../../components/NavigationBar/Navbar';
 import { Container, Grid } from '@chakra-ui/react';
 import { SidePanel } from './SidePanel';
 import { MainContent } from './MainContent';
@@ -92,15 +91,12 @@ const Decks = () => {
   }, [searchParams]);
 
   return (
-    <>
-      <Navbar />
-      <Container as='section' maxW='8xl' py='50px'>
-        <Grid templateColumns='repeat(4, 1fr)'>
-          <SidePanel {...filters} />
-          <MainContent decks={decks} />
-        </Grid>
-      </Container>
-    </>
+    <Container as='section' maxW='8xl' py={24}>
+      <Grid templateColumns='repeat(4, 1fr)'>
+        <SidePanel {...filters} />
+        <MainContent decks={decks} />
+      </Grid>
+    </Container>
   );
 };
 

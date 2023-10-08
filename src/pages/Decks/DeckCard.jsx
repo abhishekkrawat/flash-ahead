@@ -15,10 +15,8 @@ export default function DeckCard({ name, flashcardCount, handleError }) {
 
   return (
     <Box
-      w='xs'
+      w='full'
       rounded={'sm'}
-      my={5}
-      mx={[0, 5]}
       overflow={'hidden'}
       bg='white'
       border={'1px'}
