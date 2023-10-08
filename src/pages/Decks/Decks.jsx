@@ -37,7 +37,7 @@ const Decks = () => {
   };
 
   const getDecks = async () => {
-    const { data, error } = await supabase.rpc('get_topics');
+    const { data, error } = await supabase.rpc('get_decks');
 
     if (error) {
       throw new Error(error);
