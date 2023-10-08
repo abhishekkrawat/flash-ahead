@@ -1,6 +1,7 @@
 import { Box, Heading, Container, Text, Button, Stack } from '@chakra-ui/react';
+import { Features } from './Features';
 
-const Home = () => {
+export const Root = () => {
   return (
     <>
       <Container maxW={'3xl'}>
@@ -8,7 +9,7 @@ const Home = () => {
           as={Box}
           textAlign={'center'}
           spacing={{ base: 8, md: 14 }}
-          py={{ base: 20, md: 36 }}
+          py={{ base: 20, md: 20 }}
         >
           <Heading
             fontWeight={600}
@@ -41,14 +42,10 @@ const Home = () => {
             >
               Get Started
             </Button>
-            <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
-              Learn more
-            </Button>
           </Stack>
         </Stack>
       </Container>
+      <Features />
     </>
   );
 };
-
-export default Home;

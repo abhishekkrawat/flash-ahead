@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import { ChakraProvider } from '@chakra-ui/react';
-import Home from './pages/Home';
+import { Root as Home } from './pages/Home/Root';
 import { QueryParamProvider } from 'use-query-params';
 import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6';
 import Decks from './pages/Decks/Decks';
