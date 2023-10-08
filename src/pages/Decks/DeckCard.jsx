@@ -1,19 +1,17 @@
 import { Box, Heading, Text, Flex, useColorModeValue, HStack } from '@chakra-ui/react';
 import { useState } from 'react';
 import { ArrowUpRight, Heart } from 'react-feather';
-import { useNavigate } from 'react-router-dom';
 
 /**
  * This component represents a single deckcard, which consists of the ability to
  * redirect to flashcard page by one click, and a like button on it to save the deckcard
  * @param name
- * @param flashcardCount
- * @param topicId
+ * @param flashcardCount - number of flashcards in a deck
+ * @param handleError - this handles error toast for no flashcard in a deck
  * @returns
  */
-export default function DeckCard({ name, flashcardCount, topicId }) {
+export default function DeckCard({ name, flashcardCount, handleError }) {
   const [liked, setLiked] = useState(false);
-  const navigate = useNavigate();
 
   return (
     <Box
@@ -50,7 +48,7 @@ export default function DeckCard({ name, flashcardCount, topicId }) {
           roundedBottom={'sm'}
           cursor={'pointer'}
           w='full'
-          onClick={() => navigate(`/flashcard/${topicId}`)}
+          onClick={handleError}
         >
           <Text fontSize={'md'} fontWeight={'semibold'}>
             View cards
