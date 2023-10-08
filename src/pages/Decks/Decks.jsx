@@ -5,11 +5,14 @@ import { MainContent } from './MainContent';
 import { useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient';
 import { useSearchParams } from 'react-router-dom';
+import { Paginate } from './Paginate';
 
 const Decks = () => {
   const [decks, setDecks] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFilters] = useState({ qualifications: [], boards: [], subjects: [] });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(9);
 
   const filterDecks = (decks) => {
     return decks.filter((deck) => {
@@ -37,7 +40,7 @@ const Decks = () => {
   };
 
   const getDecks = async () => {
-    const { data, error } = await supabase.rpc('get_decks');
+    const { data, error } = await supabase.rpc('get_topics');
 
     if (error) {
       throw new Error(error);
@@ -80,6 +83,27 @@ const Decks = () => {
       boards: data,
     }));
   };
+
+  const indexOfLastDeck = currentPage * postsPerPage;
+  const indexOfFirstDeck = indexOfLastDeck - postsPerPage;
+  const currentDecks = decks.slice(indexOfFirstDeck, indexOfLastDeck);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const previousPage = () => {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const nextPage = () => {
+    if (currentPage !== Math.ceil(decks.length / postsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
   useEffect(() => {
     setSearchParams();
     getBoards();
@@ -90,15 +114,22 @@ const Decks = () => {
   useEffect(() => {
     getDecks();
   }, [searchParams]);
-
   return (
     <>
       <Navbar />
       <Container as='section' maxW='8xl' py='50px'>
         <Grid templateColumns='repeat(4, 1fr)'>
           <SidePanel {...filters} />
-          <MainContent decks={decks} />
+          <MainContent currentDecks={currentDecks} />
         </Grid>
+        <Paginate
+          postsPerPage={postsPerPage}
+          totalDecks={decks.length}
+          currentPage={currentPage}
+          paginate={paginate}
+          previousPage={previousPage}
+          nextPage={nextPage}
+        />
       </Container>
     </>
   );
