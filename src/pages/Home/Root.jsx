@@ -1,8 +1,8 @@
 import { Box, Heading, Container, Text, Button, Stack } from '@chakra-ui/react';
-import Navbar from '../components/NavigationBar/Navbar';
+import Navbar from '../../components/NavigationBar/Navbar';
 import { Features } from './Features';
 
-const Home = () => {
+export const Root = () => {
   return (
     <>
       <Navbar />
@@ -51,5 +51,3 @@ const Home = () => {
     </>
   );
 };
-
-export default Home;
