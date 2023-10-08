@@ -10,7 +10,6 @@ import { Divider, Text, SimpleGrid, GridItem } from '@chakra-ui/react';
 export const Slides = ({ onSelected, flashcards, selected }) => {
   return (
     <SimpleGrid
-      key={flashcards}
       h={'100vh'}
       overflow={'scroll'}
       // to hide scrollbar
