@@ -14,7 +14,7 @@ import MobileNav from './MobileNav';
 import { Menu, X } from 'react-feather';
 import DesktopNav from './DesktopNav';
 
-function Navbar() {
+const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
