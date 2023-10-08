@@ -1,8 +1,21 @@
-import { Box, Flex, GridItem, Select, SimpleGrid, Text, useToast } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  GridItem,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  SimpleGrid,
+  Text,
+  useToast,
+} from '@chakra-ui/react';
 import DeckCard from './DeckCard';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Paginate } from './Paginate';
+import { ChevronDown } from 'react-feather';
 
 export const MainContent = ({ decks }) => {
   const navigate = useNavigate();
@@ -49,10 +62,15 @@ export const MainContent = ({ decks }) => {
             previousPage={previousPage}
             nextPage={nextPage}
           />
-          <Select w={'20%'} placeholder='Sort by:' variant={'filled'}>
-            <option value={1}>Recommend</option>
-            <option value={2}>Latest</option>
-          </Select>
+          <Menu>
+            <MenuButton as={Button} rightIcon={<ChevronDown />}>
+              Sort By
+            </MenuButton>
+            <MenuList>
+              <MenuItem>Recommended</MenuItem>
+              <MenuItem>Latest</MenuItem>
+            </MenuList>
+          </Menu>
         </Box>
       </Flex>
       <SimpleGrid gridGap={10} mt={8} templateColumns='repeat(auto-fill, minmax(300px, 1fr))'>
