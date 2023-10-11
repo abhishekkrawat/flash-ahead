@@ -47,11 +47,18 @@ export const MainContent = ({ decks }) => {
     <GridItem colSpan={3}>
       <Flex flexDirection={'row'} justify={'space-between'}>
         <Box display={'flex'} alignItems={'center'}>
-          <Text fontSize={'large'} fontWeight={'semibold'}>
-            Showing {indexOfFirstDeck + 1} -{' '}
-            {indexOfLastDeck <= decks.length ? indexOfLastDeck : decks.length} of {decks.length}{' '}
-            decks
-          </Text>
+          {decks.length !== 0 ? (
+            <Text fontSize={'large'} fontWeight={'semibold'}>
+              Showing {indexOfFirstDeck + 1} -{' '}
+              {indexOfLastDeck <= decks.length ? indexOfLastDeck : decks.length} of {decks.length}{' '}
+              decks
+            </Text>
+          ) : (
+            <Text fontSize={'large'} fontWeight={'semibold'}>
+              {' '}
+              0 decks
+            </Text>
+          )}
         </Box>
         <Box display={'flex'} flexDirection={'row'} justify={'space-between'} gap={10}>
           <Paginate
