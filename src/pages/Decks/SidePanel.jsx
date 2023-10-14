@@ -15,8 +15,8 @@ import { DelimitedArrayParam, useQueryParams, withDefault } from 'use-query-para
 
 const FilterParam = withDefault(DelimitedArrayParam, []);
 
-export const SidePanel = ({ qualifications, boards, subjects }) => {
-  const [filters, setFilters] = useQueryParams({ q: FilterParam, b: FilterParam, s: FilterParam });
+export const SidePanel = ({ qualifications, boards, subjects, handleSearchQueryChange, searchQuery }) => {
+  const [filters, setFilters] = useQueryParams({ q: FilterParam, b: FilterParam, s: FilterParam })
 
   return (
     <>
@@ -30,7 +30,13 @@ export const SidePanel = ({ qualifications, boards, subjects }) => {
               <InputLeftElement pointerEvents={'none'}>
                 <Icon color={'purple.400'} w={5} h={5} as={Search}></Icon>
               </InputLeftElement>
-              <Input type='text' variant={'filled'} placeholder='e.g Numbers' />
+              <Input
+                type='text'
+                variant={'filled'}
+                placeholder='e.g Numbers'
+                value={searchQuery}
+                onChange={handleSearchQueryChange}
+              />
             </InputGroup>
           </Box>
           <Divider />

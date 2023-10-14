@@ -2,7 +2,7 @@ import { Box, Flex, GridItem, Select, SimpleGrid, Spacer, Text, useToast } from 
 import DeckCard from './DeckCard';
 import { useNavigate } from 'react-router-dom';
 
-export const MainContent = ({ decks }) => {
+export const MainContent = ({ decks, filteredTopics }) => {
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -16,14 +16,14 @@ export const MainContent = ({ decks }) => {
         </Box>
         <Spacer />
         <Box>
-          <Select placeholder='Sort by:' variant={'filled'} >
+          <Select placeholder='Sort by:' variant={'filled'}>
             <option value={1}>Recommend</option>
             <option value={2}>Latest</option>
           </Select>
         </Box>
       </Flex>
       <SimpleGrid gridGap={10} mt={8} templateColumns='repeat(auto-fill, minmax(300px, 1fr))'>
-        {decks.map((deck) => (
+        {filteredTopics.map((deck) => (
           <DeckCard
             key={deck.topic_id}
             handleError={() => {
