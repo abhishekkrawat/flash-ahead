@@ -2,7 +2,7 @@ import { Box, Flex, GridItem, Select, SimpleGrid, Spacer, Text, useToast } from 
 import DeckCard from './DeckCard';
 import { useNavigate } from 'react-router-dom';
 
-export const MainContent = ({ decks, filteredTopics }) => {
+export const MainContent = ({ searchedDecks }) => {
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -11,7 +11,7 @@ export const MainContent = ({ decks, filteredTopics }) => {
       <Flex>
         <Box>
           <Text fontSize={'medium'} fontWeight={'black'}>
-            {decks.length} decks
+            {searchedDecks.length} decks
           </Text>
         </Box>
         <Spacer />
@@ -23,7 +23,7 @@ export const MainContent = ({ decks, filteredTopics }) => {
         </Box>
       </Flex>
       <SimpleGrid gridGap={10} mt={8} templateColumns='repeat(auto-fill, minmax(300px, 1fr))'>
-        {filteredTopics.map((deck) => (
+        {searchedDecks.map((deck) => (
           <DeckCard
             key={deck.topic_id}
             handleError={() => {

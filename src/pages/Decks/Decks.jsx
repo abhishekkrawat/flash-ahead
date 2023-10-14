@@ -95,20 +95,15 @@ const Decks = () => {
     setSearchQuery(event.target.value);
   };
 
-  const filteredTopics = decks.filter((fdecks) =>
+  const searchedDecks = decks.filter((fdecks) =>
     fdecks.topic_name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   return (
     <Container as='section' maxW='8xl' py={24}>
       <Grid templateColumns='repeat(4, 1fr)'>
-        <SidePanel
-          {...filters}
-          decks={decks}
-          handleSearchQueryChange={handleSearchQueryChange}
-          searchQuery={searchQuery}
-        />
-        <MainContent decks={decks} filteredTopics={filteredTopics} />
+        <SidePanel {...filters} decks={decks} handleSearchQueryChange={handleSearchQueryChange} />
+        <MainContent searchedDecks={searchedDecks} />
       </Grid>
     </Container>
   );
