@@ -9,9 +9,9 @@ import {
   MenuList,
   SimpleGrid,
   Text,
+  Spacer,
   useToast,
 } from '@chakra-ui/react';
-import DeckCard from './DeckCard';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Paginate } from './Paginate';
