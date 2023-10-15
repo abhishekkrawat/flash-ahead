@@ -79,6 +79,7 @@ const Decks = () => {
       boards: data,
     }));
   };
+
   useEffect(() => {
     setSearchParams();
     getBoards();
