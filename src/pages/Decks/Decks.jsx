@@ -36,7 +36,7 @@ const Decks = () => {
   };
 
   const getDecks = async () => {
-    const { data, error } = await supabase.rpc('get_decks');
+    const { data, error } = await supabase.rpc('get_topics');
 
     if (error) {
       throw new Error(error);
@@ -95,7 +95,7 @@ const Decks = () => {
     <Container as='section' maxW='8xl' py={24}>
       <Grid templateColumns='repeat(4, 1fr)'>
         <SidePanel {...filters} decks={decks} />
-        <MainContent decks={decks}  />
+        <MainContent decks={decks} />
       </Grid>
     </Container>
   );
