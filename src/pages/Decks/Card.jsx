@@ -17,7 +17,7 @@ import {
 import { data } from './data';
 import { Download, ExternalLink, Eye, Heart, MoreVertical } from 'react-feather';
 
-export const NewCard = ({ name, date, subjectId, handleNavigation }) => {
+export const Card = ({ name, date, subjectId, handleNavigation }) => {
   const subjectData = data.find((subject) => subject.subjectId === subjectId);
 
   return (
