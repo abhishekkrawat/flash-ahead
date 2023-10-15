@@ -9,12 +9,14 @@ import {
   Spacer,
   Flex,
   Icon,
+  LinkBox,
+  LinkOverlay,
 } from '@chakra-ui/react';
 import { data } from './data';
 import { Eye, Heart } from 'react-feather';
 import { useState } from 'react';
 
-export const Card = ({ name, date, subjectId }) => {
+export const Card = ({ name, date, subjectId, handleNavigation }) => {
   const subjectData = data.find((subject) => subject.subjectId === subjectId);
   const [liked, setLiked] = useState(false);
 
@@ -30,47 +32,49 @@ export const Card = ({ name, date, subjectId }) => {
         p={4}
         overflow={'hidden'}
       >
-        <Box
-          h={'210px'}
-          bg={'gray.100'}
-          mt={-4}
-          mx={-4}
-          mb={4}
-          pos={'relative'}
-          objectFit={'contain'}
-          overflow={'hidden'}
-        >
-          <img src={subjectData?.image} alt='subject-image' />
-        </Box>
-        <Stack>
-          <Flex>
-            <Text
-              color={`${subjectData?.color}.500`}
-              textTransform={'uppercase'}
-              fontWeight={800}
-              fontSize={'sm'}
-              letterSpacing={1.1}
-            >
-              {subjectData.subjectName}
-            </Text>
-            <Spacer />
-            <Box cursor={'pointer'} onClick={() => setLiked(!liked)}>
-              {liked ? (
-                <Heart fill={subjectData.color} fontSize={'24px'} />
-              ) : (
-                <Heart fontSize={'24px'} />
-              )}
-            </Box>
-          </Flex>
-          <Heading
-            color={useColorModeValue('gray.700', 'white')}
-            fontSize={'2xl'}
-            fontFamily={'body'}
-            noOfLines={1}
+        <LinkBox cursor={'pointer'} onClick={handleNavigation}>
+          <Box
+            h={'210px'}
+            bg={'gray.100'}
+            mt={-4}
+            mx={-4}
+            mb={2}
+            pos={'relative'}
+            objectFit={'contain'}
+            overflow={'hidden'}
           >
-            {name}
-          </Heading>
-        </Stack>
+            <img src={subjectData?.image} alt='subject-image' />
+          </Box>
+          <Stack>
+            <Flex>
+              <Text
+                color={`${subjectData?.color}.500`}
+                textTransform={'uppercase'}
+                fontWeight={800}
+                fontSize={'sm'}
+                letterSpacing={1.1}
+              >
+                {subjectData.subjectName}
+              </Text>
+              <Spacer />
+              <Box cursor={'pointer'} onClick={() => setLiked(!liked)}>
+                {liked ? (
+                  <Heart fill={subjectData.color} fontSize={'24px'} />
+                ) : (
+                  <Heart fontSize={'24px'} />
+                )}
+              </Box>
+            </Flex>
+            <Heading
+              color={useColorModeValue('gray.700', 'white')}
+              fontSize={'2xl'}
+              fontFamily={'body'}
+              noOfLines={1}
+            >
+              <LinkOverlay>{name}</LinkOverlay>
+            </Heading>
+          </Stack>
+        </LinkBox>
         <Stack flexWrap={'wrap'} mt={6} direction={'row'} spacing={2} alignItems={'center'}>
           <Avatar
             display={'inline-flex'}
