@@ -9,13 +9,14 @@ import {
   MenuList,
   SimpleGrid,
   Text,
+  Spacer,
   useToast,
 } from '@chakra-ui/react';
-import DeckCard from './DeckCard';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Paginate } from './Paginate';
 import { ChevronDown } from 'react-feather';
+import { Card } from './Card';
 
 export const MainContent = ({ decks }) => {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ export const MainContent = ({ decks }) => {
               : '0 decks'}
           </Text>
         </Box>
+        <Spacer />
         <Box display={'flex'} flexDirection={'row'} justify={'space-between'} gap={10}>
           <Paginate
             numberOfPages={numberOfPages}
@@ -57,11 +59,14 @@ export const MainContent = ({ decks }) => {
           </Menu>
         </Box>
       </Flex>
-      <SimpleGrid gridGap={10} mt={8} templateColumns='repeat(auto-fill, minmax(300px, 1fr))'>
+      <SimpleGrid spacing={10} mt={8} templateColumns='repeat(auto-fill, minmax(300px, 1fr))'>
         {currentDecks.map((deck) => (
-          <DeckCard
+          <Card
             key={deck.topic_id}
-            handleError={() => {
+            name={deck.topic_name}
+            date={deck.created_at}
+            subjectId={deck.subject_id}
+            handleNavigation={() => {
               if (deck.flashcard_count) {
                 navigate(`/flashcard/${deck.topic_id}`);
               } else {
@@ -73,8 +78,6 @@ export const MainContent = ({ decks }) => {
                 });
               }
             }}
-            name={deck.topic_name}
-            flashcardCount={deck.flashcard_count}
           />
         ))}
       </SimpleGrid>

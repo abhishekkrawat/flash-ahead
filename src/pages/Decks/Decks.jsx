@@ -2,7 +2,7 @@ import { Container, Grid } from '@chakra-ui/react';
 import { SidePanel } from './SidePanel';
 import { MainContent } from './MainContent';
 import { useEffect, useState } from 'react';
-import { supabase } from '../../supabaseClient';
+import { supabase } from 'lib/supabaseClient';
 import { useSearchParams } from 'react-router-dom';
 
 const Decks = () => {
@@ -94,7 +94,7 @@ const Decks = () => {
   return (
     <Container as='section' maxW='8xl' py={24}>
       <Grid templateColumns='repeat(4, 1fr)'>
-        <SidePanel {...filters} />
+        <SidePanel {...filters} decks={decks} />
         <MainContent decks={decks} />
       </Grid>
     </Container>
