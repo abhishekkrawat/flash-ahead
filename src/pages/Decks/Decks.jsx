@@ -96,9 +96,16 @@ const Decks = () => {
     setSearchQuery(event.target.value);
   };
 
-  const searchedDecks = decks.filter((fdecks) =>
-    fdecks.topic_name.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+  const searchedDecks = decks.filter((deck) => {
+    console.log('hehe');
+    return (
+      deck.topic_name.toLowerCase().includes(searchQuery.trim().toLowerCase()) ||
+      filters.subjects
+        .find((s) => s.subject_id === deck.subject_id)
+        .subject_name.toLowerCase()
+        .includes(searchQuery.trim().toLowerCase())
+    );
+  });
 
   return (
     <Container as='section' maxW='8xl' py={24}>
