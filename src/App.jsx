@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import Login from './pages/Auth/Login';
+import Register from './pages/Auth/Register';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Root as Home } from './pages/Home/Root';
 import { QueryParamProvider } from 'use-query-params';

@@ -18,7 +18,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { Eye, EyeOff } from 'react-feather';
-import { supabase } from '../supabaseClient';
+import { supabase } from 'lib/supabaseClient';
 import * as Yup from 'yup';
 import { Field, Form, Formik } from 'formik';
 

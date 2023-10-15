@@ -15,7 +15,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import * as Yup from 'yup';
-import { supabase } from '../supabaseClient';
+import { supabase } from 'lib/supabaseClient';
 import { Field, Form, Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 

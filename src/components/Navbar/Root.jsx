@@ -14,7 +14,7 @@ import MobileNav from './MobileNav';
 import { Menu, X } from 'react-feather';
 import DesktopNav from './DesktopNav';
 
-const Navbar = () => {
+export const Root = () => {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -83,6 +83,4 @@ const Navbar = () => {
       </Collapse>
     </Box>
   );
-}
-
-export default Navbar;
+};
