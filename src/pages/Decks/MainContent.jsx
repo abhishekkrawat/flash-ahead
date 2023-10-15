@@ -1,7 +1,7 @@
 import { Box, Flex, GridItem, Select, SimpleGrid, Spacer, Text } from '@chakra-ui/react';
 // import DeckCard from './DeckCard';
 // import { useNavigate } from 'react-router-dom';
-import NiceCard from './NiceCard';
+import { Card } from './Card';
 
 export const MainContent = ({ decks }) => {
   // const navigate = useNavigate();
@@ -23,9 +23,9 @@ export const MainContent = ({ decks }) => {
           </Select>
         </Box>
       </Flex>
-      <SimpleGrid gridGap={10} mt={8} templateColumns='repeat(auto-fill, minmax(300px, 1fr))'>
+      <SimpleGrid spacingX={10} spacingY={1} mt={8} templateColumns='repeat(auto-fill, minmax(300px, 1fr))'>
         {decks.map((deck) => (
-          <NiceCard
+          <Card
             key={deck.topic_id}
             name={deck.topic_name}
             date={deck.created_at}
