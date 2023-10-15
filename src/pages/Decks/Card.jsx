@@ -1,106 +1,99 @@
 import {
-  Box,
-  Center,
-  Heading,
-  Text,
-  Stack,
   Avatar,
-  useColorModeValue,
-  Spacer,
+  Badge,
   Flex,
   Icon,
-  LinkBox,
-  LinkOverlay,
+  Image,
+  Text,
+  Stack,
+  Spacer,
+  Box,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Menu,
+  Heading,
 } from '@chakra-ui/react';
 import { data } from './data';
-import { Eye, Heart } from 'react-feather';
-import { useState } from 'react';
+import { Download, ExternalLink, Eye, Heart, MoreVertical } from 'react-feather';
 
-export const Card = ({ name, date, subjectId, handleNavigation }) => {
+export const NewCard = ({ name, date, subjectId, handleNavigation }) => {
   const subjectData = data.find((subject) => subject.subjectId === subjectId);
-  const [liked, setLiked] = useState(false);
 
   return (
-    <Center py={6}>
-      <Box
-        maxW={'445px'}
-        w={'full'}
-        bg={useColorModeValue('white', 'gray.900')}
-        boxShadow={'md'}
-        borderWidth={'1px'}
-        rounded={'md'}
-        p={4}
-        overflow={'hidden'}
-      >
-        <LinkBox cursor={'pointer'} onClick={handleNavigation}>
-          <Box
-            h={'210px'}
-            bg={'gray.100'}
-            mt={-4}
-            mx={-4}
-            mb={2}
-            pos={'relative'}
-            objectFit={'contain'}
-            overflow={'hidden'}
-          >
-            <img src={subjectData?.image} alt='subject-image' />
-          </Box>
-          <Stack>
-            <Flex>
-              <Text
-                color={`${subjectData?.color}.500`}
-                textTransform={'uppercase'}
-                fontWeight={800}
-                fontSize={'sm'}
-                letterSpacing={1.1}
-              >
-                {subjectData.subjectName}
-              </Text>
-              <Spacer />
-              <Box cursor={'pointer'} onClick={() => setLiked(!liked)}>
-                {liked ? (
-                  <Heart fill={subjectData.color} fontSize={'24px'} />
-                ) : (
-                  <Heart fontSize={'24px'} />
-                )}
-              </Box>
-            </Flex>
-            <Heading
-              color={useColorModeValue('gray.700', 'white')}
-              fontSize={'2xl'}
-              fontFamily={'body'}
-              noOfLines={1}
-            >
-              <LinkOverlay>{name}</LinkOverlay>
-            </Heading>
-          </Stack>
-        </LinkBox>
-        <Stack flexWrap={'wrap'} mt={6} direction={'row'} spacing={2} alignItems={'center'}>
-          <Avatar
-            display={'inline-flex'}
-            src={'https://avatars0.githubusercontent.com/u/1164541?v=4'}
-          />
-          <Stack display={'inline-flex'} direction={'column'} spacing={0} fontSize={'sm'}>
-            <Text fontSize={'sm'}>Abhishek Rawat</Text>
-            <Text color={'gray.500'} fontSize={'xs'}>
-              {new Date(date).toDateString()}
-            </Text>
-          </Stack>
-          <Spacer />
-          <Box
-            display={'inline-flex'}
-            justifyContent={'center'}
-            alignItems={'center'}
-            gap={1}
-            mt={5}
-          >
-            <Icon color={'gray.500'} width='1rem' height='1rem' as={Eye} />
-            <Text fontSize={'xs'} color='gray.500'>
-              10
-            </Text>
-          </Box>
+    <Flex
+      bg={'white'}
+      p={4}
+      maxW={'445px'}
+      borderWidth={'1px'}
+      boxShadow={'md'}
+      rounded={'md'}
+      alignItems='center'
+      direction='column'
+    >
+      <Flex w='100%' mb='25px' gap={2}>
+        <Avatar src={'https://avatars0.githubusercontent.com/u/1164541?v=4'} />
+        <Stack direction={'column'} spacing={0} fontSize={'sm'}>
+          <Text fontSize={'sm'}>Abhishek Rawat</Text>
+
+          <Text color={'gray.500'} fontSize={'xs'}>
+            {new Date(date).toDateString()}
+          </Text>
         </Stack>
-      </Box>
-    </Center>
+        <Spacer />
+        <Menu>
+          <MenuButton mr={-1}>
+            <Icon w='24px' h='24px' as={MoreVertical} />
+          </MenuButton>
+          <MenuList>
+            <MenuItem icon={<ExternalLink />}>View deck</MenuItem>
+            <MenuItem icon={<Download />}>Download as PDF</MenuItem>
+            <MenuItem icon={<Heart />}>Mark as favourite</MenuItem>
+          </MenuList>
+        </Menu>
+      </Flex>
+      <Image
+        h='250px'
+        cursor={'pointer'}
+        onClick={handleNavigation}
+        src={subjectData?.image}
+        objectFit={'cover'}
+        overflow={'hidden'}
+        maxW='100%'
+        mb='10px'
+      />
+      <Heading
+        cursor={'pointer'}
+        onClick={handleNavigation}
+        color={'gray.700'}
+        fontWeight={'semibold'}
+        textAlign='start'
+        fontSize='xl'
+        w='100%'
+        noOfLines={1}
+      >
+        {name}
+      </Heading>
+      <Flex mt='10px' justify='space-between' w='100%' align='center'>
+        <Badge
+          borderRadius='9px'
+          size='md'
+          color={`${subjectData?.color}.500`}
+          textAlign='center'
+          display='flex'
+          justifyContent='center'
+          alignItems='center'
+          px={2}
+        >
+          {subjectData?.subjectName}
+        </Badge>
+        <Box display={'inline-flex'} justifyContent={'center'} alignItems={'center'} gap={1}>
+          <Icon color={'gray.500'} width='1rem' height='1rem' as={Eye} />
+          <Text fontSize={'xs'} color='gray.500'>
+            10
+          </Text>
+        </Box>
+      </Flex>
+    </Flex>
   );
 };

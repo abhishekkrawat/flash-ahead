@@ -1,6 +1,6 @@
 import { Box, Flex, GridItem, Select, SimpleGrid, Spacer, Text, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { Card } from './Card';
+import { NewCard } from './Card';
 
 export const MainContent = ({ decks }) => {
   const navigate = useNavigate();
@@ -23,13 +23,12 @@ export const MainContent = ({ decks }) => {
         </Box>
       </Flex>
       <SimpleGrid
-        spacingX={10}
-        spacingY={1}
+        spacing={10}
         mt={8}
         templateColumns='repeat(auto-fill, minmax(300px, 1fr))'
       >
         {decks.map((deck) => (
-          <Card
+          <NewCard
             key={deck.topic_id}
             name={deck.topic_name}
             date={deck.created_at}
@@ -47,23 +46,6 @@ export const MainContent = ({ decks }) => {
               }
             }}
           />
-          // <DeckCard
-          //   key={deck.topic_id}
-          //   handleError={() => {
-          //     if (deck.flashcard_count) {
-          //       navigate(`/flashcard/${deck.topic_id}`);s
-          //     } else {
-          //       return toast({
-          //         title: 'No Flashcards Available',
-          //         status: 'error',
-          //         isClosable: true,
-          //         position: 'top',
-          //       });
-          //     }
-          //   }}
-          //   name={deck.topic_name}
-          //   flashcardCount={deck.flashcard_count}
-          // />
         ))}
       </SimpleGrid>
     </GridItem>
