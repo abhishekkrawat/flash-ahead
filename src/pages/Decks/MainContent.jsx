@@ -21,57 +21,34 @@ export const MainContent = ({ decks }) => {
   const navigate = useNavigate();
   const toast = useToast();
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(9);
+  const postsPerPage = 9;
 
+  const numberOfPages = Math.ceil(decks.length / postsPerPage);
   const indexOfLastDeck = currentPage * postsPerPage;
   const indexOfFirstDeck = indexOfLastDeck - postsPerPage;
   const currentDecks = decks.slice(indexOfFirstDeck, indexOfLastDeck);
-
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-  const previousPage = () => {
-    if (currentPage !== 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const nextPage = () => {
-    if (currentPage !== Math.ceil(decks.length / postsPerPage)) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
 
   return (
     <GridItem colSpan={3}>
       <Flex flexDirection={'row'} justify={'space-between'}>
         <Box display={'flex'} alignItems={'center'}>
-          {decks.length !== 0 ? (
-            <Text fontSize={'large'} fontWeight={'semibold'}>
-              Showing {indexOfFirstDeck + 1} -{' '}
-              {indexOfLastDeck <= decks.length ? indexOfLastDeck : decks.length} of {decks.length}{' '}
-              decks
-            </Text>
-          ) : (
-            <Text fontSize={'large'} fontWeight={'semibold'}>
-              {' '}
-              0 decks
-            </Text>
-          )}
+          <Text fontSize={'large'} fontWeight={'semibold'}>
+            {decks.length !== 0
+              ? `Showing ${indexOfFirstDeck + 1} -
+              ${indexOfLastDeck <= decks.length ? indexOfLastDeck : decks.length} of ${decks.length}
+              decks`
+              : '0 decks'}
+          </Text>
         </Box>
         <Box display={'flex'} flexDirection={'row'} justify={'space-between'} gap={10}>
           <Paginate
-            postsPerPage={postsPerPage}
-            totalDecks={decks.length}
+            numberOfPages={numberOfPages}
             currentPage={currentPage}
-            paginate={paginate}
-            previousPage={previousPage}
-            nextPage={nextPage}
+            setCurrentPage={setCurrentPage}
           />
           <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDown />}>
-              Sort By
+              Sort by
             </MenuButton>
             <MenuList>
               <MenuItem>Recommended</MenuItem>

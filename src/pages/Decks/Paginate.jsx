@@ -1,19 +1,25 @@
 import { Button, HStack } from '@chakra-ui/react';
 import { ChevronLeft, ChevronRight } from 'react-feather';
 
-export const Paginate = ({
-  postsPerPage,
-  totalDecks,
-  currentPage,
-  paginate,
-  previousPage,
-  nextPage,
-}) => {
+export const Paginate = ({ numberOfPages, currentPage, setCurrentPage }) => {
   const pageNumbers = [];
 
-  for (let i = 1; i <= Math.ceil(totalDecks / postsPerPage); i++) {
+  for (let i = 1; i <= numberOfPages; i++) {
     pageNumbers.push(i);
   }
+
+  const previousPage = () => {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const nextPage = () => {
+    if (currentPage !== numberOfPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
   return (
     <HStack spacing={2} justify='center'>
       <Button onClick={previousPage} variant='outline' disabled={currentPage === 1}>
@@ -22,17 +28,13 @@ export const Paginate = ({
       {pageNumbers.map((number) => (
         <Button
           key={number}
-          onClick={() => paginate(number)}
+          onClick={() => setCurrentPage(number)}
           variant={number === currentPage ? 'solid' : 'outline'}
         >
           {number}
         </Button>
       ))}
-      <Button
-        onClick={nextPage}
-        variant='outline'
-        disabled={currentPage === Math.ceil(totalDecks / postsPerPage)}
-      >
+      <Button onClick={nextPage} variant='outline' disabled={currentPage === numberOfPages}>
         <ChevronRight />
       </Button>
     </HStack>
