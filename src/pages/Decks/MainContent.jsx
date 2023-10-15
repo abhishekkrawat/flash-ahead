@@ -1,10 +1,11 @@
-import { Box, Flex, GridItem, Select, SimpleGrid, Spacer, Text, useToast } from '@chakra-ui/react';
-import DeckCard from './DeckCard';
-import { useNavigate } from 'react-router-dom';
+import { Box, Flex, GridItem, Select, SimpleGrid, Spacer, Text } from '@chakra-ui/react';
+// import DeckCard from './DeckCard';
+// import { useNavigate } from 'react-router-dom';
+import NiceCard from './NiceCard';
 
 export const MainContent = ({ decks }) => {
-  const navigate = useNavigate();
-  const toast = useToast();
+  // const navigate = useNavigate();
+  // const toast = useToast();
 
   return (
     <GridItem colSpan={3}>
@@ -16,7 +17,7 @@ export const MainContent = ({ decks }) => {
         </Box>
         <Spacer />
         <Box>
-          <Select placeholder='Sort by:' variant={'filled'} >
+          <Select placeholder='Sort by:' variant={'filled'}>
             <option value={1}>Recommend</option>
             <option value={2}>Latest</option>
           </Select>
@@ -24,23 +25,29 @@ export const MainContent = ({ decks }) => {
       </Flex>
       <SimpleGrid gridGap={10} mt={8} templateColumns='repeat(auto-fill, minmax(300px, 1fr))'>
         {decks.map((deck) => (
-          <DeckCard
+          <NiceCard
             key={deck.topic_id}
-            handleError={() => {
-              if (deck.flashcard_count) {
-                navigate(`/flashcard/${deck.topic_id}`);
-              } else {
-                return toast({
-                  title: 'No Flashcards Available',
-                  status: 'error',
-                  isClosable: true,
-                  position: 'top',
-                });
-              }
-            }}
             name={deck.topic_name}
-            flashcardCount={deck.flashcard_count}
+            date={deck.created_at}
+            subjectId={deck.subject_id}
           />
+          // <DeckCard
+          //   key={deck.topic_id}
+          //   handleError={() => {
+          //     if (deck.flashcard_count) {
+          //       navigate(`/flashcard/${deck.topic_id}`);s
+          //     } else {
+          //       return toast({
+          //         title: 'No Flashcards Available',
+          //         status: 'error',
+          //         isClosable: true,
+          //         position: 'top',
+          //       });
+          //     }
+          //   }}
+          //   name={deck.topic_name}
+          //   flashcardCount={deck.flashcard_count}
+          // />
         ))}
       </SimpleGrid>
     </GridItem>

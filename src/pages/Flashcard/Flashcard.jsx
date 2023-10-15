@@ -1,5 +1,5 @@
 import { Box, Flex, IconButton, Text } from '@chakra-ui/react';
-import { supabase } from '../../supabaseClient';
+import { supabase } from 'lib/supabaseClient';
 import { useState, useEffect } from 'react';
 import { Slides } from './Slides';
 import { Card } from './Card';
