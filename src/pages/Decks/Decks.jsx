@@ -2,7 +2,7 @@ import { Container, Grid } from '@chakra-ui/react';
 import { SidePanel } from './SidePanel';
 import { MainContent } from './MainContent';
 import { useEffect, useState } from 'react';
-import { supabase } from '../../supabaseClient';
+import { supabase } from 'lib/supabaseClient';
 import { useSearchParams } from 'react-router-dom';
 
 const Decks = () => {
@@ -80,6 +80,7 @@ const Decks = () => {
       boards: data,
     }));
   };
+
   useEffect(() => {
     setSearchParams();
     getBoards();
@@ -103,7 +104,7 @@ const Decks = () => {
     <Container as='section' maxW='8xl' py={24}>
       <Grid templateColumns='repeat(4, 1fr)'>
         <SidePanel {...filters} decks={decks} handleSearchQueryChange={handleSearchQueryChange} />
-        <MainContent searchedDecks={searchedDecks} />
+        <MainContent decks={searchedDecks} />
       </Grid>
     </Container>
   );
