@@ -8,6 +8,7 @@ import {
   useColorModeValue,
   Spacer,
   Flex,
+  Icon,
 } from '@chakra-ui/react';
 import { data } from './data';
 import { Eye, Heart } from 'react-feather';
@@ -44,7 +45,7 @@ export const Card = ({ name, date, subjectId }) => {
         <Stack>
           <Flex>
             <Text
-              color={subjectData?.color}
+              color={`${subjectData?.color}.500`}
               textTransform={'uppercase'}
               fontWeight={800}
               fontSize={'sm'}
@@ -54,7 +55,11 @@ export const Card = ({ name, date, subjectId }) => {
             </Text>
             <Spacer />
             <Box cursor={'pointer'} onClick={() => setLiked(!liked)}>
-              {liked ? <Heart fill='red' fontSize={'24px'} /> : <Heart fontSize={'24px'} />}
+              {liked ? (
+                <Heart fill={subjectData.color} fontSize={'24px'} />
+              ) : (
+                <Heart fontSize={'24px'} />
+              )}
             </Box>
           </Flex>
           <Heading
@@ -85,8 +90,8 @@ export const Card = ({ name, date, subjectId }) => {
             gap={1}
             mt={5}
           >
-            <Eye width='1rem' height='1rem' />
-            <Text fontSize={'xs'} color='grey.200'>
+            <Icon color={'gray.500'} width='1rem' height='1rem' as={Eye} />
+            <Text fontSize={'xs'} color='gray.500'>
               10
             </Text>
           </Box>
