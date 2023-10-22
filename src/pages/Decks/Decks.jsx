@@ -4,6 +4,7 @@ import { MainContent } from './MainContent';
 import { useEffect, useState } from 'react';
 import { supabase } from 'lib/supabaseClient';
 import { useSearchParams } from 'react-router-dom';
+import { CreateButton } from './CreateButton';
 
 const Decks = () => {
   const [decks, setDecks] = useState([]);
@@ -92,12 +93,15 @@ const Decks = () => {
   }, [searchParams]);
 
   return (
-    <Container as='section' maxW='8xl' py={24}>
-      <Grid templateColumns='repeat(4, 1fr)'>
-        <SidePanel {...filters} decks={decks} />
-        <MainContent decks={decks} />
-      </Grid>
-    </Container>
+    <>
+      <Container as='section' maxW='8xl' py={24}>
+        <Grid templateColumns='repeat(4, 1fr)'>
+          <SidePanel {...filters} decks={decks} />
+          <MainContent decks={decks} />
+        </Grid>
+      </Container>
+      <CreateButton />
+    </>
   );
 };
 
