@@ -21,14 +21,23 @@ import { Eye, EyeOff } from 'react-feather';
 import { supabase } from 'lib/supabaseClient';
 import * as Yup from 'yup';
 import { Field, Form, Formik } from 'formik';
-import { BackButton } from './BackButton';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate();
   return (
     <>
-      <BackButton />
-      <Flex h={'100vh'} alignItems={'center'} justifyContent={'center'}>
-        <Stack spacing={8} mx={'auto'} maxW={'lg'} textAlign={'center'}>
+      <Button
+        position={'fixed'}
+        m={4}
+        variant={'outline'}
+        onClick={() => navigate('/')}
+        size={'lg'}
+      >
+        Back
+      </Button>
+      <Flex h={'100vh'} align={'center'} justify={'center'}>
+        <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
           <Heading fontSize={'4xl'}>Log in to your account</Heading>
           <Box rounded={'lg'} bg={useColorModeValue('white', 'gray.700')} boxShadow={'lg'} p={8}>
             <LoginForm />
