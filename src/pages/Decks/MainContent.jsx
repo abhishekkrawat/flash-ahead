@@ -11,12 +11,12 @@ import {
   Text,
   Spacer,
   useToast,
-  Card,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Paginate } from './Paginate';
 import { ChevronDown } from 'react-feather';
+import { Card } from './Card';
 
 export const MainContent = ({ decks }) => {
   const navigate = useNavigate();

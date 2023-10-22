@@ -1,7 +1,7 @@
-import { Button, Container, Divider, Heading, SimpleGrid } from '@chakra-ui/react';
+import { Container, Divider, Heading, SimpleGrid } from '@chakra-ui/react';
 import { Flex, Spacer } from '@chakra-ui/react';
-import { Plus } from 'react-feather';
 import { DashCard } from './DashCard';
+import { NewCard } from '../../components/NewCard';
 
 export const Dashboard = () => {
   return (
@@ -12,9 +12,10 @@ export const Dashboard = () => {
 
           <Spacer />
 
-          <Button leftIcon={<Plus />} colorScheme='purple'>
+          {/* <Button leftIcon={<Plus />} colorScheme='purple'>
             Add new
-          </Button>
+          </Button> */}
+          <NewCard />
         </Flex>
         <Divider marginTop={2} marginBottom={2} />
         <SimpleGrid columns={2} spacing={5} pt={6}>
