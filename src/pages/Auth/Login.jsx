@@ -32,11 +32,11 @@ const Login = () => {
         m={4}
         variant={'outline'}
         onClick={() => navigate('/')}
-        size={'lg'}
+        size={'md'}
       >
         Back
       </Button>
-      <Flex h={'100vh'} align={'center'} justify={'center'}>
+      <Flex h={'100vh'} align={'center'} justify={'center'} bg={'gray.50'}>
         <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
           <Heading fontSize={'4xl'}>Log in to your account</Heading>
           <Box rounded={'lg'} bg={useColorModeValue('white', 'gray.700')} boxShadow={'lg'} p={8}>
@@ -45,6 +45,7 @@ const Login = () => {
           <Text textAlign='center'>
             New to FlashAhead?
             <Link color='purple.400' href={'/register'}>
+              {' '}
               Create an account
             </Link>
           </Text>
