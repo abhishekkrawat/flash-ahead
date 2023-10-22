@@ -43,9 +43,8 @@ const Login = () => {
             <LoginForm />
           </Box>
           <Text textAlign='center'>
-            New to FlashAhead?
+            New to FlashAhead?{' '}
             <Link color='purple.400' href={'/register'}>
-              {' '}
               Create an account
             </Link>
           </Text>
