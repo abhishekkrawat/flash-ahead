@@ -21,31 +21,27 @@ import { Eye, EyeOff } from 'react-feather';
 import { supabase } from 'lib/supabaseClient';
 import * as Yup from 'yup';
 import { Field, Form, Formik } from 'formik';
+import { BackButton } from './BackButton';
 
 const Login = () => {
   return (
-    <Flex
-      h={'100vh'}
-      align={'center'}
-      justify={'center'}
-      bg={useColorModeValue('gray.50', 'gray.800')}
-    >
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-        <Stack align={'center'}>
+    <>
+      <BackButton />
+      <Flex h={'100vh'} alignItems={'center'} justifyContent={'center'}>
+        <Stack spacing={8} mx={'auto'} maxW={'lg'} textAlign={'center'}>
           <Heading fontSize={'4xl'}>Log in to your account</Heading>
+          <Box rounded={'lg'} bg={useColorModeValue('white', 'gray.700')} boxShadow={'lg'} p={8}>
+            <LoginForm />
+          </Box>
+          <Text textAlign='center'>
+            New to FlashAhead?
+            <Link color='purple.400' href={'/register'}>
+              Create an account
+            </Link>
+          </Text>
         </Stack>
-        <Box rounded={'lg'} bg={useColorModeValue('white', 'gray.700')} boxShadow={'lg'} p={8}>
-          <LoginForm />
-        </Box>
-        <Text textAlign='center'>
-          New to FlashAhead?
-          <Link color='purple.400' href={'/register'}>
-            {' '}
-            Create an account
-          </Link>
-        </Text>
-      </Stack>
-    </Flex>
+      </Flex>
+    </>
   );
 };
 
