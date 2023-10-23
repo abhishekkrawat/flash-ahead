@@ -93,15 +93,13 @@ const Decks = () => {
   }, [searchParams]);
 
   return (
-    <>
-      <Container as='section' maxW='8xl' py={24}>
-        <Grid templateColumns='repeat(4, 1fr)'>
-          <SidePanel {...filters} decks={decks} />
-          <MainContent decks={decks} />
-        </Grid>
-      </Container>
-      <CreateButton />
-    </>
+    <Container as='section' maxW='8xl' py={24}>
+      <Grid templateColumns='repeat(4, 1fr)'>
+        <SidePanel {...filters} decks={decks} />
+        <MainContent decks={decks} />
+        <CreateButton />
+      </Grid>
+    </Container>
   );
 };
 
