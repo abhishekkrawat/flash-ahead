@@ -13,16 +13,9 @@ import {
 } from '@chakra-ui/react';
 
 import { Plus } from 'react-feather';
-import { useState } from 'react';
 
 export const CreateButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const OverlayOne = () => (
-    <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px) hue-rotate(90deg)' />
-  );
-
-  const [overlay, setOverlay] = useState(<OverlayOne />);
 
   return (
     <>
@@ -40,7 +33,6 @@ export const CreateButton = () => {
         height={14}
         boxShadow={'xl'}
         onClick={() => {
-          setOverlay(<OverlayOne />);
 
           onOpen();
         }}
@@ -51,9 +43,8 @@ export const CreateButton = () => {
         }}
         icon={<Plus width={'2rem'} height={'2rem'} />}
       />
-
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
-        {overlay}
+        {<ModalOverlay bg='blackAlpha.300' backdropFilter='blur(25px)' />}
 
         <ModalContent>
           <ModalHeader>Modal title</ModalHeader>
