@@ -8,11 +8,12 @@ import {
   useDisclosure,
   ModalOverlay,
   ModalHeader,
-  ModalFooter,
   Button,
   FormControl,
   FormLabel,
   Input,
+  Text,
+  Spacer,
 } from '@chakra-ui/react';
 
 import { Plus } from 'react-feather';
@@ -59,13 +60,21 @@ export const NewCard = () => {
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
         {overlay}
 
-        <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+        <ModalContent minW={700} h={700}>
+          <ModalHeader>New deckcard</ModalHeader>
 
           <ModalCloseButton />
 
           <ModalBody>
-            <Formik initialValues={{ subject: '', topic: '', board: ''}}>
+            <Formik
+              initialValues={{
+                subject: '',
+                topic: '',
+                board: '',
+                flashcardFront: '',
+                flashcardBack: '',
+              }}
+            >
               {() => (
                 <Form>
                   <Stack spacing={4}>
@@ -106,6 +115,32 @@ export const NewCard = () => {
                         )}
                       </Field>
                     </Stack>
+                    <Spacer />
+                    <Text fontWeight={'bold'}>Flashcard 1:</Text>
+                    <Field name='flashcardFront'>
+                      {({ field, form }) => (
+                        <FormControl
+                          isInvalid={form.errors.password && form.touched.password}
+                          isRequired
+                        >
+                          <FormLabel>Flashacard front:</FormLabel>
+
+                          <Input type='text' {...field} />
+                        </FormControl>
+                      )}
+                    </Field>
+                    <Field name='flashcardBack'>
+                      {({ field, form }) => (
+                        <FormControl
+                          isInvalid={form.errors.password && form.touched.password}
+                          isRequired
+                        >
+                          <FormLabel>Flashacard back:</FormLabel>
+
+                          <Input type='text' {...field} />
+                        </FormControl>
+                      )}
+                    </Field>
 
                     <Stack spacing={5}>
                       <Button
@@ -115,9 +150,10 @@ export const NewCard = () => {
                         _hover={{
                           bg: 'purple.700',
                         }}
+                        mb={3}
                         isDisabled={false}
                       >
-                        Log in
+                        Save
                       </Button>
                     </Stack>
                   </Stack>
@@ -125,10 +161,6 @@ export const NewCard = () => {
               )}
             </Formik>
           </ModalBody>
-
-          <ModalFooter>
-            <Button onClick={onClose}>Close</Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </>
