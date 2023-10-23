@@ -27,13 +27,7 @@ const Login = () => {
   const navigate = useNavigate();
   return (
     <>
-      <Button
-        position={'fixed'}
-        m={4}
-        variant={'outline'}
-        onClick={() => navigate('/')}
-        size={'md'}
-      >
+      <Button position={'fixed'} m={4} variant={'outline'} onClick={() => navigate(-1)} size={'md'}>
         Back
       </Button>
       <Flex h={'100vh'} align={'center'} justify={'center'} bg={'gray.50'}>

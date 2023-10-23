@@ -4,6 +4,7 @@ import { MainContent } from './MainContent';
 import { useEffect, useState } from 'react';
 import { supabase } from 'lib/supabaseClient';
 import { useSearchParams } from 'react-router-dom';
+import { CreateButton } from './CreateButton';
 
 const Decks = () => {
   const [decks, setDecks] = useState([]);
@@ -96,6 +97,7 @@ const Decks = () => {
       <Grid templateColumns='repeat(4, 1fr)'>
         <SidePanel {...filters} decks={decks} />
         <MainContent decks={decks} />
+        <CreateButton />
       </Grid>
     </Container>
   );
