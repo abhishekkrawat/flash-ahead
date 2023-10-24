@@ -23,14 +23,19 @@ import { DashCard } from './DashCard';
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
 import { Plus } from 'react-feather';
+import { Link } from 'react-router-dom';
 
 export const Dashboard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [flashcardCount, setFlashcardCount] = useState(1);
 
   const OverlayOne = () => (
     <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px) hue-rotate(90deg)' />
   );
 
+  const addFlashcard = () => {
+    setFlashcardCount(flashcardCount + 1);
+  };
   const [overlay, setOverlay] = useState(<OverlayOne />);
   return (
     <>
@@ -122,31 +127,29 @@ export const Dashboard = () => {
                           </Field>
                         </Stack>
                         <Spacer />
-                        <Text fontWeight={'bold'}>Flashcard 1:</Text>
-                        <Field name='flashcardFront'>
-                          {({ field, form }) => (
-                            <FormControl
-                              isInvalid={form.errors.password && form.touched.password}
-                              isRequired
-                            >
-                              <FormLabel>Flashacard front:</FormLabel>
+                        {Array.from({ length: flashcardCount }, (_, i) => (
+                          <SimpleGrid columns={1} spacing={4} key={i}>
+                            <Text fontWeight={'bold'}>Flashcard {i + 1}:</Text>
+                            <Field name={`flashcards[${i}].front`}>
+                              {({ field }) => (
+                                <FormControl isRequired>
+                                  <FormLabel>Flashcard front:</FormLabel>
+                                  <Input type='text' {...field} />
+                                </FormControl>
+                              )}
+                            </Field>
+                            <Field name={`flashcards[${i}].back`}>
+                              {({ field }) => (
+                                <FormControl isRequired>
+                                  <FormLabel>Flashcard back:</FormLabel>
+                                  <Input type='text' {...field} />
+                                </FormControl>
+                              )}
+                            </Field>
+                          </SimpleGrid>
+                        ))}
 
-                              <Input type='text' {...field} />
-                            </FormControl>
-                          )}
-                        </Field>
-                        <Field name='flashcardBack'>
-                          {({ field, form }) => (
-                            <FormControl
-                              isInvalid={form.errors.password && form.touched.password}
-                              isRequired
-                            >
-                              <FormLabel>Flashacard back:</FormLabel>
-
-                              <Input type='text' {...field} />
-                            </FormControl>
-                          )}
-                        </Field>
+                        <Link onClick={addFlashcard}>Add new</Link>
 
                         <Stack spacing={5}>
                           <Button
