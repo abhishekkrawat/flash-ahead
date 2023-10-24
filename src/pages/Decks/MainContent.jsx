@@ -11,6 +11,7 @@ import {
   Text,
   Spacer,
   useToast,
+  Select,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -31,8 +32,13 @@ export const MainContent = ({ decks }) => {
 
   return (
     <GridItem colSpan={3}>
-      <Flex flexDirection={'row'} justify={'space-between'}>
-        <Box display={'flex'} alignItems={'center'}>
+      <Flex flexDirection={['column', 'row']} justify={'space-between'}>
+        <Box
+          display={'flex'}
+          alignItems={['center', 'flex-start']}
+          textAlign={['center', 'left']}
+          mb={[4, 0]}
+        >
           <Text fontSize={'large'} fontWeight={'semibold'}>
             {decks.length !== 0
               ? `Showing ${indexOfFirstDeck + 1} -
@@ -42,13 +48,18 @@ export const MainContent = ({ decks }) => {
           </Text>
         </Box>
         <Spacer />
-        <Box display={'flex'} flexDirection={'row'} justify={'space-between'} gap={10}>
+        <Box
+          display={'flex'}
+          flexDirection={['column', 'row']}
+          justify={'space-between'}
+          gap={[4, 10]}
+        >
           <Paginate
             numberOfPages={numberOfPages}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           />
-          <Menu>
+          {/* <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDown />}>
               Sort by
             </MenuButton>
@@ -56,10 +67,16 @@ export const MainContent = ({ decks }) => {
               <MenuItem>Recommended</MenuItem>
               <MenuItem>Latest</MenuItem>
             </MenuList>
-          </Menu>
+          </Menu> */}
+          <Select // Use Select for responsive sorting options
+            placeholder='Sort by'
+          >
+            <option value='recommended'>Recommended</option>
+            <option value='latest'>Latest</option>
+          </Select>
         </Box>
       </Flex>
-      <SimpleGrid spacing={10} mt={8} templateColumns='repeat(auto-fill, minmax(300px, 1fr))'>
+      <SimpleGrid spacing={10} mt={8} columns={[1, 2, 3]}>
         {currentDecks.map((deck) => (
           <Card
             key={deck.topic_id}

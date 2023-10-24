@@ -9,6 +9,7 @@ import {
   InputLeftElement,
   Icon,
   Input,
+  Flex,
 } from '@chakra-ui/react';
 import { Search } from 'react-feather';
 import { DelimitedArrayParam, useQueryParams, withDefault } from 'use-query-params';
@@ -20,9 +21,9 @@ export const SidePanel = ({ qualifications, boards, subjects }) => {
 
   return (
     <>
-      <GridItem rowSpan={2} colSpan={1}>
+      <GridItem rowSpan={2}>
         <VStack alignItems='flex-start' position={'fixed'} justify={'space-between'}>
-          <Box display={'flex'} flexDirection={'column'}>
+          <Flex flexDirection={'column'}>
             <Text fontSize={'xl'} fontWeight={'bold'} mb={2}>
               Search
             </Text>
@@ -32,7 +33,7 @@ export const SidePanel = ({ qualifications, boards, subjects }) => {
               </InputLeftElement>
               <Input type='text' variant={'filled'} placeholder='e.g Numbers' />
             </InputGroup>
-          </Box>
+          </Flex>
           <Divider />
           <Box display={'flex'} flexDirection={'column'}>
             <Text fontSize='large' mb={5} fontWeight='bold'>
