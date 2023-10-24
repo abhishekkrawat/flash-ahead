@@ -68,7 +68,7 @@ export const Dashboard = () => {
             }}
             icon={<Plus width={'2rem'} height={'2rem'} />}
           />
-          <Modal isCentered isOpen={isOpen} onClose={onClose}>
+          <Modal isCentered isOpen={isOpen} onClose={onClose} scrollBehavior={'inside'}>
             {overlay}
 
             <ModalContent minW={700} h={700}>
@@ -88,7 +88,7 @@ export const Dashboard = () => {
                 >
                   {() => (
                     <Form>
-                      <Stack spacing={4}>
+                      <Stack>
                         <Stack spacing={4} direction={'row'}>
                           <Field name='subject'>
                             {({ field }) => (
@@ -130,22 +130,24 @@ export const Dashboard = () => {
                         {Array.from({ length: flashcardCount }, (_, i) => (
                           <SimpleGrid columns={1} spacing={4} key={i}>
                             <Text fontWeight={'bold'}>Flashcard {i + 1}:</Text>
-                            <Field name={`flashcards[${i}].front`}>
-                              {({ field }) => (
-                                <FormControl isRequired>
-                                  <FormLabel>Flashcard front:</FormLabel>
-                                  <Input type='text' {...field} />
-                                </FormControl>
-                              )}
-                            </Field>
-                            <Field name={`flashcards[${i}].back`}>
-                              {({ field }) => (
-                                <FormControl isRequired>
-                                  <FormLabel>Flashcard back:</FormLabel>
-                                  <Input type='text' {...field} />
-                                </FormControl>
-                              )}
-                            </Field>
+                            <Stack spacing={4} direction={'row'}>
+                              <Field name={`flashcards[${i}].front`}>
+                                {({ field }) => (
+                                  <FormControl isRequired>
+                                    <FormLabel>Flashcard front:</FormLabel>
+                                    <Input type='text' {...field} />
+                                  </FormControl>
+                                )}
+                              </Field>
+                              <Field name={`flashcards[${i}].back`}>
+                                {({ field }) => (
+                                  <FormControl isRequired>
+                                    <FormLabel>Flashcard back:</FormLabel>
+                                    <Input type='text' {...field} />
+                                  </FormControl>
+                                )}
+                              </Field>
+                            </Stack>
                           </SimpleGrid>
                         ))}
 
