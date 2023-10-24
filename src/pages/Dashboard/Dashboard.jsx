@@ -5,7 +5,6 @@ import {
   FormControl,
   FormLabel,
   Heading,
-  IconButton,
   Input,
   Modal,
   ModalBody,
@@ -29,9 +28,7 @@ export const Dashboard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [flashcardCount, setFlashcardCount] = useState(1);
 
-  const OverlayOne = () => (
-    <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px) hue-rotate(90deg)' />
-  );
+  const OverlayOne = () => <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px)' />;
 
   const addFlashcard = () => {
     setFlashcardCount(flashcardCount + 1);
@@ -43,31 +40,19 @@ export const Dashboard = () => {
         <Flex alignItems={'center'} justifyContent={'center'}>
           <Heading>Dashboard</Heading>
           <Spacer />
-          <IconButton
-            aria-label='Create Deck'
-            pos={'fixed'}
-            right={0}
-            bottom={0}
-            margin={8}
-            variant={'solid'}
-            bg={'purple.300'}
-            color={'white'}
-            rounded={'full'}
-            width={14}
-            height={14}
-            boxShadow={'xl'}
+          <Button
+            leftIcon={<Plus />}
+            size={'sm'}
+            variant={'outline'}
+            colorScheme={'purple'}
             onClick={() => {
               setOverlay(<OverlayOne />);
 
               onOpen();
             }}
-            _hover={{
-              bg: 'purple.500',
-
-              transform: 'scale(1.05)',
-            }}
-            icon={<Plus width={'2rem'} height={'2rem'} />}
-          />
+          >
+            Add new
+          </Button>
           <Modal isCentered isOpen={isOpen} onClose={onClose} scrollBehavior={'inside'}>
             {overlay}
 
