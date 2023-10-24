@@ -15,6 +15,7 @@ export const Card = ({ content, isFlipped, handleFlip }) => {
       perspective='1000px'
       transition='transform 0.6s ease'
       transform={isFlipped ? 'rotateY(180deg) ScaleX(-1)' : 'rotateY(0)'}
+      px={10}
     >
       <Box flex={1} display={'flex'} justifyContent={'center'} alignItems={'center'}>
         <Text align={'center'}>{isFlipped ? content.back : content.front}</Text>
