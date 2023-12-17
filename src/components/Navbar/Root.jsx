@@ -7,11 +7,9 @@ import {
   Collapse,
   useColorModeValue,
   useDisclosure,
-  LinkBox,
   Image,
   LinkOverlay,
-  Text,
-  useBreakpointValue,
+  LinkBox,
 } from '@chakra-ui/react';
 import MobileNav from './MobileNav';
 import { Menu, X } from 'react-feather';
@@ -48,16 +46,11 @@ export const Root = () => {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-          <LinkOverlay href={'/'}>
-            <Image blockSize={'20'} src={FlashAheadLogo} />
-            {/* <Text
-              textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-              fontFamily={'heading'}
-              color={useColorModeValue('gray.800', 'white')}
-            >
-              FlashAhead
-            </Text> */}
-          </LinkOverlay>
+          <LinkBox>
+            <LinkOverlay href={'/'}>
+              <Image blockSize={'20'} src={FlashAheadLogo} />
+            </LinkOverlay>
+          </LinkBox>
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
