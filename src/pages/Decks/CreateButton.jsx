@@ -9,7 +9,9 @@ import {
   ModalHeader,
   ModalFooter,
   Button,
-  Text,
+  FormControl,
+  FormLabel,
+  Input,
 } from '@chakra-ui/react';
 
 import { Plus } from 'react-feather';
@@ -33,7 +35,6 @@ export const CreateButton = () => {
         height={14}
         boxShadow={'xl'}
         onClick={() => {
-
           onOpen();
         }}
         _hover={{
@@ -47,10 +48,17 @@ export const CreateButton = () => {
         {<ModalOverlay bg='blackAlpha.300' backdropFilter='blur(25px)' />}
 
         <ModalContent>
-          <ModalHeader>Modal title</ModalHeader>
+          <ModalHeader>Create a new deckcard</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text>Deckcard</Text>
+            <FormControl display={'flex'} flexDirection={'row'} alignItems={'center'}>
+              <FormLabel>Subject:</FormLabel>
+              <Input placeholder='eg. Mathematics' />
+              <FormLabel>Topic:</FormLabel>
+              <Input placeholder='eg. Algebra' />
+              {/* <FormLabel>Board name</FormLabel>
+              <Input placeholder='eg. Algebra' /> */}
+            </FormControl>
           </ModalBody>
 
           <ModalFooter>
