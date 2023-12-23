@@ -16,11 +16,13 @@ import {
   InputRightElement,
   useColorModeValue,
   Text,
+  useToast,
 } from '@chakra-ui/react';
 import { Eye, EyeOff } from 'react-feather';
 import { supabase } from '../supabaseClient';
 import * as Yup from 'yup';
 import { Field, Form, Formik } from 'formik';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   return (
@@ -51,6 +53,19 @@ const Login = () => {
 
 const LoginForm = () => {
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+  const toast = useToast();
+
+  const showToast = (toast, options) => {
+    return toast({
+      title: options.title,
+      description: options.description,
+      status: options.status,
+      duration: options.duration || 3000,
+      isClosable: options.isClosable || true,
+      position: options.position || 'top',
+    });
+  };
 
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email address').required('Required'),
@@ -58,13 +73,23 @@ const LoginForm = () => {
   });
 
   const handleLogin = async (values) => {
-    try {
-      await supabase.auth.signInWithPassword({
-        email: values.email,
-        password: values.password,
+    const { error } = await supabase.auth.signInWithPassword({
+      email: values.email,
+      password: values.password,
+    });
+    if (error) {
+      showToast(toast, {
+        title: 'Login failed!',
+        description: 'Incorrect username or password',
+        status: 'error',
       });
-    } catch (error) {
-      console.log(error);
+    } else {
+      navigate('/decks');
+      showToast(toast, {
+        title: 'Login successful!',
+        description: "Welcome to FlashAhead",
+        status: 'success',
+      });
     }
   };
 
