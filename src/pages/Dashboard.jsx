@@ -1,14 +1,14 @@
 import { IconButton } from '@chakra-ui/button';
 import Navbar from '../components/NavigationBar/Navbar';
 import { Plus } from 'react-feather';
-import { Text, Flex, Box, GridItem } from '@chakra-ui/react';
+import { Text, Flex, Box } from '@chakra-ui/react';
 
 export const Dashboard = () => {
   return (
     <>
       <Navbar />
-      <Flex direction={'column'} marginLeft={'10'} marginTop={'20'} p={2} gap={'20'}>
-        <Box gap={2}>
+      <Flex direction={'column'} marginLeft={'10'} marginTop={'14'} p={2} gap={10}>
+        <Box>
           <Text fontSize={'2xl'} fontFamily={'cursive'}>
             Hi, Abhishek Rawat
           </Text>
@@ -18,7 +18,14 @@ export const Dashboard = () => {
         </Box>
         <Box>
           <Text fontSize={'2xl'}>Recently added</Text>
-          <GridItem rowSpan={2} colSpan={1}></GridItem>
+          <Flex direction={'row'} justifyContent={'space-between'}>
+            <Box boxSize={'xs'} bg={'gray'}></Box>
+            <Box boxSize={'xs'} bg={'gray'}></Box>
+            <Box boxSize={'xs'} bg={'gray'}></Box>
+            <Box boxSize={'xs'} bg={'gray'}></Box>
+            <Box boxSize={'xs'} bg={'gray'}></Box>
+            <Box boxSize={'xs'} bg={'gray'}></Box>
+          </Flex>
         </Box>
       </Flex>
     </>
