@@ -9,14 +9,20 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Menu,
 } from '@chakra-ui/react';
 import MobileNav from './MobileNav';
-import { Menu, X } from 'react-feather';
+import { X } from 'react-feather';
 import DesktopNav from './DesktopNav';
 import { useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { isOpen, onToggle } = useDisclosure();
   const [name, setName] = useState(null);
 
@@ -30,15 +36,25 @@ const Navbar = () => {
     }
   };
 
+  const userLogOut = async () => {
+    await supabase.auth.signOut();
+    navigate('/');
+  };
+
   useEffect(() => {
     getUserFirstName();
   }, []);
 
   const NavAuth = () =>
     name ? (
-      <Box fontSize={'md'} fontWeight={500}>
-        Hi, {name}
-      </Box>
+      <Flex fontSize={'md'} fontWeight={500}>
+        <Menu>
+          <MenuButton>Hi, {name}</MenuButton>
+          <MenuList>
+            <MenuItem onClick={userLogOut}>Log out</MenuItem>
+          </MenuList>
+        </Menu>
+      </Flex>
     ) : (
       <Stack flex={{ base: 1, md: 0 }} justify={'flex-end'} direction={'row'} spacing={6}>
         <Button as={'a'} fontSize={'md'} fontWeight={500} variant={'link'} href={'/login'}>
