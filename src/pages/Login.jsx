@@ -78,19 +78,19 @@ const LoginForm = () => {
       password: values.password,
     });
     if (error) {
-      showToast(toast, {
+      return showToast(toast, {
         title: 'Login failed!',
         description: 'Incorrect username or password',
         status: 'error',
       });
-    } else {
-      navigate('/decks');
-      showToast(toast, {
-        title: 'Login successful!',
-        description: "Welcome to FlashAhead",
-        status: 'success',
-      });
     }
+
+    navigate('/decks');
+    return showToast(toast, {
+      title: 'Login successful!',
+      description: 'Welcome to FlashAhead',
+      status: 'success',
+    });
   };
 
   return (
