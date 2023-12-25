@@ -48,7 +48,7 @@ export const Root = () => {
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
           <LinkBox>
             <LinkOverlay href={'/'}>
-              <Image blockSize={'20'} src={FlashAheadLogo} />
+              <Image blockSize={'12'} src={FlashAheadLogo} />
             </LinkOverlay>
           </LinkBox>
 
