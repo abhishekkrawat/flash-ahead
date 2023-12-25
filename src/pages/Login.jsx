@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Flex,
   Box,
@@ -55,6 +55,17 @@ const LoginForm = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
+  const [userStatus, setUserStatus] = useState(false);
+
+  const getUser = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (user) {
+      setUserStatus(true);
+    }
+  };
 
   const showToast = (toast, options) => {
     return toast({
@@ -87,77 +98,85 @@ const LoginForm = () => {
       navigate('/decks');
       showToast(toast, {
         title: 'Login successful!',
-        description: "Welcome to FlashAhead",
+        description: 'Welcome to FlashAhead',
         status: 'success',
       });
     }
   };
 
-  return (
-    <Formik
-      initialValues={{ email: '', password: '' }}
-      validationSchema={validationSchema}
-      onSubmit={handleLogin}
-    >
-      {(props) => (
-        <Form>
-          <Stack spacing={4}>
-            <Field name='email'>
-              {({ field, form }) => (
-                <FormControl isInvalid={form.errors.email && form.touched.email} isRequired>
-                  <FormLabel>Email address</FormLabel>
-                  <Input type='email' {...field} />
-                  <FormErrorMessage>{form.errors.email}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
-            <Field name='password'>
-              {({ field, form }) => (
-                <FormControl isInvalid={form.errors.password && form.touched.password} isRequired>
-                  <FormLabel>Password</FormLabel>
-                  <InputGroup size='md'>
-                    <Input
-                      pr='4.5rem'
-                      type={show ? 'text' : 'password'}
-                      {...field}
-                      autoComplete='off'
-                    />
-                    <InputRightElement h={'full'}>
-                      <Button variant={'ghost'} onClick={() => setShow(!show)}>
-                        {show ? <Icon as={EyeOff} /> : <Icon as={Eye} />}
-                      </Button>
-                    </InputRightElement>
-                  </InputGroup>
-                  <FormErrorMessage>{form.errors.password}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
-            <Stack spacing={5}>
-              <Stack
-                direction={{ base: 'column', sm: 'row' }}
-                align={'start'}
-                justify={'space-between'}
-              >
-                <Checkbox>Remember me</Checkbox>
-                <Link color={'purple'}>Forgot password?</Link>
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  if (userStatus) {
+    navigate('/decks');
+  } else {
+    return (
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        validationSchema={validationSchema}
+        onSubmit={handleLogin}
+      >
+        {(props) => (
+          <Form>
+            <Stack spacing={4}>
+              <Field name='email'>
+                {({ field, form }) => (
+                  <FormControl isInvalid={form.errors.email && form.touched.email} isRequired>
+                    <FormLabel>Email address</FormLabel>
+                    <Input type='email' {...field} />
+                    <FormErrorMessage>{form.errors.email}</FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
+              <Field name='password'>
+                {({ field, form }) => (
+                  <FormControl isInvalid={form.errors.password && form.touched.password} isRequired>
+                    <FormLabel>Password</FormLabel>
+                    <InputGroup size='md'>
+                      <Input
+                        pr='4.5rem'
+                        type={show ? 'text' : 'password'}
+                        {...field}
+                        autoComplete='off'
+                      />
+                      <InputRightElement h={'full'}>
+                        <Button variant={'ghost'} onClick={() => setShow(!show)}>
+                          {show ? <Icon as={EyeOff} /> : <Icon as={Eye} />}
+                        </Button>
+                      </InputRightElement>
+                    </InputGroup>
+                    <FormErrorMessage>{form.errors.password}</FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
+              <Stack spacing={5}>
+                <Stack
+                  direction={{ base: 'column', sm: 'row' }}
+                  align={'start'}
+                  justify={'space-between'}
+                >
+                  <Checkbox>Remember me</Checkbox>
+                  <Link color={'purple'}>Forgot password?</Link>
+                </Stack>
+                <Button
+                  type='submit'
+                  bg={'purple.400'}
+                  color={'white'}
+                  _hover={{
+                    bg: 'purple.700',
+                  }}
+                  isDisabled={!(props.isValid && props.dirty)}
+                >
+                  Log in
+                </Button>
               </Stack>
-              <Button
-                type='submit'
-                bg={'purple.400'}
-                color={'white'}
-                _hover={{
-                  bg: 'purple.700',
-                }}
-                isDisabled={!(props.isValid && props.dirty)}
-              >
-                Log in
-              </Button>
             </Stack>
-          </Stack>
-        </Form>
-      )}
-    </Formik>
-  );
+          </Form>
+        )}
+      </Formik>
+    );
+  }
 };
 
 export default Login;
