@@ -5,6 +5,7 @@ import { Slides } from './Slides';
 import { Card } from './Card';
 import { useParams } from 'react-router';
 import { ChevronLeft, ChevronRight, Edit } from 'react-feather';
+import { EditFlashcard } from './EditFlashcard';
 
 export const Flashcard = () => {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -71,7 +72,7 @@ export const Flashcard = () => {
               handleFlip={() => setIsFlipped((prev) => !prev)}
             />
             <Tooltip label='Edit'>
-              <IconButton p={2}>
+              <IconButton p={2} onClick={<EditFlashcard />}>
                 <Edit size={30} />
               </IconButton>
             </Tooltip>
