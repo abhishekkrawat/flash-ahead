@@ -1,10 +1,10 @@
-import { Box, Flex, IconButton, Text } from '@chakra-ui/react';
+import { Box, Flex, IconButton, Text, Tooltip } from '@chakra-ui/react';
 import { supabase } from 'lib/supabaseClient';
 import { useState, useEffect } from 'react';
 import { Slides } from './Slides';
 import { Card } from './Card';
 import { useParams } from 'react-router';
-import { ChevronLeft, ChevronRight } from 'react-feather';
+import { ChevronLeft, ChevronRight, Edit } from 'react-feather';
 
 export const Flashcard = () => {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -59,16 +59,23 @@ export const Flashcard = () => {
           gap={12}
           flexDirection={'column'}
         >
-          <Card
-            content={
-              flashcards.length && {
-                back: flashcards[selected].flashcard_back,
-                front: flashcards[selected].flashcard_front,
+          <Flex gap={1}>
+            <Card
+              content={
+                flashcards.length && {
+                  back: flashcards[selected].flashcard_back,
+                  front: flashcards[selected].flashcard_front,
+                }
               }
-            }
-            isFlipped={isFlipped}
-            handleFlip={() => setIsFlipped((prev) => !prev)}
-          />
+              isFlipped={isFlipped}
+              handleFlip={() => setIsFlipped((prev) => !prev)}
+            />
+            <Tooltip label='Edit'>
+              <IconButton p={2}>
+                <Edit size={30} />
+              </IconButton>
+            </Tooltip>
+          </Flex>
           <Box gap={10} display={'flex'} flexDirection={'row'}>
             <IconButton
               _hover={{ bg: 'none' }}
