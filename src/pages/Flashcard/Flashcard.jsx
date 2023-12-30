@@ -1,17 +1,35 @@
-import { Box, Flex, IconButton, Text, Tooltip } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  IconButton,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  Tooltip,
+  useDisclosure,
+} from '@chakra-ui/react';
 import { supabase } from 'lib/supabaseClient';
 import { useState, useEffect } from 'react';
 import { Slides } from './Slides';
 import { Card } from './Card';
 import { useParams } from 'react-router';
 import { ChevronLeft, ChevronRight, Edit } from 'react-feather';
-import { EditFlashcard } from './EditFlashcard';
 
 export const Flashcard = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [flashcards, setFlashcards] = useState([]);
   const [selected, setSelected] = useState(0);
   const { deckId } = useParams();
+  const { onOpen, onClose, isOpen } = useDisclosure();
 
   const handleNext = () => {
     if (0 <= selected < flashcards.length - 1) {
@@ -72,10 +90,37 @@ export const Flashcard = () => {
               handleFlip={() => setIsFlipped((prev) => !prev)}
             />
             <Tooltip label='Edit'>
-              <IconButton p={2} onClick={<EditFlashcard />}>
+              <IconButton
+                p={2}
+                onClick={() => {
+                  onOpen();
+                }}
+              >
                 <Edit size={30} />
               </IconButton>
             </Tooltip>
+            <Modal isCentered isOpen={isOpen} onClose={onClose}>
+              {<ModalOverlay bg='blackAlpha.300' backdropFilter='blur(25px)' />}
+
+              <ModalContent>
+                <ModalHeader>Edit this Flashcard</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  <FormControl>
+                    <FormLabel>Flashcard Front:</FormLabel>
+                    <Input />
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel>Flashcard Back:</FormLabel>
+                    <Input />
+                  </FormControl>
+                </ModalBody>
+
+                <ModalFooter>
+                  <Button onClick={onClose}>Close</Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
           </Flex>
           <Box gap={10} display={'flex'} flexDirection={'row'}>
             <IconButton
