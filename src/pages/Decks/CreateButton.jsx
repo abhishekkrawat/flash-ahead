@@ -61,18 +61,19 @@ export const CreateButton = () => {
                 <Input placeholder='eg. Algebra' />
               </FormControl>
             </Flex>
-            <FormControl>
+            <FormControl mt={3}>
               <FormLabel>Qualification:</FormLabel>
               <Input placeholder='eg. GCSE' />
             </FormControl>
-            <FormControl>
+            <FormControl mt={3}>
               <FormLabel>Board:</FormLabel>
               <Input placeholder='eg. AQA' />
             </FormControl>
           </ModalBody>
 
-          <ModalFooter>
+          <ModalFooter gap={3} >
             <Button onClick={onClose}>Close</Button>
+            <Button>Submit</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
