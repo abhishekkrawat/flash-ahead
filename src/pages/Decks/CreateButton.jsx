@@ -12,8 +12,8 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Flex,
 } from '@chakra-ui/react';
-
 import { Plus } from 'react-feather';
 
 export const CreateButton = () => {
@@ -51,13 +51,23 @@ export const CreateButton = () => {
           <ModalHeader>Create a new deckcard</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <FormControl display={'flex'} flexDirection={'row'} alignItems={'center'}>
-              <FormLabel>Subject:</FormLabel>
-              <Input placeholder='eg. Mathematics' />
-              <FormLabel>Topic:</FormLabel>
-              <Input placeholder='eg. Algebra' />
-              {/* <FormLabel>Board name</FormLabel>
-              <Input placeholder='eg. Algebra' /> */}
+            <Flex flexDirection={'row'} gap={5}>
+              <FormControl>
+                <FormLabel>Subject:</FormLabel>
+                <Input placeholder='eg. Mathematics' />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Topic:</FormLabel>
+                <Input placeholder='eg. Algebra' />
+              </FormControl>
+            </Flex>
+            <FormControl>
+              <FormLabel>Qualification:</FormLabel>
+              <Input placeholder='eg. GCSE' />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Board:</FormLabel>
+              <Input placeholder='eg. AQA' />
             </FormControl>
           </ModalBody>
 
