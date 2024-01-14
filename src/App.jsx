@@ -7,6 +7,7 @@ import { QueryParamProvider } from 'use-query-params';
 import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6';
 import Decks from './pages/Decks/Decks';
 import { Flashcard } from './pages/Flashcard/Flashcard';
+import { Page } from './pages/Flashcard/Page';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
             <Route path='/register' element={<Register />} />
             <Route path='/decks' element={<Decks />} />
             <Route path='/flashcard/:deckId' element={<Flashcard />} />
+            <Route path='/document' element={<Page />} />
           </Routes>
         </QueryParamProvider>
       </BrowserRouter>

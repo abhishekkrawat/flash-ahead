@@ -1,4 +1,4 @@
-import { Box, Flex, IconButton, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, IconButton, Text } from '@chakra-ui/react';
 import Navbar from '../../components/NavigationBar/Navbar';
 import { supabase } from '../../supabaseClient';
 import { useState, useEffect } from 'react';
@@ -6,12 +6,12 @@ import { Slides } from './Slides';
 import { Card } from './Card';
 import { useParams } from 'react-router';
 import { ChevronLeft, ChevronRight } from 'react-feather';
+import { Page } from './Page';
 // import html2canvas from 'html2canvas';
 // import jsPDF from 'jspdf';
 
 export const Flashcard = () => {
   const [isFlipped, setIsFlipped] = useState(false);
-  // const [loader, setLoader] = useState(false);
   const [flashcards, setFlashcards] = useState([]);
   const [selected, setSelected] = useState(0);
   const { deckId } = useParams();
@@ -105,7 +105,9 @@ export const Flashcard = () => {
             >
               <ChevronRight />
             </IconButton>
+            <Button onClick={Page}>download</Button>
           </Box>
+
           {/* <Button onClick={downloadPDF} disabled={!loader === false}>
             {loader ? <span>Downloading</span> : <span>Download</span>}
           </Button> */}
