@@ -1,4 +1,16 @@
-import { VStack, Text, Box, Checkbox, Divider, GridItem } from '@chakra-ui/react';
+import {
+  VStack,
+  Text,
+  Box,
+  Checkbox,
+  Divider,
+  GridItem,
+  InputGroup,
+  InputLeftElement,
+  Icon,
+  Input,
+} from '@chakra-ui/react';
+import { Search } from 'react-feather';
 import { DelimitedArrayParam, useQueryParams, withDefault } from 'use-query-params';
 
 const FilterParam = withDefault(DelimitedArrayParam, []);
@@ -9,9 +21,21 @@ export const SidePanel = ({ qualifications, boards, subjects }) => {
   return (
     <>
       <GridItem rowSpan={2} colSpan={1}>
-        <VStack p={5} spacing={8} align='stretch' position={'fixed'}>
-          <Box h='100px' display={'flex'} flexDirection={'column'}>
-            <Text fontSize='xl' mb={5} fontWeight='bold'>
+        <VStack alignItems='flex-start' position={'fixed'} justify={'space-between'}>
+          <Box display={'flex'} flexDirection={'column'}>
+            <Text fontSize={'xl'} fontWeight={'bold'} mb={2}>
+              Search
+            </Text>
+            <InputGroup>
+              <InputLeftElement pointerEvents={'none'}>
+                <Icon color={'purple.400'} w={5} h={5} as={Search}></Icon>
+              </InputLeftElement>
+              <Input type='text' variant={'filled'} placeholder='e.g Numbers' />
+            </InputGroup>
+          </Box>
+          <Divider />
+          <Box display={'flex'} flexDirection={'column'}>
+            <Text fontSize='large' mb={5} fontWeight='bold'>
               Qualification
             </Text>
             {qualifications.map((qual) => (

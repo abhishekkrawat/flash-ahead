@@ -1,34 +1,16 @@
-import { Box, Button, Flex, IconButton, Text } from '@chakra-ui/react';
-import Navbar from '../../components/NavigationBar/Navbar';
-import { supabase } from '../../supabaseClient';
+import { Box, Flex, IconButton, Text } from '@chakra-ui/react';
+import { supabase } from 'lib/supabaseClient';
 import { useState, useEffect } from 'react';
 import { Slides } from './Slides';
 import { Card } from './Card';
 import { useParams } from 'react-router';
 import { ChevronLeft, ChevronRight } from 'react-feather';
-import { Page } from './Page';
-// import html2canvas from 'html2canvas';
-// import jsPDF from 'jspdf';
 
 export const Flashcard = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [flashcards, setFlashcards] = useState([]);
   const [selected, setSelected] = useState(0);
   const { deckId } = useParams();
-
-  // const downloadPDF = () => {
-  //   const capture = document.querySelector('.css-txdpd1');
-  //   setLoader(true);
-  //   html2canvas(capture).then((canvas) => {
-  //     const imgData = canvas.toDataURL('img/png');
-  //     const doc = new jsPDF('l', 'mm', 'a8');
-  //     const componentWidth = doc.internal.pageSize.getWidth();
-  //     const componentHeight = doc.internal.pageSize.getHeight();
-  //     doc.addImage(imgData, 'PNG', 0, 0, componentWidth, componentHeight);
-  //     setLoader(false);
-  //     doc.save(`flashcard`);
-  //   });
-  // };
 
   const handleNext = () => {
     if (0 <= selected < flashcards.length - 1) {
@@ -60,7 +42,6 @@ export const Flashcard = () => {
 
   return (
     <>
-      <Navbar />
       <Flex pos={'fixed'} w={'100%'} bg={'gray.100'}>
         <Slides
           onSelected={(index) => {
@@ -105,12 +86,7 @@ export const Flashcard = () => {
             >
               <ChevronRight />
             </IconButton>
-            <Button onClick={Page}>download</Button>
           </Box>
-
-          {/* <Button onClick={downloadPDF} disabled={!loader === false}>
-            {loader ? <span>Downloading</span> : <span>Download</span>}
-          </Button> */}
         </Box>
       </Flex>
     </>

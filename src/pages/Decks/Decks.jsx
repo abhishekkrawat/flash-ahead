@@ -1,9 +1,8 @@
-import Navbar from '../../components/NavigationBar/Navbar';
 import { Container, Grid } from '@chakra-ui/react';
 import { SidePanel } from './SidePanel';
 import { MainContent } from './MainContent';
 import { useEffect, useState } from 'react';
-import { supabase } from '../../supabaseClient';
+import { supabase } from 'lib/supabaseClient';
 import { useSearchParams } from 'react-router-dom';
 
 const Decks = () => {
@@ -80,6 +79,7 @@ const Decks = () => {
       boards: data,
     }));
   };
+
   useEffect(() => {
     setSearchParams();
     getBoards();
@@ -92,15 +92,12 @@ const Decks = () => {
   }, [searchParams]);
 
   return (
-    <>
-      <Navbar />
-      <Container as='section' maxW='8xl' py='50px'>
-        <Grid templateColumns='repeat(4, 1fr)'>
-          <SidePanel {...filters} />
-          <MainContent decks={decks} />
-        </Grid>
-      </Container>
-    </>
+    <Container as='section' maxW='8xl' py={24}>
+      <Grid templateColumns='repeat(4, 1fr)'>
+        <SidePanel {...filters} decks={decks} />
+        <MainContent decks={decks} />
+      </Grid>
+    </Container>
   );
 };
 
