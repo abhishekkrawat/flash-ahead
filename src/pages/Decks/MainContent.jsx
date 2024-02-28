@@ -66,6 +66,7 @@ export const MainContent = ({ decks }) => {
             name={deck.topic_name}
             date={deck.created_at}
             subjectId={deck.subject_id}
+            deckId={deck.topic_id}
             handleNavigation={() => {
               if (deck.flashcard_count) {
                 navigate(`/flashcard/${deck.topic_id}`);
