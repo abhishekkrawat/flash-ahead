@@ -85,6 +85,7 @@ export const Card = ({ name, date, subjectId, deckId, handleNavigation }) => {
           justifyContent='center'
           alignItems='center'
           px={2}
+          data-testid='subject-name-label'
         >
           {subjectData?.subjectName}
         </Badge>
