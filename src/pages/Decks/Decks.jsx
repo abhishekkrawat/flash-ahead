@@ -1,15 +1,15 @@
-import Navbar from '../../components/NavigationBar/Navbar';
 import { Container, Grid } from '@chakra-ui/react';
 import { SidePanel } from './SidePanel';
 import { MainContent } from './MainContent';
 import { useEffect, useState } from 'react';
-import { supabase } from '../../supabaseClient';
+import { supabase } from 'lib/supabaseClient';
 import { useSearchParams } from 'react-router-dom';
 
 const Decks = () => {
   const [decks, setDecks] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFilters] = useState({ qualifications: [], boards: [], subjects: [] });
+  const [searchQuery, setSearchQuery] = useState('');
 
   const filterDecks = (decks) => {
     return decks.filter((deck) => {
@@ -37,7 +37,7 @@ const Decks = () => {
   };
 
   const getDecks = async () => {
-    const { data, error } = await supabase.rpc('get_decks');
+    const { data, error } = await supabase.rpc('get_topics');
 
     if (error) {
       throw new Error(error);
@@ -80,6 +80,7 @@ const Decks = () => {
       boards: data,
     }));
   };
+
   useEffect(() => {
     setSearchParams();
     getBoards();
@@ -91,16 +92,27 @@ const Decks = () => {
     getDecks();
   }, [searchParams]);
 
+  const handleSearchQueryChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const searchedDecks = decks.filter((deck) => {
+    return (
+      deck.topic_name.toLowerCase().includes(searchQuery.trim().toLowerCase()) ||
+      filters.subjects
+        .find((s) => s.subject_id === deck.subject_id)
+        .subject_name.toLowerCase()
+        .includes(searchQuery.trim().toLowerCase())
+    );
+  });
+
   return (
-    <>
-      <Navbar />
-      <Container as='section' maxW='8xl' py='50px'>
-        <Grid templateColumns='repeat(4, 1fr)'>
-          <SidePanel {...filters} />
-          <MainContent decks={decks} />
-        </Grid>
-      </Container>
-    </>
+    <Container as='section' maxW='8xl' py={24}>
+      <Grid templateColumns='repeat(4, 1fr)'>
+        <SidePanel {...filters} decks={decks} handleSearchQueryChange={handleSearchQueryChange} />
+        <MainContent decks={searchedDecks} />
+      </Grid>
+    </Container>
   );
 };
 

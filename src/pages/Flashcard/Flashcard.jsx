@@ -1,11 +1,11 @@
-import { Box, Flex, IconButton, Text } from '@chakra-ui/react';
-import Navbar from '../../components/NavigationBar/Navbar';
-import { supabase } from '../../supabaseClient';
+import { Box, Button, Flex, IconButton, Text } from '@chakra-ui/react';
+import { supabase } from 'lib/supabaseClient';
 import { useState, useEffect } from 'react';
 import { Slides } from './Slides';
 import { Card } from './Card';
 import { useParams } from 'react-router';
 import { ChevronLeft, ChevronRight } from 'react-feather';
+import jsPDF from 'jspdf';
 
 export const Flashcard = () => {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -17,6 +17,30 @@ export const Flashcard = () => {
     if (0 <= selected < flashcards.length - 1) {
       setSelected((prev) => prev + 1);
       setIsFlipped(false);
+    }
+  };
+
+  const generatePDF = () => {
+    const pdf = new jsPDF();
+    const x = 25;
+    const y = 70;
+    const width = 150;
+    const height = 75;
+
+    if (flashcards.length > 1) {
+      for (let i = 0; i < flashcards.length; i++) {
+        pdf.rect(x, y, width, height);
+        pdf.setFontSize(15);
+        pdf.text(`Question: ${flashcards[i].flashcard_front}`, x + 1, y + 25);
+        pdf.text(`Answer: ${flashcards[i].flashcard_back}`, x + 1, y + 40);
+        i == flashcards.length - 1 ? pdf.save('DownloadAll.pdf') : pdf.addPage();
+      }
+    } else {
+      pdf.rect(x, y, width, height);
+      pdf.setFontSize(15);
+      pdf.text(`Question: ${flashcards[selected].flashcard_front}`, x + 1, y + 25);
+      pdf.text(`Answer: ${flashcards[selected].flashcard_back}`, x + 1, y + 40);
+      pdf.save('Download.pdf');
     }
   };
 
@@ -43,7 +67,6 @@ export const Flashcard = () => {
 
   return (
     <>
-      <Navbar />
       <Flex pos={'fixed'} w={'100%'} bg={'gray.100'}>
         <Slides
           onSelected={(index) => {
@@ -89,6 +112,7 @@ export const Flashcard = () => {
               <ChevronRight />
             </IconButton>
           </Box>
+          <Button onClick={generatePDF}>Download as PDF</Button>
         </Box>
       </Flex>
     </>
