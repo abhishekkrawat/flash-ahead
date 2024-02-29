@@ -21,31 +21,30 @@ import { Eye, EyeOff } from 'react-feather';
 import { supabase } from 'lib/supabaseClient';
 import * as Yup from 'yup';
 import { Field, Form, Formik } from 'formik';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate();
   return (
-    <Flex
-      h={'100vh'}
-      align={'center'}
-      justify={'center'}
-      bg={useColorModeValue('gray.50', 'gray.800')}
-    >
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-        <Stack align={'center'}>
+    <>
+      <Button position={'fixed'} m={4} variant={'outline'} onClick={() => navigate(-1)} size={'md'}>
+        Back
+      </Button>
+      <Flex h={'100vh'} align={'center'} justify={'center'} bg={'gray.50'}>
+        <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
           <Heading fontSize={'4xl'}>Log in to your account</Heading>
+          <Box rounded={'lg'} bg={useColorModeValue('white', 'gray.700')} boxShadow={'lg'} p={8}>
+            <LoginForm />
+          </Box>
+          <Text textAlign='center'>
+            New to FlashAhead?{' '}
+            <Link color='purple.400' href={'/register'}>
+              Create an account
+            </Link>
+          </Text>
         </Stack>
-        <Box rounded={'lg'} bg={useColorModeValue('white', 'gray.700')} boxShadow={'lg'} p={8}>
-          <LoginForm />
-        </Box>
-        <Text textAlign='center'>
-          New to FlashAhead?
-          <Link color='purple.400' href={'/register'}>
-            {' '}
-            Create an account
-          </Link>
-        </Text>
-      </Stack>
-    </Flex>
+      </Flex>
+    </>
   );
 };
 
