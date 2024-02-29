@@ -21,7 +21,7 @@ export const Flashcard = () => {
   };
 
   const generatePDF = () => {
-    const pdf = new jsPDF()
+    const pdf = new jsPDF();
     const x = 25;
     const y = 70;
     const width = 150;
@@ -42,7 +42,7 @@ export const Flashcard = () => {
       pdf.text(`Answer: ${flashcards[selected].flashcard_back}`, x + 1, y + 40);
     }
 
-    pdf.save('exported-document.pdf');
+    pdf.save('Download.pdf');
   };
 
   const handlePrevious = () => {
