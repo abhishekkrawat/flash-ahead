@@ -7,34 +7,26 @@ import {
   Collapse,
   useColorModeValue,
   useDisclosure,
-<<<<<<< HEAD:src/components/NavigationBar/Navbar.jsx
   MenuButton,
   MenuList,
   MenuItem,
   Menu,
-=======
   Image,
   LinkOverlay,
   LinkBox,
->>>>>>> main:src/components/Navbar/Root.jsx
 } from '@chakra-ui/react';
 import MobileNav from './MobileNav';
 import { X } from 'react-feather';
 import DesktopNav from './DesktopNav';
-<<<<<<< HEAD:src/components/NavigationBar/Navbar.jsx
 import { useEffect, useState } from 'react';
-import { supabase } from '../../supabaseClient';
+import { supabase } from '../../lib/supabaseClient';
 import { useNavigate } from 'react-router-dom';
-
-const Navbar = () => {
-  const navigate = useNavigate();
-=======
 import { FlashAheadLogo } from '../../assets';
 
 export const Root = () => {
->>>>>>> main:src/components/Navbar/Root.jsx
   const { isOpen, onToggle } = useDisclosure();
   const [name, setName] = useState(null);
+  const navigate = useNavigate();
 
   const getUserFirstName = async () => {
     const {
@@ -49,6 +41,7 @@ export const Root = () => {
   const userLogOut = async () => {
     await supabase.auth.signOut();
     navigate('/');
+    location.reload();
   };
 
   useEffect(() => {
@@ -114,22 +107,12 @@ export const Root = () => {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-<<<<<<< HEAD:src/components/NavigationBar/Navbar.jsx
-          <Text
-            textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-            fontFamily={'heading'}
-            color={useColorModeValue('gray.800', 'white')}
-          >
-            FlashAhead
-          </Text>
-=======
           <LinkBox>
             <LinkOverlay href={'/'}>
               <Image blockSize={'8'} src={FlashAheadLogo} />
             </LinkOverlay>
           </LinkBox>
 
->>>>>>> main:src/components/Navbar/Root.jsx
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
           </Flex>
