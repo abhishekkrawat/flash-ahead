@@ -1,21 +1,92 @@
 import {
   Box,
   Flex,
-  Text,
   IconButton,
   Button,
   Stack,
   Collapse,
   useColorModeValue,
-  useBreakpointValue,
   useDisclosure,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Menu,
+  Image,
+  LinkOverlay,
+  LinkBox,
 } from '@chakra-ui/react';
 import MobileNav from './MobileNav';
-import { Menu, X } from 'react-feather';
+import { X } from 'react-feather';
 import DesktopNav from './DesktopNav';
+import { useEffect, useState } from 'react';
+import { supabase } from '../../lib/supabaseClient';
+import { useNavigate } from 'react-router-dom';
+import { FlashAheadLogo } from '../../assets';
 
 export const Root = () => {
   const { isOpen, onToggle } = useDisclosure();
+  const [name, setName] = useState(null);
+  const navigate = useNavigate();
+
+  const getUserFirstName = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (user) {
+      setName(user.user_metadata.firstName);
+    }
+  };
+
+  const userLogOut = async () => {
+    await supabase.auth.signOut();
+    navigate('/');
+    location.reload();
+  };
+
+  useEffect(() => {
+    getUserFirstName();
+  }, []);
+
+  const NavAuth = () =>
+    name ? (
+      <Flex fontSize={'md'} fontWeight={500}>
+        <Menu>
+          <MenuButton>Hi, {name}</MenuButton>
+          <MenuList>
+            <MenuItem onClick={userLogOut}>Log out</MenuItem>
+          </MenuList>
+        </Menu>
+      </Flex>
+    ) : (
+      <Stack flex={{ base: 1, md: 0 }} justify={'flex-end'} direction={'row'} spacing={6}>
+        <Button
+          as={'a'}
+          data-testid='login-label'
+          fontSize={'md'}
+          fontWeight={500}
+          variant={'link'}
+          href={'/login'}
+        >
+          Log In
+        </Button>
+        <Button
+          as={'a'}
+          data-testid='register-label'
+          display={{ base: 'none', md: 'inline-flex' }}
+          fontSize={'md'}
+          fontWeight={600}
+          color={'white'}
+          bg={'purple.400'}
+          href={'/register'}
+          _hover={{
+            bg: 'purple.300',
+          }}
+        >
+          Register
+        </Button>
+      </Stack>
+    );
 
   return (
     <Box>
@@ -44,46 +115,17 @@ export const Root = () => {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-          <Text
-            textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-            fontFamily={'heading'}
-            color={useColorModeValue('gray.800', 'white')}
-          >
-            FlashAhead
-          </Text>
+          <LinkBox>
+            <LinkOverlay href={'/'}>
+              <Image blockSize={'8'} src={FlashAheadLogo} />
+            </LinkOverlay>
+          </LinkBox>
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
           </Flex>
         </Flex>
-
-        <Stack flex={{ base: 1, md: 0 }} justify={'flex-end'} direction={'row'} spacing={6}>
-          <Button
-            data-testid='login-label'
-            as={'a'}
-            fontSize={'md'}
-            fontWeight={500}
-            variant={'link'}
-            href={'/login'}
-          >
-            Log In
-          </Button>
-          <Button
-            data-testid='register-label'
-            as={'a'}
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'md'}
-            fontWeight={600}
-            color={'white'}
-            bg={'purple.400'}
-            href={'/register'}
-            _hover={{
-              bg: 'purple.300',
-            }}
-          >
-            Register
-          </Button>
-        </Stack>
+        <NavAuth />
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>

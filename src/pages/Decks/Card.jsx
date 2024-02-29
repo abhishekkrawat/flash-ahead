@@ -47,7 +47,9 @@ export const Card = ({ name, date, subjectId, deckId, handleNavigation }) => {
             <Icon w='24px' h='24px' as={MoreVertical} />
           </MenuButton>
           <MenuList>
-            <MenuItem icon={<ExternalLink />}>View deck</MenuItem>
+            <MenuItem icon={<ExternalLink />} onClick={handleNavigation}>
+              View deck
+            </MenuItem>
             <MenuItem icon={<Download />}>Download as PDF</MenuItem>
             <MenuItem icon={<Heart />}>Mark as favourite</MenuItem>
           </MenuList>
