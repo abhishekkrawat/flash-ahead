@@ -33,16 +33,15 @@ export const Flashcard = () => {
         pdf.setFontSize(15);
         pdf.text(`Question: ${flashcards[i].flashcard_front}`, x + 1, y + 25);
         pdf.text(`Answer: ${flashcards[i].flashcard_back}`, x + 1, y + 40);
-        i == flashcards.length - 1 ? pdf.save() : pdf.addPage();
+        i == flashcards.length - 1 ? pdf.save('DownloadAll.pdf') : pdf.addPage();
       }
     } else {
       pdf.rect(x, y, width, height);
       pdf.setFontSize(15);
       pdf.text(`Question: ${flashcards[selected].flashcard_front}`, x + 1, y + 25);
       pdf.text(`Answer: ${flashcards[selected].flashcard_back}`, x + 1, y + 40);
+      pdf.save('Download.pdf');
     }
-
-    pdf.save('Download.pdf');
   };
 
   const handlePrevious = () => {
