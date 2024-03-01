@@ -66,6 +66,7 @@ export const Card = ({ name, date, subjectId, deckId, handleNavigation }) => {
         mb='10px'
       />
       <Heading
+        data-testid = 'deck-name-label'
         cursor={'pointer'}
         onClick={handleNavigation}
         color={'gray.700'}

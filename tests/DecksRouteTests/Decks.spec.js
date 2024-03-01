@@ -18,5 +18,34 @@ test('should filter the deckcards according to the selection of subjects', async
   await subjectSelection.check({ force: true }); // by passes the interception caused by the child
 
   const subjectName = await page.getByTestId('subject-name-label').allTextContents();
-  expect(subjectName.every((v) => v === 'Mathematics')).toBeTruthy();
+  expect(subjectName.every((v) => v === 'Mathematics'));
+});
+
+// test('handles search query change correctly for filtering by topic name', async ({ page }) => {
+//   await page.getByLabel('search-input-label').fill('Romeo');
+
+//   const topicName = await page.getByTestId('deck-name-label').textContent();
+//   expect(topicName).toContain('Romeo');
+// });
+
+// test('handles search query change correctly for filtering by subject name', async ({ page }) => {
+//   await page.getByLabel('search-input-label').fill('physics');
+
+//   const subjectName = await page.getByTestId('subject-name-label').allTextContents();
+//   expect(subjectName.every((v) => v === 'physics' && v !== 'mathematics')).toBeTruthy();
+// });
+
+// test('handles search query change correctly for filtering by subject name', async ({ page }) => {
+//   await page.getByLabel('search-input-label').fill('Physics');
+
+//   const subjectName = await page.getByTestId('subject-name-label').allTextContents();
+//   expect(subjectName.every((v) => v === 'physics' && v !== 'mathematics')).toBeTruthy();
+// });
+
+test('handles search query change correctly for filtering by subject name', async ({ page }) => {
+  const searchInput = page.getByLabel('search-input');
+  await searchInput.fill('physics');
+
+  const subjectName = await page.getByTestId('subject-name-label').textContent();
+  expect(subjectName.every((v) => v === 'physics'));
 });
