@@ -21,26 +21,29 @@ test('should filter the deckcards according to the selection of subjects', async
   expect(subjectName.every((v) => v === 'Mathematics'));
 });
 
-// test('handles search query change correctly for filtering by topic name', async ({ page }) => {
-//   await page.getByLabel('search-input-label').fill('Romeo');
+/*
+SEARCH COMPONENT TESTS
 
-//   const topicName = await page.getByTestId('deck-name-label').textContent();
-//   expect(topicName).toContain('Romeo');
-// });
+test('handles search query change correctly for filtering by topic name', async ({ page }) => {
+  await page.getByLabel('search-input-label').fill('Romeo');
 
-// test('handles search query change correctly for filtering by subject name', async ({ page }) => {
-//   await page.getByLabel('search-input-label').fill('physics');
+  const topicName = await page.getByTestId('deck-name-label').textContent();
+  expect(topicName).toContain('Romeo');
+});
 
-//   const subjectName = await page.getByTestId('subject-name-label').allTextContents();
-//   expect(subjectName.every((v) => v === 'physics' && v !== 'mathematics')).toBeTruthy();
-// });
+test('handles search query change correctly for filtering by subject name', async ({ page }) => {
+  await page.getByLabel('search-input-label').fill('physics');
 
-// test('handles search query change correctly for filtering by subject name', async ({ page }) => {
-//   await page.getByLabel('search-input-label').fill('Physics');
+  const subjectName = await page.getByTestId('subject-name-label').allTextContents();
+  expect(subjectName.every((v) => v === 'physics' && v !== 'mathematics')).toBeTruthy();
+});
 
-//   const subjectName = await page.getByTestId('subject-name-label').allTextContents();
-//   expect(subjectName.every((v) => v === 'physics' && v !== 'mathematics')).toBeTruthy();
-// });
+test('handles search query change correctly for filtering by subject name', async ({ page }) => {
+  await page.getByLabel('search-input-label').fill('Physics');
+
+  const subjectName = await page.getByTestId('subject-name-label').allTextContents();
+  expect(subjectName.every((v) => v === 'physics' && v !== 'mathematics')).toBeTruthy();
+});
 
 test('handles search query change correctly for filtering by subject name', async ({ page }) => {
   const searchInput = page.getByLabel('search-input');
@@ -48,4 +51,15 @@ test('handles search query change correctly for filtering by subject name', asyn
 
   const subjectName = await page.getByTestId('subject-name-label').textContent();
   expect(subjectName.every((v) => v === 'physics'));
+});
+
+*/
+
+// PAGINATION TEST
+
+test("should navgiate to next page on selection of '>' button", async ({ page }) => {
+  const nextPageButton = page.getByTestId('next-page-label');
+  await nextPageButton.click();
+
+  // const currentPageButton = page.getByTestId('current-page-button-label');
 });

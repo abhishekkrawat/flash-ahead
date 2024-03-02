@@ -27,6 +27,7 @@ export const Paginate = ({ numberOfPages, currentPage, setCurrentPage }) => {
       </Button>
       {pageNumbers.map((number) => (
         <Button
+          data-testid='current-page-button-label'
           key={number}
           onClick={() => setCurrentPage(number)}
           variant={number === currentPage ? 'solid' : 'outline'}
@@ -34,7 +35,12 @@ export const Paginate = ({ numberOfPages, currentPage, setCurrentPage }) => {
           {number}
         </Button>
       ))}
-      <Button onClick={nextPage} variant='outline' disabled={currentPage === numberOfPages}>
+      <Button
+        data-testid='next-page-button-label'
+        onClick={nextPage}
+        variant='outline'
+        disabled={currentPage === numberOfPages}
+      >
         <ChevronRight />
       </Button>
     </HStack>
