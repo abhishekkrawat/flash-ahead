@@ -74,7 +74,7 @@ export const Flashcard = () => {
   const getFlashcards = async () => {
     const { data, error } = await supabase
       .from('flashcard')
-      .select('flashcard_id, flashcard_front, flashcard_back')
+      .select('flashcard_id, flashcard_front, flashcard_back, user_id')
       .eq('topic_id', deckId);
 
     if (error) {
@@ -133,16 +133,18 @@ export const Flashcard = () => {
               isFlipped={isFlipped}
               handleFlip={() => setIsFlipped((prev) => !prev)}
             />
-            <Tooltip label='Edit'>
-              <IconButton
-                p={2}
-                onClick={() => {
-                  onOpen();
-                }}
-              >
-                <Edit size={30} />
-              </IconButton>
-            </Tooltip>
+            {flashcards.length && flashcards[selected].user_id ? (
+              <Tooltip label='Edit'>
+                <IconButton
+                  p={2}
+                  onClick={() => {
+                    onOpen();
+                  }}
+                >
+                  <Edit size={30} />
+                </IconButton>
+              </Tooltip>
+            ) : null}
             <Modal isCentered isOpen={isOpen} onClose={onClose}>
               {<ModalOverlay bg='blackAlpha.300' backdropFilter='blur(25px)' />}
 
