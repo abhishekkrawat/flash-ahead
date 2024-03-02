@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Flex,
   Box,
@@ -16,6 +16,7 @@ import {
   InputRightElement,
   useColorModeValue,
   Text,
+  useToast,
 } from '@chakra-ui/react';
 import { Eye, EyeOff } from 'react-feather';
 import { supabase } from 'lib/supabaseClient';
@@ -27,13 +28,7 @@ const Login = () => {
   const navigate = useNavigate();
   return (
     <>
-      <Button
-        position={'fixed'}
-        m={4}
-        variant={'outline'}
-        onClick={() => navigate('/')}
-        size={'md'}
-      >
+      <Button position={'fixed'} m={4} variant={'outline'} onClick={() => navigate(-1)} size={'md'}>
         Back
       </Button>
       <Flex h={'100vh'} align={'center'} justify={'center'} bg={'gray.50'}>
@@ -56,6 +51,30 @@ const Login = () => {
 
 const LoginForm = () => {
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+  const toast = useToast();
+  const [userStatus, setUserStatus] = useState(false);
+
+  const getUser = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (user) {
+      setUserStatus(true);
+    }
+  };
+
+  const showToast = (toast, options) => {
+    return toast({
+      title: options.title,
+      description: options.description,
+      status: options.status,
+      duration: options.duration || 3000,
+      isClosable: options.isClosable || true,
+      position: options.position || 'top',
+    });
+  };
 
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email address').required('Required'),
@@ -63,81 +82,99 @@ const LoginForm = () => {
   });
 
   const handleLogin = async (values) => {
-    try {
-      await supabase.auth.signInWithPassword({
-        email: values.email,
-        password: values.password,
+    const { error } = await supabase.auth.signInWithPassword({
+      email: values.email,
+      password: values.password,
+    });
+    if (error) {
+      showToast(toast, {
+        title: 'Login failed!',
+        description: 'Incorrect username or password',
+        status: 'error',
       });
-    } catch (error) {
-      console.log(error);
+    } else {
+      navigate('/decks');
+      showToast(toast, {
+        title: 'Login successful!',
+        description: 'Welcome to FlashAhead',
+        status: 'success',
+      });
     }
   };
 
-  return (
-    <Formik
-      initialValues={{ email: '', password: '' }}
-      validationSchema={validationSchema}
-      onSubmit={handleLogin}
-    >
-      {(props) => (
-        <Form>
-          <Stack spacing={4}>
-            <Field name='email'>
-              {({ field, form }) => (
-                <FormControl isInvalid={form.errors.email && form.touched.email} isRequired>
-                  <FormLabel>Email address</FormLabel>
-                  <Input type='email' {...field} />
-                  <FormErrorMessage>{form.errors.email}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
-            <Field name='password'>
-              {({ field, form }) => (
-                <FormControl isInvalid={form.errors.password && form.touched.password} isRequired>
-                  <FormLabel>Password</FormLabel>
-                  <InputGroup size='md'>
-                    <Input
-                      pr='4.5rem'
-                      type={show ? 'text' : 'password'}
-                      {...field}
-                      autoComplete='off'
-                    />
-                    <InputRightElement h={'full'}>
-                      <Button variant={'ghost'} onClick={() => setShow(!show)}>
-                        {show ? <Icon as={EyeOff} /> : <Icon as={Eye} />}
-                      </Button>
-                    </InputRightElement>
-                  </InputGroup>
-                  <FormErrorMessage>{form.errors.password}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
-            <Stack spacing={5}>
-              <Stack
-                direction={{ base: 'column', sm: 'row' }}
-                align={'start'}
-                justify={'space-between'}
-              >
-                <Checkbox>Remember me</Checkbox>
-                <Link color={'purple'}>Forgot password?</Link>
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  if (userStatus) {
+    navigate('/decks');
+  } else {
+    return (
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        validationSchema={validationSchema}
+        onSubmit={handleLogin}
+      >
+        {(props) => (
+          <Form>
+            <Stack spacing={4}>
+              <Field name='email'>
+                {({ field, form }) => (
+                  <FormControl isInvalid={form.errors.email && form.touched.email} isRequired>
+                    <FormLabel>Email address</FormLabel>
+                    <Input type='email' {...field} />
+                    <FormErrorMessage>{form.errors.email}</FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
+              <Field name='password'>
+                {({ field, form }) => (
+                  <FormControl isInvalid={form.errors.password && form.touched.password} isRequired>
+                    <FormLabel>Password</FormLabel>
+                    <InputGroup size='md'>
+                      <Input
+                        pr='4.5rem'
+                        type={show ? 'text' : 'password'}
+                        {...field}
+                        autoComplete='off'
+                      />
+                      <InputRightElement h={'full'}>
+                        <Button variant={'ghost'} onClick={() => setShow(!show)}>
+                          {show ? <Icon as={EyeOff} /> : <Icon as={Eye} />}
+                        </Button>
+                      </InputRightElement>
+                    </InputGroup>
+                    <FormErrorMessage>{form.errors.password}</FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
+              <Stack spacing={5}>
+                <Stack
+                  direction={{ base: 'column', sm: 'row' }}
+                  align={'start'}
+                  justify={'space-between'}
+                >
+                  <Checkbox>Remember me</Checkbox>
+                  <Link color={'purple'}>Forgot password?</Link>
+                </Stack>
+                <Button
+                  type='submit'
+                  bg={'purple.400'}
+                  color={'white'}
+                  _hover={{
+                    bg: 'purple.700',
+                  }}
+                  isDisabled={!(props.isValid && props.dirty)}
+                >
+                  Log in
+                </Button>
               </Stack>
-              <Button
-                type='submit'
-                bg={'purple.400'}
-                color={'white'}
-                _hover={{
-                  bg: 'purple.700',
-                }}
-                isDisabled={!(props.isValid && props.dirty)}
-              >
-                Log in
-              </Button>
             </Stack>
-          </Stack>
-        </Form>
-      )}
-    </Formik>
-  );
+          </Form>
+        )}
+      </Formik>
+    );
+  }
 };
 
 export default Login;

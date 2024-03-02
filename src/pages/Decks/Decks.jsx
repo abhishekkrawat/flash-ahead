@@ -9,6 +9,7 @@ const Decks = () => {
   const [decks, setDecks] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFilters] = useState({ qualifications: [], boards: [], subjects: [] });
+  const [searchQuery, setSearchQuery] = useState('');
 
   const filterDecks = (decks) => {
     return decks.filter((deck) => {
@@ -91,11 +92,25 @@ const Decks = () => {
     getDecks();
   }, [searchParams]);
 
+  const handleSearchQueryChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const searchedDecks = decks.filter((deck) => {
+    return (
+      deck.topic_name.toLowerCase().includes(searchQuery.trim().toLowerCase()) ||
+      filters.subjects
+        .find((s) => s.subject_id === deck.subject_id)
+        .subject_name.toLowerCase()
+        .includes(searchQuery.trim().toLowerCase())
+    );
+  });
+
   return (
     <Container as='section' maxW='8xl' py={24}>
       <Grid templateColumns='repeat(4, 1fr)'>
-        <SidePanel {...filters} decks={decks} />
-        <MainContent decks={decks} />
+        <SidePanel {...filters} decks={decks} handleSearchQueryChange={handleSearchQueryChange} />
+        <MainContent decks={searchedDecks} />
       </Grid>
     </Container>
   );
