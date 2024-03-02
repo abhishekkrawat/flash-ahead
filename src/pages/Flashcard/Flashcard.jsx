@@ -23,6 +23,7 @@ import { Slides } from './Slides';
 import { Card } from './Card';
 import { useParams } from 'react-router';
 import { ChevronLeft, ChevronRight, Edit } from 'react-feather';
+import { Field, Formik, Form } from 'formik';
 
 export const Flashcard = () => {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -30,6 +31,8 @@ export const Flashcard = () => {
   const [selected, setSelected] = useState(0);
   const { deckId } = useParams();
   const { onOpen, onClose, isOpen } = useDisclosure();
+
+  // console.log(flashcards[selected].flashcard_front);
 
   const handleNext = () => {
     if (0 <= selected < flashcards.length - 1) {
@@ -46,13 +49,31 @@ export const Flashcard = () => {
   };
 
   const getFlashcards = async () => {
-    const { data, error } = await supabase.rpc('get_flashcards', { topicid: deckId });
+    const { data, error } = await supabase
+      .from('flashcard')
+      .select('flashcard_id, flashcard_front, flashcard_back')
+      .eq('topic_id', deckId);
 
     if (error) {
       throw new Error(error);
     }
-
     setFlashcards(data);
+  };
+
+  const handleSubmit = async (values) => {
+    const { flashcard_front, flashcard_back } = values;
+
+    const { error } = await supabase
+      .from('flashcard')
+      .update({
+        flashcard_front: flashcard_front,
+        flashcard_back: flashcard_back,
+      })
+      .eq('flashcard_id', flashcards[selected].flashcard_id);
+
+    if (error) {
+      throw new Error(error);
+    }
   };
 
   useEffect(() => {
@@ -105,20 +126,55 @@ export const Flashcard = () => {
               <ModalContent>
                 <ModalHeader>Edit this Flashcard</ModalHeader>
                 <ModalCloseButton />
-                <ModalBody>
-                  <FormControl>
-                    <FormLabel>Flashcard Front:</FormLabel>
-                    <Input />
-                  </FormControl>
-                  <FormControl>
-                    <FormLabel>Flashcard Back:</FormLabel>
-                    <Input />
-                  </FormControl>
-                </ModalBody>
-
-                <ModalFooter>
-                  <Button onClick={onClose}>Close</Button>
-                </ModalFooter>
+                <Formik
+                  initialValues={
+                    flashcards.length && {
+                      flashcard_front: flashcards[selected].flashcard_front,
+                      flashcard_back: flashcards[selected].flashcard_back,
+                    }
+                  }
+                  onSubmit={handleSubmit}
+                >
+                  {({ isSubmitting, touched, dirty }) => (
+                    <Form>
+                      <ModalBody>
+                        <Field name='flashcard_front'>
+                          {({ field }) => (
+                            <FormControl>
+                              <FormLabel>Flashcard Front:</FormLabel>
+                              <Input
+                                // defaultValue={flashcards[selected].flashcard_front}
+                                {...field}
+                              />
+                            </FormControl>
+                          )}
+                        </Field>
+                        <Field name='flashcard_back'>
+                          {({ field }) => (
+                            <FormControl>
+                              <FormLabel>Flashcard Back:</FormLabel>
+                              <Input
+                                // defaultValue={flashcards[selected].flashcard_back}
+                                value={flashcards[selected].flashcard_back}
+                                {...field}
+                              />
+                            </FormControl>
+                          )}
+                        </Field>
+                      </ModalBody>
+                      <ModalFooter>
+                        <Button onClick={onClose}>Close</Button>
+                        <Button
+                          type='submit'
+                          isLoading={isSubmitting}
+                          isDisabled={!dirty || !touched}
+                        >
+                          Submit
+                        </Button>
+                      </ModalFooter>
+                    </Form>
+                  )}
+                </Formik>
               </ModalContent>
             </Modal>
           </Flex>
