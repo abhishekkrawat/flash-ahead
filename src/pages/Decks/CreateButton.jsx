@@ -84,7 +84,7 @@ export const CreateButton = ({ initialValues }) => {
         {<ModalOverlay bg='blackAlpha.300' backdropFilter='blur(25px)' />}
 
         <ModalContent>
-          <ModalHeader>Create a new deckcard</ModalHeader>
+          <ModalHeader>Create new flashcard/flashcards</ModalHeader>
           <ModalCloseButton />
           <Formik
             initialValues={{
