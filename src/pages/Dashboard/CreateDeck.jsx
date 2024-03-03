@@ -41,6 +41,7 @@ export const CreateDeck = ({ initialValues }) => {
     if (error) {
       throw new Error(error);
     }
+    location.reload();
     onClose();
     toast({
       title: 'Deck created',

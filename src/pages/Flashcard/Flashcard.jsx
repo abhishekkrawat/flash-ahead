@@ -68,10 +68,10 @@ export const Flashcard = () => {
         flashcard_back: flashcard_back,
       })
       .eq('flashcard_id', flashcards[selected].flashcard_id);
-
     if (error) {
       throw new Error(error);
     }
+    location.reload();
   };
 
   useEffect(() => {
@@ -155,9 +155,11 @@ export const Flashcard = () => {
                           )}
                         </Field>
                       </ModalBody>
-                      <ModalFooter>
+                      <ModalFooter gap={2}>
                         <Button onClick={onClose}>Close</Button>
                         <Button
+                          color={'white'}
+                          bg={'purple.400'}
                           type='submit'
                           isLoading={isSubmitting}
                           isDisabled={!dirty || !touched}

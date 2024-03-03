@@ -1,32 +1,23 @@
 import {
   Box,
   Flex,
-  IconButton,
   Button,
   Stack,
-  Collapse,
   useColorModeValue,
-  useDisclosure,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Menu,
   Image,
   LinkOverlay,
   LinkBox,
+  Icon,
 } from '@chakra-ui/react';
-import MobileNav from './MobileNav';
-import { X } from 'react-feather';
-import DesktopNav from './DesktopNav';
+import { ChevronRight, LogOut } from 'react-feather';
 import { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import { FlashAheadLogo } from '../../assets';
+
 export const Root = () => {
-  const { isOpen, onToggle } = useDisclosure();
   const [name, setName] = useState(null);
   const navigate = useNavigate();
-
   const getUserFirstName = async () => {
     const {
       data: { user },
@@ -49,15 +40,23 @@ export const Root = () => {
 
   const NavAuth = () =>
     name ? (
-      <Flex fontSize={'md'} fontWeight={500}>
-        <Menu>
-          <MenuButton>Hi, {name}</MenuButton>
-          <MenuList>
-            <MenuItem onClick={() => navigate('/dashboard')}>Dashboard</MenuItem>
-            <MenuItem onClick={userLogOut}>Log out</MenuItem>
-          </MenuList>
-        </Menu>
-      </Flex>
+      <Stack fontSize={'md'} fontWeight={500} direction='row' spacing={2}>
+        <Button as={'a'} fontSize={'md'} fontWeight={500} href={'/dashboard'}>
+          Dashboard
+          <Icon as={ChevronRight} ml={1} />
+        </Button>
+        <Button
+          display={{ base: 'none', md: 'inline-flex' }}
+          fontSize={'md'}
+          color={'white'}
+          bg={'purple.400'}
+          onClick={userLogOut}
+          _hover={{ bg: 'purple.300' }}
+        >
+          Logout
+          <Icon as={LogOut} ml={2} />
+        </Button>
+      </Stack>
     ) : (
       <Stack flex={{ base: 1, md: 0 }} justify={'flex-end'} direction={'row'} spacing={6}>
         <Button
@@ -103,34 +102,22 @@ export const Root = () => {
         boxShadow={'md'}
       >
         <Flex
-          flex={{ base: 1, md: 'auto' }}
-          ml={{ base: -2 }}
-          display={{ base: 'flex', md: 'none' }}
+          flex={{ base: 1 }}
+          justify={{ base: 'center', md: 'start' }}
+          alignItems={'center'}
+          gap={8}
         >
-          <IconButton
-            onClick={onToggle}
-            icon={isOpen ? <X w={3} h={3} /> : <Menu w={5} h={5} />}
-            variant={'ghost'}
-            aria-label={'Toggle Navigation'}
-          />
-        </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
           <LinkBox>
             <LinkOverlay href={'/'}>
               <Image blockSize={'8'} src={FlashAheadLogo} />
             </LinkOverlay>
           </LinkBox>
-
-          <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-            <DesktopNav />
-          </Flex>
+          <Button as={'a'} variant={'ghost'} color={'purple.400'} cursor={'pointer'} href='/decks'>
+            Decks
+          </Button>
         </Flex>
         <NavAuth />
       </Flex>
-
-      <Collapse in={isOpen} animateOpacity>
-        <MobileNav />
-      </Collapse>
     </Box>
   );
 };

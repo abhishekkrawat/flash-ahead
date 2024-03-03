@@ -8,13 +8,25 @@ import { CreateDeck } from './CreateDeck';
 export const Dashboard = () => {
   const [decks, setDecks] = useState([]);
   const [data, setData] = useState({ qualifications: [], boards: [], subjects: [] });
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    async function fetchData() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        setName(`${user.user_metadata?.firstName} ${user.user_metadata?.lastName}`);
+      }
+    }
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const getDecks = async () => {
-      const { data, error } = await supabase
-        .rpc('fetch_topics')
-        .select()
-        .not('user_id', 'is', null);
+      const { data, error } = await supabase.rpc('get_topics').select().not('user_id', 'is', null);
 
       if (error) {
         throw new Error(error);
@@ -64,9 +76,10 @@ export const Dashboard = () => {
   return (
     <Container maxW='4xl' p={{ base: 5, md: 12 }}>
       <Flex justifyContent='space-between' alignItems='center'>
-        <Heading>Decks</Heading>
+        <Heading fontSize={'2xl'}>Welcome, {name}</Heading>
         <CreateDeck initialValues={data} />
       </Flex>
+      <Heading fontSize={'xl'}> Your decks </Heading>
       <Divider my={4} />
       {decks.length === 0 ? (
         <Flex
