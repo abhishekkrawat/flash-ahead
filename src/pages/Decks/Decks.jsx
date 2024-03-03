@@ -4,12 +4,14 @@ import { MainContent } from './MainContent';
 import { useEffect, useState } from 'react';
 import { supabase } from 'lib/supabaseClient';
 import { useSearchParams } from 'react-router-dom';
+import { CreateButton } from './CreateButton';
 
 const Decks = () => {
   const [decks, setDecks] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFilters] = useState({ qualifications: [], boards: [], subjects: [] });
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentUser, setCurrentUser] = useState(null);
 
   const filterDecks = (decks) => {
     return decks.filter((deck) => {
@@ -82,6 +84,20 @@ const Decks = () => {
   };
 
   useEffect(() => {
+    async function fetchUser() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        setCurrentUser(`${user.user_metadata?.firstName} ${user.user_metadata?.lastName}`);
+      }
+    }
+
+    fetchUser();
+  }, []);
+
+  useEffect(() => {
     setSearchParams();
     getBoards();
     getSubjects();
@@ -110,7 +126,8 @@ const Decks = () => {
     <Container as='section' maxW='8xl' py={24}>
       <Grid templateColumns='repeat(4, 1fr)'>
         <SidePanel {...filters} decks={decks} handleSearchQueryChange={handleSearchQueryChange} />
-        <MainContent decks={searchedDecks} />
+        <MainContent decks={searchedDecks} currentUser={currentUser} />
+        {currentUser && <CreateButton initialValues={{ ...filters, decks }} />}
       </Grid>
     </Container>
   );

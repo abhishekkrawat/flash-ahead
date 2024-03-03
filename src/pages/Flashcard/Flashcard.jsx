@@ -80,7 +80,7 @@ export const Flashcard = () => {
 
   return (
     <>
-      <Flex pos={'fixed'} w={'100%'} bg={'gray.100'}>
+      <Flex pos={'fixed'} w={'100%'} h={'full'} bg={'gray.100'}>
         <Slides
           onSelected={(index) => {
             setSelected(index);

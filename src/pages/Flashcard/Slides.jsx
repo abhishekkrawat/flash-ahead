@@ -1,4 +1,4 @@
-import { Divider, Text, SimpleGrid, GridItem } from '@chakra-ui/react';
+import { Divider, Text, Box, Flex } from '@chakra-ui/react';
 
 /**
  * This component displays all the flashcards in a deck vertically on the left side of Flashcard route
@@ -9,8 +9,9 @@ import { Divider, Text, SimpleGrid, GridItem } from '@chakra-ui/react';
  */
 export const Slides = ({ onSelected, flashcards, selected }) => {
   return (
-    <SimpleGrid
-      h={'100vh'}
+    <Flex
+      h={'100%'}
+      flexDir={'column'}
       overflow={'scroll'}
       // to hide scrollbar
       css={{
@@ -20,8 +21,8 @@ export const Slides = ({ onSelected, flashcards, selected }) => {
       }}
     >
       {flashcards.map((flashcard, index) => (
-        <>
-          <GridItem
+        <div key={index}>
+          <Box
             w={{ base: '50px', md: '175px', lg: '200px' }}
             h='120px'
             maxH='120px'
@@ -42,10 +43,10 @@ export const Slides = ({ onSelected, flashcards, selected }) => {
             <Text padding={2} align={'center'} noOfLines={3}>
               {flashcard.flashcard_front}
             </Text>
-          </GridItem>
+          </Box>
           <Divider />
-        </>
+        </div>
       ))}
-    </SimpleGrid>
+    </Flex>
   );
 };

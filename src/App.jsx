@@ -8,6 +8,8 @@ import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6';
 import Decks from './pages/Decks/Decks';
 import { Flashcard } from './pages/Flashcard/Flashcard';
 import RootLayout from './layouts/RootLayout';
+import { Dashboard } from './pages/Dashboard/root';
+import { ProtectedRoutes } from './layouts/ProtectedRoutes';
 
 const App = () => {
   return (
@@ -19,6 +21,9 @@ const App = () => {
               <Route index element={<Home />} />,
               <Route path='/decks' element={<Decks />} />
               <Route path='/flashcard/:deckId' element={<Flashcard />} />
+              <Route element={<ProtectedRoutes />}>
+                <Route path='/dashboard' element={<Dashboard />} />
+              </Route>
             </Route>
             <Route path='/login' element={<Login />} />,
             <Route path='/register' element={<Register />} />

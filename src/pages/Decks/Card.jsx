@@ -19,7 +19,7 @@ import { Download, ExternalLink, Eye, Heart, MoreVertical } from 'react-feather'
 import { generatePDF } from './generatePDF';
 import { supabase } from 'lib/supabaseClient';
 
-export const Card = ({ name, date, subjectId, handleNavigation, topicId }) => {
+export const Card = ({ name, date, subjectId, handleNavigation, topicId, user, views }) => {
   const subjectData = data.find((subject) => subject.subjectId === subjectId);
 
   const getFlashcards = async () => {
@@ -47,9 +47,9 @@ export const Card = ({ name, date, subjectId, handleNavigation, topicId }) => {
       direction='column'
     >
       <Flex w='100%' mb='25px' gap={2}>
-        <Avatar src={'https://avatars0.githubusercontent.com/u/1164541?v=4'} />
+        <Avatar name={user} bg={`${subjectData?.color}.400`} w={'36px'} h={'36px'} />
         <Stack direction={'column'} spacing={0} fontSize={'sm'}>
-          <Text fontSize={'sm'}>Abhishek Rawat</Text>
+          <Text fontSize={'sm'}>{user}</Text>
 
           <Text color={'gray.500'} fontSize={'xs'}>
             {new Date(date).toDateString()}
@@ -80,6 +80,10 @@ export const Card = ({ name, date, subjectId, handleNavigation, topicId }) => {
         overflow={'hidden'}
         maxW='100%'
         mb='10px'
+        transition='transform 0.6s ease-in-out'
+        _hover={{
+          transform: 'scale(1.15)',
+        }}
       />
       <Heading
         data-testid='deck-name-label'
@@ -110,8 +114,8 @@ export const Card = ({ name, date, subjectId, handleNavigation, topicId }) => {
         </Badge>
         <Box display={'inline-flex'} justifyContent={'center'} alignItems={'center'} gap={1}>
           <Icon color={'gray.500'} width='1rem' height='1rem' as={Eye} />
-          <Text fontSize={'xs'} color='gray.500'>
-            10
+          <Text fontSize={'sm'} color='gray.500'>
+            {views}
           </Text>
         </Box>
       </Flex>
