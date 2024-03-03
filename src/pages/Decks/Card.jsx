@@ -15,7 +15,7 @@ import {
   Heading,
 } from '@chakra-ui/react';
 import { data } from './data';
-import { Download, ExternalLink, Eye, Heart, MoreVertical } from 'react-feather';
+import { Download, ExternalLink, Eye, MoreVertical } from 'react-feather';
 import { generatePDF } from './generatePDF';
 import { supabase } from 'lib/supabaseClient';
 
@@ -66,7 +66,6 @@ export const Card = ({ name, date, user, views, subjectId, handleNavigation, top
             <MenuItem icon={<Download />} onClick={async () => generatePDF(await getFlashcards())}>
               Download as PDF
             </MenuItem>
-            <MenuItem icon={<Heart />}>Mark as favourite</MenuItem>
           </MenuList>
         </Menu>
       </Flex>
