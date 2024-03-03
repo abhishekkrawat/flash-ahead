@@ -5,4 +5,5 @@ export { default as ComputerScience } from './subjects/computer-science.gif';
 export { default as Physics } from './subjects/physics.gif';
 export { default as Geography } from './subjects/geography.gif';
 export { default as EnglishLiterature } from './subjects/english-literature.gif';
-export { default as FlashAheadLogo} from './logo/FlashAhead.png'
+export { default as FlashAheadLogo } from './logo/FlashAhead.png';
+export { default as Others } from './subjects/books.png';

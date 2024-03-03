@@ -18,6 +18,7 @@ import { data } from './data';
 import { Download, ExternalLink, Eye, MoreVertical } from 'react-feather';
 import { generatePDF } from './generatePDF';
 import { supabase } from 'lib/supabaseClient';
+import { Others } from '../../assets';
 
 export const Card = ({ name, date, user, views, subjectId, handleNavigation, topicId }) => {
   const subjectData = data.find((subject) => subject.subjectId === subjectId);
@@ -47,7 +48,12 @@ export const Card = ({ name, date, user, views, subjectId, handleNavigation, top
       direction='column'
     >
       <Flex w='100%' mb='25px' gap={2}>
-        <Avatar name={user} bg={`${subjectData?.color}.400`} w={'36px'} h={'36px'} />
+        <Avatar
+          name={user}
+          bg={`${subjectData?.color ? subjectData.color : 'purple'}.400`}
+          w={'36px'}
+          h={'36px'}
+        />
         <Stack direction={'column'} spacing={0} fontSize={'sm'}>
           <Text fontSize={'sm'}>{user}</Text>
           <Text color={'gray.500'} fontSize={'xs'}>
@@ -73,7 +79,7 @@ export const Card = ({ name, date, user, views, subjectId, handleNavigation, top
         h='250px'
         cursor={'pointer'}
         onClick={handleNavigation}
-        src={subjectData?.image}
+        src={subjectData?.image ? subjectData.image : Others}
         objectFit={'cover'}
         overflow={'hidden'}
         maxW='100%'
@@ -108,7 +114,7 @@ export const Card = ({ name, date, user, views, subjectId, handleNavigation, top
           px={2}
           data-testid='subject-name-label'
         >
-          {subjectData?.subjectName}
+          {subjectData?.subjectName ? subjectData.subjectName : 'Others'}
         </Badge>
         <Box display={'inline-flex'} justifyContent={'center'} alignItems={'center'} gap={1}>
           <Icon color={'gray.500'} width='1rem' height='1rem' as={Eye} />
