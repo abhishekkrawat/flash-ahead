@@ -254,7 +254,7 @@ function TopicField({ props, decks }) {
   useEffect(() => {
     // set the value of textC, based on textA and textB
     if (subject_id) {
-      setCurrentDecks(decks.filter((deck) => deck.subject_id === Number(subject_id)));
+      setCurrentDecks(decks.filter((deck) => deck.subject_id === subject_id));
     }
   }, [subject_id, decks]);
 
