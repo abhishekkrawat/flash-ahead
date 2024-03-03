@@ -22,7 +22,6 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import { FlashAheadLogo } from '../../assets';
-
 export const Root = () => {
   const { isOpen, onToggle } = useDisclosure();
   const [name, setName] = useState(null);
@@ -54,6 +53,7 @@ export const Root = () => {
         <Menu>
           <MenuButton>Hi, {name}</MenuButton>
           <MenuList>
+            <MenuItem onClick={() => navigate('/dashboard')}>Dashboard</MenuItem>
             <MenuItem onClick={userLogOut}>Log out</MenuItem>
           </MenuList>
         </Menu>
