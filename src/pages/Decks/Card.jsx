@@ -31,8 +31,8 @@ export const Card = ({ name, date, subjectId, handleNavigation, topicId }) => {
     if (error) {
       throw new Error(error);
     }
-    
-    return data
+
+    return data;
   };
 
   return (
@@ -82,6 +82,7 @@ export const Card = ({ name, date, subjectId, handleNavigation, topicId }) => {
         mb='10px'
       />
       <Heading
+        data-testid='deck-name-label'
         cursor={'pointer'}
         onClick={handleNavigation}
         color={'gray.700'}
@@ -103,6 +104,7 @@ export const Card = ({ name, date, subjectId, handleNavigation, topicId }) => {
           justifyContent='center'
           alignItems='center'
           px={2}
+          data-testid='subject-name-label'
         >
           {subjectData?.subjectName}
         </Badge>

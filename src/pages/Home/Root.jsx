@@ -30,6 +30,7 @@ export const Root = () => {
             position={'relative'}
           >
             <Button
+              data-testid='get-started-label'
               as={'a'}
               href='/decks'
               colorScheme={'green'}
