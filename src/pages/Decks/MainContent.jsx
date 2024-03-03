@@ -1,12 +1,7 @@
 import {
   Box,
-  Button,
   Flex,
   GridItem,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   SimpleGrid,
   Text,
   Spacer,
@@ -15,10 +10,10 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Paginate } from './Paginate';
-import { ChevronDown } from 'react-feather';
 import { Card } from './Card';
+import { supabase } from 'lib/supabaseClient';
 
-export const MainContent = ({ decks }) => {
+export const MainContent = ({ decks, currentUser }) => {
   const navigate = useNavigate();
   const toast = useToast();
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,6 +23,16 @@ export const MainContent = ({ decks }) => {
   const indexOfLastDeck = currentPage * postsPerPage;
   const indexOfFirstDeck = indexOfLastDeck - postsPerPage;
   const currentDecks = decks.slice(indexOfFirstDeck, indexOfLastDeck);
+
+  const updateViewCount = async (topicid) => {
+    const { error } = await supabase.rpc('increment_views', {
+      topicid,
+    });
+
+    if (error) {
+      throw new Error(error);
+    }
+  };
 
   return (
     <GridItem colSpan={3}>
@@ -42,32 +47,25 @@ export const MainContent = ({ decks }) => {
           </Text>
         </Box>
         <Spacer />
-        <Box display={'flex'} flexDirection={'row'} justify={'space-between'} gap={10}>
-          <Paginate
-            numberOfPages={numberOfPages}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
-          <Menu>
-            <MenuButton as={Button} rightIcon={<ChevronDown />}>
-              Sort by
-            </MenuButton>
-            <MenuList>
-              <MenuItem>Recommended</MenuItem>
-              <MenuItem>Latest</MenuItem>
-            </MenuList>
-          </Menu>
-        </Box>
+        <Paginate
+          numberOfPages={numberOfPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </Flex>
       <SimpleGrid spacing={10} mt={8} templateColumns='repeat(auto-fill, minmax(300px, 1fr))'>
         {currentDecks.map((deck) => (
           <Card
             key={deck.topic_id}
             name={deck.topic_name}
+            user_id={deck.user_id}
+            user={deck.user_id ? currentUser : 'Admin'}
             date={deck.created_at}
             subjectId={deck.subject_id}
-            handleNavigation={() => {
+            views={deck.topic_views}
+            handleNavigation={async () => {
               if (deck.flashcard_count) {
+                await updateViewCount(deck.topic_id);
                 navigate(`/flashcard/${deck.topic_id}`);
               } else {
                 return toast({

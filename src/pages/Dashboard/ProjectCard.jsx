@@ -1,24 +1,51 @@
 import {
-  Avatar,
-  Badge,
-  Flex,
-  Icon,
-  Image,
   Text,
+  Image,
+  Flex,
   Stack,
-  Spacer,
-  Box,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Menu,
   Heading,
+  Badge,
+  Avatar,
+  Spacer,
+  useToast,
 } from '@chakra-ui/react';
-import { data } from './data';
-import { Download, ExternalLink, Eye, Heart, MoreVertical } from 'react-feather';
+import { data } from '../Decks/data';
+import { supabase } from 'lib/supabaseClient';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export const Card = ({ name, date, user, views, subjectId, handleNavigation }) => {
-  const subjectData = data.find((subject) => subject.subjectId === subjectId);
+const ProjectCard = ({ deck }) => {
+  const subjectData = data.find((subject) => subject.subjectId === deck.subject_id);
+  const [name, setName] = useState('');
+  const navigate = useNavigate();
+  const toast = useToast();
+
+  useEffect(() => {
+    async function fetchData() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        setName(`${user.user_metadata?.firstName} ${user.user_metadata?.lastName}`);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  const handleNavigation = () => {
+    if (deck.flashcard_count) {
+      navigate(`/flashcard/${deck.topic_id}`);
+    } else {
+      return toast({
+        title: 'No Flashcards Available',
+        status: 'error',
+        isClosable: true,
+        position: 'top',
+      });
+    }
+  };
 
   return (
     <Flex
@@ -32,29 +59,17 @@ export const Card = ({ name, date, user, views, subjectId, handleNavigation }) =
       direction='column'
     >
       <Flex w='100%' mb='25px' gap={2}>
-        <Avatar name={user} bg={`${subjectData?.color}.400`} w={'36px'} h={'36px'} />
+        <Avatar name={name} w={'36px'} h={'36px'} />
         <Stack direction={'column'} spacing={0} fontSize={'sm'}>
-          <Text fontSize={'sm'}>{user}</Text>
+          <Text fontSize={'sm'}>{name}</Text>
           <Text color={'gray.500'} fontSize={'xs'}>
-            {new Date(date).toDateString()}
+            {new Date().toDateString()}
           </Text>
         </Stack>
         <Spacer />
-        <Menu>
-          <MenuButton mr={-1}>
-            <Icon w='24px' h='24px' as={MoreVertical} />
-          </MenuButton>
-          <MenuList>
-            <MenuItem icon={<ExternalLink />} onClick={handleNavigation}>
-              View deck
-            </MenuItem>
-            <MenuItem icon={<Download />}>Download as PDF</MenuItem>
-            <MenuItem icon={<Heart />}>Mark as favourite</MenuItem>
-          </MenuList>
-        </Menu>
       </Flex>
       <Image
-        h='250px'
+        h='200px'
         cursor={'pointer'}
         onClick={handleNavigation}
         src={subjectData?.image}
@@ -62,9 +77,9 @@ export const Card = ({ name, date, user, views, subjectId, handleNavigation }) =
         overflow={'hidden'}
         maxW='100%'
         mb='10px'
-        transition='transform 0.6s ease-in-out'
+        transition='transform 0.5s ease-in'
         _hover={{
-          transform: 'scale(1.15)',
+          transform: 'scale(1.05)',
         }}
       />
       <Heading
@@ -77,7 +92,7 @@ export const Card = ({ name, date, user, views, subjectId, handleNavigation }) =
         w='100%'
         noOfLines={1}
       >
-        {name}
+        {deck.topic_name}
       </Heading>
       <Flex mt='10px' justify='space-between' w='100%' align='center'>
         <Badge
@@ -92,13 +107,9 @@ export const Card = ({ name, date, user, views, subjectId, handleNavigation }) =
         >
           {subjectData?.subjectName}
         </Badge>
-        <Box display={'inline-flex'} justifyContent={'center'} alignItems={'center'} gap={1}>
-          <Icon color={'gray.500'} width='1rem' height='1rem' as={Eye} />
-          <Text fontSize={'sm'} color='gray.500'>
-            {views}
-          </Text>
-        </Box>
       </Flex>
     </Flex>
   );
 };
+
+export default ProjectCard;
