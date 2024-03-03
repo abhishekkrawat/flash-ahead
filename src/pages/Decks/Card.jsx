@@ -31,13 +31,12 @@ export const Card = ({ name, date, subjectId, handleNavigation, topicId }) => {
     if (error) {
       throw new Error(error);
     }
-    
-    return data
+
+    return data;
   };
 
   return (
     <Flex
-      data-testid={`deckcard-label-${deckId}`}
       bg={'white'}
       p={4}
       maxW={'445px'}
@@ -83,7 +82,7 @@ export const Card = ({ name, date, subjectId, handleNavigation, topicId }) => {
         mb='10px'
       />
       <Heading
-        data-testid = 'deck-name-label'
+        data-testid='deck-name-label'
         cursor={'pointer'}
         onClick={handleNavigation}
         color={'gray.700'}
