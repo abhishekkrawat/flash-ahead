@@ -51,7 +51,6 @@ export const MainContent = ({ decks, currentUser }) => {
             key={deck.topic_id}
             topicId={deck.topic_id}
             name={deck.topic_name}
-            user_id={deck.user_id}
             user={deck.user_id ? currentUser : 'Admin'}
             date={deck.created_at}
             subjectId={deck.subject_id}

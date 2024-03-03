@@ -5,7 +5,7 @@ import ProjectCard from './ProjectCard';
 import { useEffect, useState } from 'react';
 import { CreateDeck } from './CreateDeck';
 
-const Dashboard = () => {
+export const Dashboard = () => {
   const [decks, setDecks] = useState([]);
   const [data, setData] = useState({ qualifications: [], boards: [], subjects: [] });
 
@@ -94,5 +94,3 @@ const Dashboard = () => {
     </Container>
   );
 };
-
-export default Dashboard;
