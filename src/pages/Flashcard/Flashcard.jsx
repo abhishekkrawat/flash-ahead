@@ -24,7 +24,6 @@ import { Card } from './Card';
 import { useParams } from 'react-router';
 import { ChevronLeft, ChevronRight, Edit } from 'react-feather';
 import { Field, Formik, Form } from 'formik';
-import jsPDF from 'jspdf';
 
 export const Flashcard = () => {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -37,30 +36,6 @@ export const Flashcard = () => {
     if (0 <= selected < flashcards.length - 1) {
       setSelected((prev) => prev + 1);
       setIsFlipped(false);
-    }
-  };
-
-  const generatePDF = () => {
-    const pdf = new jsPDF();
-    const x = 25;
-    const y = 70;
-    const width = 150;
-    const height = 75;
-
-    if (flashcards.length > 1) {
-      for (let i = 0; i < flashcards.length; i++) {
-        pdf.rect(x, y, width, height);
-        pdf.setFontSize(15);
-        pdf.text(`Question: ${flashcards[i].flashcard_front}`, x + 1, y + 25);
-        pdf.text(`Answer: ${flashcards[i].flashcard_back}`, x + 1, y + 40);
-        i == flashcards.length - 1 ? pdf.save('DownloadAll.pdf') : pdf.addPage();
-      }
-    } else {
-      pdf.rect(x, y, width, height);
-      pdf.setFontSize(15);
-      pdf.text(`Question: ${flashcards[selected].flashcard_front}`, x + 1, y + 25);
-      pdf.text(`Answer: ${flashcards[selected].flashcard_back}`, x + 1, y + 40);
-      pdf.save('Download.pdf');
     }
   };
 
@@ -167,10 +142,7 @@ export const Flashcard = () => {
                           {({ field }) => (
                             <FormControl>
                               <FormLabel>Flashcard Front:</FormLabel>
-                              <Input
-                                // defaultValue={flashcards[selected].flashcard_front}
-                                {...field}
-                              />
+                              <Input {...field} />
                             </FormControl>
                           )}
                         </Field>
@@ -178,11 +150,7 @@ export const Flashcard = () => {
                           {({ field }) => (
                             <FormControl>
                               <FormLabel>Flashcard Back:</FormLabel>
-                              <Input
-                                // defaultValue={flashcards[selected].flashcard_back}
-                                value={flashcards[selected].flashcard_back}
-                                {...field}
-                              />
+                              <Input value={flashcards[selected].flashcard_back} {...field} />
                             </FormControl>
                           )}
                         </Field>
@@ -221,7 +189,6 @@ export const Flashcard = () => {
               <ChevronRight />
             </IconButton>
           </Box>
-          <Button onClick={generatePDF}>Download as PDF</Button>
         </Box>
       </Flex>
     </>

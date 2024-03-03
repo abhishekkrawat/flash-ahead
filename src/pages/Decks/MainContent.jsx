@@ -63,6 +63,7 @@ export const MainContent = ({ decks }) => {
         {currentDecks.map((deck) => (
           <Card
             key={deck.topic_id}
+            topicId={deck.topic_id}
             name={deck.topic_name}
             date={deck.created_at}
             subjectId={deck.subject_id}
