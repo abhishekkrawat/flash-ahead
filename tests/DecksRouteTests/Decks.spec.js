@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 
-test.beforeEach(async ({ page }) => {
-  await page.goto('http://localhost:5173/decks');
-});
+// test.beforeEach(async ({ page }) => {
+//   await page.goto('http://localhost:5173/decks');
+// });
 
 // test('should navigate to corresponding flashcard with matching id', async ({ page }) => {
 //   // given
@@ -14,6 +14,7 @@ test.beforeEach(async ({ page }) => {
 // });
 
 test('should filter the deckcards according to the selection of subjects', async ({ page }) => {
+  await page.goto('http://localhost:5173/decks');
   const subjectSelection = page.getByRole('checkbox', { name: 'Mathematics' });
   await subjectSelection.check({ force: true }); // by passes the interception caused by the child
 
