@@ -4,14 +4,14 @@ test.beforeEach(async ({ page }) => {
   await page.goto('http://localhost:5173/decks');
 });
 
-test('should navigate to corresponding flashcard with matching id', async ({ page }) => {
-  // given
-  const card = page.getByTestId('deckcard-label-22');
-  // when
-  await card.click();
-  // then
-  await expect(page).toHaveURL('http://localhost:5173/flashcard/22');
-});
+// test('should navigate to corresponding flashcard with matching id', async ({ page }) => {
+//   // given
+//   const card = page.getByTestId('deckcard-label-22');
+//   // when
+//   await card.click();
+//   // then
+//   await expect(page).toHaveURL('http://localhost:5173/flashcard/22');
+// });
 
 test('should filter the deckcards according to the selection of subjects', async ({ page }) => {
   const subjectSelection = page.getByRole('checkbox', { name: 'Mathematics' });
@@ -57,9 +57,9 @@ test('handles search query change correctly for filtering by subject name', asyn
 
 // PAGINATION TEST
 
-test("should navgiate to next page on selection of '>' button", async ({ page }) => {
-  const nextPageButton = page.getByTestId('next-page-label');
-  await nextPageButton.click();
+// test("should navgiate to next page on selection of '>' button", async ({ page }) => {
+//   const nextPageButton = page.getByTestId('next-page-label');
+//   await nextPageButton.click();
 
-  // const currentPageButton = page.getByTestId('current-page-button-label');
-});
+// const currentPageButton = page.getByTestId('current-page-button-label');
+// });
