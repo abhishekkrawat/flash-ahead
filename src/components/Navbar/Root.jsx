@@ -60,11 +60,19 @@ export const Root = () => {
       </Flex>
     ) : (
       <Stack flex={{ base: 1, md: 0 }} justify={'flex-end'} direction={'row'} spacing={6}>
-        <Button as={'a'} fontSize={'md'} fontWeight={500} variant={'link'} href={'/login'}>
+        <Button
+          as={'a'}
+          data-testid='login-label'
+          fontSize={'md'}
+          fontWeight={500}
+          variant={'link'}
+          href={'/login'}
+        >
           Log In
         </Button>
         <Button
           as={'a'}
+          data-testid='register-label'
           display={{ base: 'none', md: 'inline-flex' }}
           fontSize={'md'}
           fontWeight={600}

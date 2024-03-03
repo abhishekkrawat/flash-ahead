@@ -16,9 +16,24 @@ import {
 } from '@chakra-ui/react';
 import { data } from './data';
 import { Download, ExternalLink, Eye, Heart, MoreVertical } from 'react-feather';
+import { generatePDF } from './generatePDF';
+import { supabase } from 'lib/supabaseClient';
 
-export const Card = ({ name, date, user, views, subjectId, handleNavigation }) => {
+export const Card = ({ name, date, user, views, subjectId, handleNavigation, topicId }) => {
   const subjectData = data.find((subject) => subject.subjectId === subjectId);
+
+  const getFlashcards = async () => {
+    const { data, error } = await supabase
+      .from('flashcard')
+      .select('flashcard_id, flashcard_front, flashcard_back, user_id')
+      .eq('topic_id', topicId);
+
+    if (error) {
+      throw new Error(error);
+    }
+
+    return data;
+  };
 
   return (
     <Flex
@@ -48,7 +63,9 @@ export const Card = ({ name, date, user, views, subjectId, handleNavigation }) =
             <MenuItem icon={<ExternalLink />} onClick={handleNavigation}>
               View deck
             </MenuItem>
-            <MenuItem icon={<Download />}>Download as PDF</MenuItem>
+            <MenuItem icon={<Download />} onClick={async () => generatePDF(await getFlashcards())}>
+              Download as PDF
+            </MenuItem>
             <MenuItem icon={<Heart />}>Mark as favourite</MenuItem>
           </MenuList>
         </Menu>
@@ -68,6 +85,7 @@ export const Card = ({ name, date, user, views, subjectId, handleNavigation }) =
         }}
       />
       <Heading
+        data-testid='deck-name-label'
         cursor={'pointer'}
         onClick={handleNavigation}
         color={'gray.700'}
@@ -89,6 +107,7 @@ export const Card = ({ name, date, user, views, subjectId, handleNavigation }) =
           justifyContent='center'
           alignItems='center'
           px={2}
+          data-testid='subject-name-label'
         >
           {subjectData?.subjectName}
         </Badge>

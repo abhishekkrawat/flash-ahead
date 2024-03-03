@@ -40,7 +40,7 @@ export const Slides = ({ onSelected, flashcards, selected }) => {
               onSelected(index);
             }}
           >
-            <Text padding={2} key={flashcard.flashcard_id} align={'center'} noOfLines={3}>
+            <Text padding={2} align={'center'} noOfLines={3}>
               {flashcard.flashcard_front}
             </Text>
           </Box>

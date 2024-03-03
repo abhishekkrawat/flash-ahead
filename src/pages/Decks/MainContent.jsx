@@ -1,12 +1,4 @@
-import {
-  Box,
-  Flex,
-  GridItem,
-  SimpleGrid,
-  Text,
-  Spacer,
-  useToast,
-} from '@chakra-ui/react';
+import { Box, Flex, GridItem, SimpleGrid, Text, Spacer, useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Paginate } from './Paginate';
@@ -57,6 +49,7 @@ export const MainContent = ({ decks, currentUser }) => {
         {currentDecks.map((deck) => (
           <Card
             key={deck.topic_id}
+            topicId={deck.topic_id}
             name={deck.topic_name}
             user_id={deck.user_id}
             user={deck.user_id ? currentUser : 'Admin'}

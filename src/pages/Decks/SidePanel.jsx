@@ -31,7 +31,8 @@ export const SidePanel = ({ qualifications, boards, subjects, handleSearchQueryC
                 <Icon color={'purple.400'} w={5} h={5} as={Search}></Icon>
               </InputLeftElement>
               <Input
-                type='text'
+                // data-testid='search-box-label'
+                aria-label='search-input'
                 variant={'filled'}
                 placeholder='e.g Numbers'
                 onChange={handleSearchQueryChange}
