@@ -117,7 +117,7 @@ const RegisterForm = () => {
                     isRequired
                   >
                     <FormLabel>First Name</FormLabel>
-                    <Input type='text' {...field} />
+                    <Input data-testid='first-name-label' type='text' {...field} />
                     <FormErrorMessage>{form.errors.firstName}</FormErrorMessage>
                   </FormControl>
                 )}
@@ -127,7 +127,7 @@ const RegisterForm = () => {
                 {({ field }) => (
                   <FormControl>
                     <FormLabel>Last Name</FormLabel>
-                    <Input type='text' {...field} />
+                    <Input data-testid='last-name-label' type='text' {...field} />
                   </FormControl>
                 )}
               </Field>
@@ -137,7 +137,7 @@ const RegisterForm = () => {
               {({ field, form }) => (
                 <FormControl isInvalid={form.errors.email && form.touched.email} isRequired>
                   <FormLabel>Email address</FormLabel>
-                  <Input type='email' {...field} />
+                  <Input data-testid='register-email-label' type='email' {...field} />
                   <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                 </FormControl>
               )}
@@ -148,7 +148,13 @@ const RegisterForm = () => {
                 <FormControl isInvalid={form.errors.password && form.touched.password} isRequired>
                   <FormLabel>Password</FormLabel>
                   <InputGroup size='md'>
-                    <Input pr='4.5rem' type='password' {...field} autoComplete='off' />
+                    <Input
+                      pr='4.5rem'
+                      data-testid='register-password-label'
+                      type='password'
+                      {...field}
+                      autoComplete='off'
+                    />
                   </InputGroup>
                   <FormErrorMessage>{form.errors.password}</FormErrorMessage>
                 </FormControl>
@@ -162,12 +168,18 @@ const RegisterForm = () => {
                   isRequired
                 >
                   <FormLabel>Confirm Password</FormLabel>
-                  <Input type='password' {...field} autoComplete='off' />
+                  <Input
+                    data-testid='register-confirm-password-label'
+                    type='password'
+                    {...field}
+                    autoComplete='off'
+                  />
                   <FormErrorMessage>{form.errors.confirm_password}</FormErrorMessage>
                 </FormControl>
               )}
             </Field>
             <Button
+              data-testid='register-button-label'
               type='submit'
               bg={'purple.400'}
               color={'white'}

@@ -58,7 +58,7 @@ export const CreateButton = ({ initialValues }) => {
   return (
     <>
       <IconButton
-        aria-label='Create Deck'
+        data-testid='create-deck-label'
         pos={'fixed'}
         right={0}
         bottom={0}
@@ -80,7 +80,13 @@ export const CreateButton = ({ initialValues }) => {
         }}
         icon={<Plus width={'2rem'} height={'2rem'} />}
       />
-      <Modal isCentered isOpen={isOpen} size={'xl'} onClose={onClose}>
+      <Modal
+        data-testid='create-deck-modal'
+        isCentered
+        isOpen={isOpen}
+        size={'xl'}
+        onClose={onClose}
+      >
         {<ModalOverlay bg='blackAlpha.300' backdropFilter='blur(25px)' />}
 
         <ModalContent>

@@ -122,7 +122,7 @@ const LoginForm = () => {
                 {({ field, form }) => (
                   <FormControl isInvalid={form.errors.email && form.touched.email} isRequired>
                     <FormLabel>Email address</FormLabel>
-                    <Input type='email' {...field} />
+                    <Input data-testid='email-input-label' type='email' {...field} />
                     <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                   </FormControl>
                 )}
@@ -133,6 +133,7 @@ const LoginForm = () => {
                     <FormLabel>Password</FormLabel>
                     <InputGroup size='md'>
                       <Input
+                        data-testid='password-input-label'
                         pr='4.5rem'
                         type={show ? 'text' : 'password'}
                         {...field}
@@ -158,6 +159,7 @@ const LoginForm = () => {
                   <Link color={'purple'}>Forgot password?</Link>
                 </Stack>
                 <Button
+                  data-testid='login-button-label'
                   type='submit'
                   bg={'purple.400'}
                   color={'white'}

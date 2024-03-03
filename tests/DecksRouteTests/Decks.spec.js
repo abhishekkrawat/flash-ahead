@@ -1,8 +1,8 @@
-// import { test, expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
-// test.beforeEach(async ({ page }) => {
-//   await page.goto('http://localhost:5173/decks');
-// });
+test.beforeEach(async ({ page }) => {
+  await page.goto('http://localhost:5173/decks');
+});
 
 // test('should navigate to corresponding flashcard with matching id', async ({ page }) => {
 //   // given
@@ -64,3 +64,19 @@ test('handles search query change correctly for filtering by subject name', asyn
 
 // const currentPageButton = page.getByTestId('current-page-button-label');
 // });
+
+// 'CREATE A NEW FLASHCARD' WINDOW
+
+// test('should open the window after clicking on the button', async ({ page }) => {
+//   await page.goto('http://localhost:5173/login');
+
+//   await page.getByTestId('email-input-label').fill('sps_rawat@yahoo.com', { force: true });
+//   await page.getByTestId('password-input-label').fill('Strong@1432', { force: true });
+//   await page.getByTestId('login-button-label').click({ force: true });
+
+//   const addFlashcardButton = page.getByTestId('create-deck-label');
+//   await addFlashcardButton.click();
+
+//   expect(await page.getByTestId('create-deck-modal'));
+// });
+
