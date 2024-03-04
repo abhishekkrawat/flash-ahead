@@ -1,16 +1,15 @@
-// import { test, expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
-// test.beforeEach(async ({ page }) => {
-//   await page.goto('http://localhost:5173/decks');
-// });
+test.beforeEach(async ({ page }) => {
+  await page.goto('http://localhost:5173/decks');
+});
 
 // test('should navigate to corresponding flashcard with matching id', async ({ page }) => {
-//   // given
-//   const card = page.getByTestId('deckcard-label-22');
-//   // when
-//   await card.click();
-//   // then
-//   await expect(page).toHaveURL('http://localhost:5173/flashcard/22');
+// const deckCard = page.getByTestId('deck-card-label-7a285fb4-13bf-4cea-a308-d2e6aaaa2aa1');
+// await deckCard.click();
+
+// await expect(page).toHaveURL(
+//   'http://localhost:5173/flashcard/7a285fb4-13bf-4cea-a308-d2e6aaaa2aa1',
 // });
 
 // test('should filter the deckcards according to the selection of subjects', async ({ page }) => {
@@ -79,4 +78,20 @@ test('handles search query change correctly for filtering by subject name', asyn
 
 //   expect(await page.getByTestId('create-deck-modal'));
 // });
+
+// INCREMENT IN VIEWS
+
+test('should increment when navigates to flashcard from deck card', async ({ page }) => {
+  // const deckViews = page.getByTestId('deck-views-label');
+  const deckCard = page.getByTestId('deck-card-label-7a285fb4-13bf-4cea-a308-d2e6aaaa2aa1');
+  await deckCard.click();
+
+  await expect(page).toHaveURL(
+    'http://localhost:5173/flashcard/7a285fb4-13bf-4cea-a308-d2e6aaaa2aa1',
+  );
+
+  await page.goto('http://localhost:5173/decks');
+
+  // await expect(page.getByTestId('deck-views-label') === deckViews + 1);
+});
 
