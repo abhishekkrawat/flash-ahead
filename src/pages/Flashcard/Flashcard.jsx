@@ -33,7 +33,7 @@ export const Flashcard = () => {
   const { onOpen, onClose, isOpen } = useDisclosure();
 
   const handleNext = () => {
-    if (0 <= selected < flashcards.length - 1) {
+    if (selected >= 0 && selected < flashcards.length - 1) {
       setSelected((prev) => prev + 1);
       setIsFlipped(false);
     }
