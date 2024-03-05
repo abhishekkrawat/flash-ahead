@@ -38,7 +38,7 @@ export const Card = ({ name, date, user, views, subjectId, handleNavigation, top
 
   return (
     <Flex
-      data-testid={`deck-card-label-${topicId}`}
+      data-testid={'deck-card'}
       bg={'white'}
       p={4}
       maxW={'445px'}
@@ -119,7 +119,7 @@ export const Card = ({ name, date, user, views, subjectId, handleNavigation, top
         </Badge>
         <Box display={'inline-flex'} justifyContent={'center'} alignItems={'center'} gap={1}>
           <Icon color={'gray.500'} width='1rem' height='1rem' as={Eye} />
-          <Text data-testid='deck-views-label' fontSize={'sm'} color='gray.500'>
+          <Text data-testid='deck-views' fontSize={'sm'} color='gray.500'>
             {views}
           </Text>
         </Box>

@@ -122,7 +122,7 @@ const LoginForm = () => {
                 {({ field, form }) => (
                   <FormControl isInvalid={form.errors.email && form.touched.email} isRequired>
                     <FormLabel>Email address</FormLabel>
-                    <Input data-testid='email-input-label' type='email' {...field} />
+                    <Input data-testid='email-input-label' type='email' {...field} autoComplete='off' />
                     <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                   </FormControl>
                 )}

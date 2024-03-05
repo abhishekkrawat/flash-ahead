@@ -106,6 +106,7 @@ const Decks = () => {
 
   useEffect(() => {
     getDecks();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   const handleSearchQueryChange = (event) => {

@@ -45,7 +45,7 @@ export const MainContent = ({ decks, currentUser }) => {
           setCurrentPage={setCurrentPage}
         />
       </Flex>
-      <SimpleGrid spacing={10} mt={8} templateColumns='repeat(auto-fill, minmax(300px, 1fr))'>
+      <SimpleGrid spacing={10} mt={8} templateColumns='repeat(auto-fill, minmax(300px, 1fr))' data-testid="decks-grid">
         {currentDecks.map((deck) => (
           <Card
             key={deck.topic_id}
