@@ -77,6 +77,7 @@ export const Card = ({ name, date, user, views, subjectId, handleNavigation, top
         </Menu>
       </Flex>
       <Image
+        data-testid={`deck-card-${topicId}`}
         h='250px'
         cursor={'pointer'}
         onClick={handleNavigation}
